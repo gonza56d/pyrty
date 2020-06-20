@@ -1,0 +1,14 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<form class="breadcrumb p-5" method="POST" enctype="application/x-www-form-urlencoded">{% csrf_token %}
+{% for field in form %}
+<span class="my-1 col-12">{{ field }}</span>
+{% endfor %}
+<span class="my-1 col-12">
+	<button class="btn btn-info col-12">Sign up! <i class="fa fa-rocket"></i></button>
+</span>
+</form>
+
+{% endblock %}

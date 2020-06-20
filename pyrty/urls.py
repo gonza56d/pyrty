@@ -12,7 +12,12 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     # Pyrty
     path('', ForumList.as_view(), name='forums'),
+    # Forums
     path('forums/', include('forums.urls')),
-    path('subforums/', include('subforums.urls')),
+    # Posts
     path('posts/', include('posts.urls')),
+    # Subforums
+    path('subforums/', include('subforums.urls')),
+    # Users
+    path('users/', include('users.urls'))
 ]

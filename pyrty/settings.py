@@ -57,6 +57,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'utils.middlewares.LoginFormMiddleware',
 ]
 
 ROOT_URLCONF = 'pyrty.urls'
@@ -141,3 +142,6 @@ STATICFILES_DIRS = [
 
 # Auth user override
 AUTH_USER_MODEL = 'users.User'
+
+# Auth backend override
+AUTHENTICATION_BACKENDS = ['users.backends.UserBackend']

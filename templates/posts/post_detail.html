@@ -6,10 +6,14 @@
 
 {{ object.content }}
 
-<ul class="list-group">
-{% for comment in comments %}
-	<li class="list-group-item">{{ comment.user }}<br>{{ comment }}</li>	
-{% endfor %}
-</ul>
+<div class="breadcrumb my-3">
+	<ul class="list-group">
+	{% for comment in comments %}
+		<li class="list-group-item my-3">
+			<p><strong><a href="users/{{ comment.user }}">@{{ comment.user }}</a>:</strong></p>
+			<p>{{ comment }}</li><p>
+	{% endfor %}
+	</ul>
+</div>
 
 {% endblock %}
