@@ -1,0 +1,14 @@
+{% load static %}
+
+<header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-1">
+    <a class="navbar-brand" href=""><img src="{% static 'python.png' %}" style="height:40px;width:40px;"> Pyrty</a>
+    <form class="sm-inline-block d-inline-block d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0"
+        action="#" method="POST" enctype="application/x-www-form-urlencoded">{% csrf_token %}
+        <div class="form-inline">
+            {% for field in login_form %}
+                {{ field }}
+            {% endfor %}
+            <button class="btn btn-outline-info mx-1"><i class="fas fa-rocket"></i></button>
+        </div>
+    </form>
+</header>
