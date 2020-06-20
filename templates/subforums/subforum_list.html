@@ -1,0 +1,12 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<h2>Subforums</h2>
+<ul class="list-group">
+{% for subforum in object_list %}
+	<li class="list-group-item"><a href="#">{{ subforum }}</a></li>	
+{% endfor %}
+</ul>
+
+{% endblock %}

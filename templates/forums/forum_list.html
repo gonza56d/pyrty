@@ -1,0 +1,12 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<h2>Forums</h2>
+<ul class="list-group">
+{% for forum in object_list %}
+	<li class="list-group-item"><a href="{% url 'forum' forum.url_name %}">{{ forum }}</a></li>	
+{% endfor %}
+</ul>
+
+{% endblock %}
