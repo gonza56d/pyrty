@@ -1,4 +1,4 @@
-"""Forums views."""
+"""Pyrty views."""
 
 # Django
 from django.views.generic import ListView
@@ -8,4 +8,5 @@ from forums.models import Forum
 
 
 class ForumList(ListView):
-    model = Forum
+	"""List all the forums."""
+	model = Forum

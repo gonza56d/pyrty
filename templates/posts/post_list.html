@@ -1,0 +1,12 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<h2>{{ current_subforum }} Posts</h2>
+<ul class="list-group">
+{% for post in object_list %}
+	<li class="list-group-item"><a href="{% url 'post' post.id %}">{{ post }}</a></li>	
+{% endfor %}
+</ul>
+
+{% endblock %}

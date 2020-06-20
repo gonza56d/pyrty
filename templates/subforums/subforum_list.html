@@ -2,10 +2,10 @@
 
 {% block content %}
 
-<h2>Subforums</h2>
+<h2>{{ current_forum }} Subforums</h2>
 <ul class="list-group">
 {% for subforum in object_list %}
-	<li class="list-group-item"><a href="#">{{ subforum }}</a></li>	
+	<li class="list-group-item"><a href="{% url 'subforum' subforum.url_name %}">{{ subforum }}</a></li>	
 {% endfor %}
 </ul>
 

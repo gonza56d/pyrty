@@ -31,3 +31,7 @@ class Comment(PyrtyModel):
 	negative_votes = models.PositiveIntegerField(default=0)
 
 	content = models.TextField(max_length=1000, null=False, blank=False)
+
+	def __str__(self):
+		"""Return the comment str."""
+		return self.content

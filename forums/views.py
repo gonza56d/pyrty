@@ -1,5 +1,8 @@
 """Forums views."""
 
+# Python
+import pdb
+
 # Django
 from django.views.generic import ListView
 
@@ -9,10 +12,16 @@ from subforums.models import Subforum
 
 
 class SubforumList(ListView):
+	"""List all the subforums children of the forum passed in the GET request."""
 	model = Subforum
-	forum = ""
+	forum = None
 
-	def get_queryset(self):
-		print(self.forum)
-		forum = Forum.objects.get(name=self.forum.replace('_', ' '))
-		return Subforum.objects.filter(forum=forum)
+	def get_context_data(self, **kwargs):
+		context = super(SubforumList, self).get_context_data(**kwargs)
+		context['current_forum'] = self.forum
+		context['current_forum_url'] = self.forum.url_name
+		return context
+
+	def get_queryset(self, queryset=None):
+		self.forum = Forum.objects.get(name=self.kwargs['forum'].replace('_', ' '))
+		return Subforum.objects.filter(forum=self.forum)

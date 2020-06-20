@@ -22,6 +22,11 @@ class Subforum(PyrtyModel):
 
 	posts = 0
 	new_posts = 0
+	url_name = ''
+
+	def __init__(self, *args, **kwargs):
+		super(Subforum, self).__init__(*args, **kwargs)
+		self.url_name = str(self.name).replace(' ', '_')
 
 	def __str__(self):
 		"""Return subforum name."""

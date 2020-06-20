@@ -1,0 +1,15 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<h2>{{ object.title }}</h2>
+
+{{ object.content }}
+
+<ul class="list-group">
+{% for comment in comments %}
+	<li class="list-group-item">{{ comment.user }}<br>{{ comment }}</li>	
+{% endfor %}
+</ul>
+
+{% endblock %}
