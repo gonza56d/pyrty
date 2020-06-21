@@ -95,7 +95,7 @@ DATABASES = {
     }
 }
 
-DATABASES['default']['ATOMIC_REQUESTS'] = True
+# DATABASES['default']['ATOMIC_REQUESTS'] = True
 
 
 # Password validation

@@ -6,6 +6,7 @@
 # Django
 from django.contrib.auth import get_user_model
 from django.contrib.auth.backends import ModelBackend
+from django.db.models import Q
 
 # Pyrty
 UserModel = get_user_model()
@@ -23,13 +24,9 @@ class UserBackend(ModelBackend):
 		if username is None or password is None:
 			return
 		try:
-			user = UserModel._default_manager.get_by_natural_key(username)
+			user = UserModel._default_manager.get(Q(username=username) | Q(email=username))
 		except UserModel.DoesNotExist:
-			try:
-				user = UserModel._default_manager.get(username=username)
-			except UserModel.DoesNotExist:
-				# Run the default password hasher once to reduce the timing
-				# difference between an existing and a nonexistent user (#20760).
-				UserModel().set_password(password)
-		if user.check_password(password) and self.user_can_authenticate(user):
-			return user
+			UserModel().set_password(password)
+		else:
+			if user.check_password(password) and self.user_can_authenticate(user):
+				return user

@@ -7,26 +7,6 @@ from django.db import models
 from utils.models import PyrtyModel
 
 
-def get_rank_by_reputation(reputation):
-	"""Return rank name based on reputation score."""
-	if reputation < 100:
-		return "Initiate"
-	elif reputation >= 100 and reputation < 200:
-		return "Junior"
-	elif reputation >= 200 and reputation < 300:
-		return "Enthusiast"
-	elif reputation >= 300 and reputation < 500:
-		return "Experienced"
-	elif reputation >= 500 and reputation < 1000:
-		return "Community Contributor"
-	elif reputation >= 1000 and reputation < 2000:
-		return "Great Contributor"
-	elif reputation >= 2000 and reputation < 3000:
-		return "Community Warrior"
-	elif reputation >= 3000:
-		return "Community Veteran"
-
-
 class Profile(PyrtyModel):
 	"""Profile model.
 
@@ -61,10 +41,24 @@ class Profile(PyrtyModel):
 
 	is_moderator = models.BooleanField('moderator', default=False)
 
-	rank = ""
-
-	def __init__(self):
-		self.rank = get_rank_by_reputation(self.reputation)
+	def get_rank_by_reputation(self):
+		"""Return rank name based on reputation score."""
+		if self.reputation < 100:
+			return "Initiate"
+		elif self.reputation >= 100 and self.reputation < 200:
+			return "Junior"
+		elif self.reputation >= 200 and self.reputation < 300:
+			return "Enthusiast"
+		elif self.reputation >= 300 and self.reputation < 500:
+			return "Experienced"
+		elif self.reputation >= 500 and self.reputation < 1000:
+			return "Community Contributor"
+		elif self.reputation >= 1000 and self.reputation < 2000:
+			return "Great Contributor"
+		elif self.reputation >= 2000 and self.reputation < 3000:
+			return "Community Warrior"
+		elif self.reputation >= 3000:
+			return "Community Veteran"
 
 	def __str__(self):
 		"""Return user's username."""

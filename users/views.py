@@ -1,17 +1,20 @@
 """Users view."""
 
 # Python
-# import pdb
+import pdb
 
 # Django
 from django.contrib import auth
+from django.db import transaction
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic.edit import FormView
 
 # Pyrty
+from profiles.models import Profile
 from pyrty.views import ForumList
 from users.forms import LoginForm, SignUpForm
+from users.models import User
 
 
 def login_view(request):
@@ -40,6 +43,13 @@ class SignUp(FormView):
 	form_class = SignUpForm
 	success_url = reverse_lazy('forums')
 
-	def forum_valid(self, form):
-		#  form.save() TODO
+	def form_valid(self, form):
+		user = form.save(commit=False)
+		pdb.set_trace()
+		User.objects.create_user(username=user.username, email=user.email, password=user.password)
+		user = User.objects.get(username=user.username)
+		pdb.set_trace()
+		profile = Profile()
+		profile.user = user
+		profile.save()
 		return super().form_valid(form)
