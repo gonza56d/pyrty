@@ -3,8 +3,15 @@
 # Django
 from django.db import models
 
+# Django extensions
+from django_extensions.db.fields import AutoSlugField
+
 # Utils
 from utils.models import PyrtyModel
+
+
+def slugify(content):
+	return str(content)
 
 
 class Profile(PyrtyModel):
@@ -22,7 +29,25 @@ class Profile(PyrtyModel):
 		null=True
 	)
 
+	first_name = models.CharField(
+		max_length=50,
+		null=False,
+		blank=True,
+		default=''
+	)
+
+	last_name = models.CharField(
+		max_length=50,
+		null=False,
+		blank=True,
+		default=''
+	)
+
+	slug = AutoSlugField(populate_from='user', slugify_function=slugify)
+
 	bio = models.TextField(max_length=1000, blank=True)
+
+	is_moderator = models.BooleanField(default=False)
 
 	# Stats
 	posts = models.PositiveIntegerField(
@@ -38,8 +63,6 @@ class Profile(PyrtyModel):
 		default=0,
 		help_text='Score obtained from comments and votes received.'
 	)
-
-	is_moderator = models.BooleanField('moderator', default=False)
 
 	def get_rank_by_reputation(self):
 		"""Return rank name based on reputation score."""

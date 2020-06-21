@@ -32,4 +32,4 @@ class Post(PyrtyModel):
 
 	def __str__(self):
 		"""Return post's title and autor."""
-		return "'{}'' by {}".format(self.title, self.user)
+		return "'{}'".format(self.title)

@@ -1,0 +1,17 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<div class="breadcrumb">
+	<div class="form-group">
+		<h2><b>User:</b> @{{ object.user }}</h2>
+		<div>
+			<b>Fisrt name:</b> {{ object.first_name }}
+		</div>
+		<div>
+			<b>Last name:</b> {{ object.last_name }}
+		</div>
+	</div>
+<div class="form-group">
+
+{% endblock %}

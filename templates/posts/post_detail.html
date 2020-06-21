@@ -2,18 +2,38 @@
 
 {% block content %}
 
-<h2>{{ object.title }}</h2>
+<h2 class="mt-3"><a href="{% url 'profile' object.user %}" style="color:#ffd343;">@{{ object.user }}</a>: {{ object.title }}</h2>
 
 {{ object.content }}
 
-<div class="breadcrumb my-3">
-	<ul class="list-group">
-	{% for comment in comments %}
-		<li class="list-group-item my-3">
-			<p><strong><a href="users/{{ comment.user }}">@{{ comment.user }}</a>:</strong></p>
-			<p>{{ comment }}</li><p>
-	{% endfor %}
-	</ul>
-</div>
+<form>
+	<div class="breadcrumb my-3">
+		<ul class="list-group">
+		{% for comment in comments %}
+			<li class="list-group-item my-3">
+				<p><strong><a href="{% url 'profile' comment.user %}" style="color:#ffd343;">@{{ comment.user }}</a>:</strong></p>
+				<p>{{ comment }}<p>
+			</li>
+		{% endfor %}
+		</ul>
+	</div>
+	<div class="breadcrumb my-3">
+		<div class="row col-12">
+			<h2 class="col-10">Leave a comment:</h2>
+			{% if user.is_authenticated %}
+			<button class="btn btn-outline-info col-2">Post Comment</button>
+			{% else %}
+			<a class="btn btn-outline-info col-2 my-auto" href="{% url 'signup' %}">Sign up</a>
+			{% endif %}
+		</div>
+		<div class="row col-12">
+			{% if user.is_authenticated %}
+			{{ comment_form }}
+			{% else %}
+			<h3><a href="#" style="color:#ffd343;" id="focus_login">Log in</a> or <a href="{% url 'signup' %}" style="color:#ffd343;">sign up</a> to leave a comment.</h3>
+			{% endif %}
+		</div>
+	</div>
+</form>
 
 {% endblock %}

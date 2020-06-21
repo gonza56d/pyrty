@@ -16,6 +16,8 @@ urlpatterns = [
     path('forums/', include('forums.urls')),
     # Posts
     path('posts/', include('posts.urls')),
+    # Profiles
+    path('profiles/', include('profiles.urls')),
     # Subforums
     path('subforums/', include('subforums.urls')),
     # Users

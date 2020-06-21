@@ -2,6 +2,8 @@
 
 # Django
 from django import forms
+
+# Pyrty
 from users.models import User
 
 
@@ -16,9 +18,7 @@ class SignUpForm(forms.ModelForm):
 		self.fields['username'].widget = forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Username'})
 		self.fields['email'].widget = forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Email'})
 		self.fields['password'].widget = forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Password'})
-		self.fields['first_name'].widget = forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'First name'})
-		self.fields['last_name'].widget = forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Last name'})
 
 	class Meta:
 		model = User
-		fields = ['username', 'email', 'password', 'first_name', 'last_name']
+		fields = ['username', 'email', 'password']

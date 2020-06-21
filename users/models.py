@@ -3,6 +3,7 @@
 # Django
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.core.validators import RegexValidator
 
 # Utilities
 from utils.models import PyrtyModel
@@ -23,18 +24,21 @@ class User(PyrtyModel, AbstractUser):
         }
     )
 
+    username_regex = RegexValidator(regex='[aA0-zZ9]', message='Only letters and numbers allowed.')
+
+    username = models.CharField(
+        'username',
+        max_length=20,
+        unique=True,
+        help_text='Required. 20 characters or fewer. Letters and numbers only.',
+        validators=[username_regex],
+        error_messages={
+            'unique': "A user with that username already exists.",
+        },
+    )
+
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']
-
-    first_name = models.CharField(
-        max_length=50,
-        null=True
-    )
-
-    last_name = models.CharField(
-        max_length=50,
-        null=True
-    )
 
     is_verified = models.BooleanField(
         'verified',
