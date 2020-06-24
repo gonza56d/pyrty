@@ -3,17 +3,20 @@
 # Python
 import pdb
 
-# Django REST Framework
-from rest_framework.decorators import api_view
+# Django
+from django.shortcuts import redirect
 
 # Pyrty
-from comments.serializers import CreateCommentSerializer
+from comments.forms import CommentForm
+from comments.models import Comment
 
 
-@api_view(['POST'])
 def create_comment(request):
-	pdb.set_trace()
-	serializer = CreateCommentSerializer(request.data)
-	pdb.set_trace()  # TODO
-	serializer.save()
-	return serializer.data
+	"""Create a comment view."""
+	if request.method == 'POST':
+		form = CommentForm(None, data=request.POST)
+		if form.is_valid():
+			comment = form.save(commit=False)
+			comment.user = request.user
+			comment.save()
+		return redirect('post', pk=int(request.POST['post']))

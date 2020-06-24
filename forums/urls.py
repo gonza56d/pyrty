@@ -1,4 +1,4 @@
-"""Forums urls."""
+"""Forum urls."""
 
 # Django
 from django.urls import path

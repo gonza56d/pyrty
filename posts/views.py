@@ -1,4 +1,4 @@
-"""Posts views."""
+"""Post views."""
 
 # Python
 # import pdb
@@ -26,5 +26,5 @@ class PostDetailView(DetailView):
 		context['current_subforum_url'] = self.object.subforum.url_name
 		context['current_forum'] = self.object.subforum.forum
 		context['current_forum_url'] = self.object.subforum.forum.url_name
-		context['comment_form'] = CommentForm()
+		context['comment_form'] = CommentForm(context['object'])
 		return context

@@ -12,6 +12,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     # Pyrty
     path('', ForumList.as_view(), name='forums'),
+    # Comments
+    path('comments/', include('comments.urls')),
     # Forums
     path('forums/', include('forums.urls')),
     # Posts

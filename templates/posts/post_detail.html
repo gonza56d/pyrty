@@ -6,34 +6,48 @@
 
 {{ object.content }}
 
-<form>
-	<div class="breadcrumb my-3">
-		<ul class="list-group">
-		{% for comment in comments %}
-			<li class="list-group-item my-3">
-				<p><strong><a href="{% url 'profile' comment.user %}" style="color:#ffd343;">@{{ comment.user }}</a>:</strong></p>
-				<p>{{ comment }}<p>
-			</li>
-		{% endfor %}
-		</ul>
+<div class="breadcrumb my-5">
+	<ul class="list-group">
+	{% for comment in comments %}
+		<li class="list-group-item my-3">
+			<div class="form-inline">
+				<div class="text-left">
+					<a href="{% url 'profile' comment.user %}" style="color:#ffd343;">@{{ comment.user }}</a>:
+				</div>
+				<div class="ml-auto">
+					{{ comment.created }}
+					{% if comment.user == request.user %}
+						<button class="btn btn-danger" type="button"><i class="fas fa-trash"></i></button><!--TODO-->
+					{% endif %}
+				</div>
+			</div>
+			<p>{{ comment }}<p>
+		</li>
+	{% endfor %}
+	</ul>
+</div>
+
+{% if user.is_authenticated %}
+<form class="breadcrumb my-3" method="POST" enctype="application/x-www-form-urlencoded" action="{% url 'create_comment' %}">
+	{% csrf_token %}
+	<div class="row col-12 mt-3">
+		<h2 class="col-10">Leave a comment:</h2><button class="btn btn-info col-2">Post Comment</button>
 	</div>
-	<div class="breadcrumb my-3">
-		<div class="row col-12">
-			<h2 class="col-10">Leave a comment:</h2>
-			{% if user.is_authenticated %}
-			<button class="btn btn-outline-info col-2">Post Comment</button>
-			{% else %}
-			<a class="btn btn-outline-info col-2 my-auto" href="{% url 'signup' %}">Sign up</a>
-			{% endif %}
-		</div>
-		<div class="row col-12">
-			{% if user.is_authenticated %}
-			{{ comment_form }}
-			{% else %}
-			<h3><a href="#" style="color:#ffd343;" id="focus_login">Log in</a> or <a href="{% url 'signup' %}" style="color:#ffd343;">sign up</a> to leave a comment.</h3>
-			{% endif %}
-		</div>
+	<div class="row col-12 mt-3">
+		{% for field in comment_form %}
+			{{ field }}
+		{% endfor %}
 	</div>
 </form>
+{% else %}
+<div class="breadcrumb my-3">
+	<div class="row col-12 mt-3">
+		<h2 class="col-10">Leave a comment:</h2><a class="btn btn-outline-info col-2 my-auto" href="{% url 'signup' %}">Sign up</a>
+	</div>
+	<div class="row col-12 mt-3">
+		<h3><a href="#" style="color:#ffd343;" id="focus_login">Log in</a> or <a href="{% url 'signup' %}" style="color:#ffd343;">sign up</a> to leave a comment.</h3>
+	</div>
+</div>
+{% endif %}
 
 {% endblock %}
