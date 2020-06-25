@@ -17,7 +17,7 @@
 				<div class="ml-auto">
 					{{ comment.created }}
 					{% if comment.user == request.user %}
-						<button class="btn btn-danger" type="button"><i class="fas fa-trash"></i></button><!--TODO-->
+					<button id="delete_comment_{{ comment.id }}" class="btn btn-danger delete_comment" type="button"><i class="fas fa-trash"></i></button><!--TODO-->
 					{% endif %}
 				</div>
 			</div>
@@ -39,6 +39,7 @@
 		{% endfor %}
 	</div>
 </form>
+<span style="display:none;" id="delete_comment" class="{% url 'delete_comment' %}"></span>
 {% else %}
 <div class="breadcrumb my-3">
 	<div class="row col-12 mt-3">
