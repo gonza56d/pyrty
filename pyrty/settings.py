@@ -25,6 +25,7 @@ DJANGO_APPS = [
 PROJECT_APPS = [
     'comments.apps.CommentsConfig',
     'forums.apps.ForumsConfig',
+    'notifications.apps.NotificationsConfig',
     'posts.apps.PostsConfig',
     'private_messages.apps.PrivateMessagesConfig',
     'profiles.apps.ProfilesConfig',
