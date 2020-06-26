@@ -37,3 +37,5 @@ class PrivateMessage(PyrtyModel):
 		null=False,
 		blank=False
 	)
+
+	seen = models.BooleanField(default=False)

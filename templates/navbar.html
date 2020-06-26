@@ -7,18 +7,42 @@
     {% if user.is_authenticated %}
     <form class="sm-inline-block d-inline-block d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0"
         action="{% url 'logout' %}" method="GET" enctype="application/x-www-form-urlencoded">
-        {% if request.messages %}
-        <a href="#"><button type="button" class="btn btn-warning"><i class="fa fa-envelope"></i></button></a>
-        {% else %}
-        <a href="#"><button type="button" class="btn btn-info"><i class="fa fa-envelope"></i></button></a>
-        {% endif %}
-        {% if request.notifications %}
-        <a href="#"><button type="button" class="btn btn-warning"><i class="fas fa-bell"></i></button></a>
-        {% else %}
-        <a href="#"><button type="button" class="btn btn-info"><i class="fas fa-bell"></i></button></a>
-        {% endif %}
-        <a href="{% url 'profile' request.user %}"><b style="color:white;">@{{ request.user }}</b></a>
-        <button class="btn btn-outline-info mx-1"><i class="fas fa-door-open"></i></button>
+        
+        <!-- Messages dropdown -->
+        <div class="form-inline">
+            <div class="dropdown mx-1">
+                <button type="button" class="btn {% if request.messages %}btn-warning{% else %}btn-info{% endif %} dropdown-toggle" id="dropdown-messages" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fa fa-envelope"></i>
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdown-messages" style="background-color:#1e2933;">
+                    <ul class="list-group">
+                        {% for message in request.messages %}
+                        <a href="#" class="list-group-item my-1 mx-1" style="color:white; {% if not message.read %} background-color:#ffc107; {% endif %}">
+                        Message from {{ message.origin_user }}
+                        </a>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Notifications dropdown -->
+            <div class="dropdown mx-1">
+                <button type="button" class="btn {% if request.notifications %}btn-warning{% else %}btn-info{% endif %} dropdown-toggle" id="dropdown-notifications" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-bell"></i></button>
+                <div class="dropdown-menu" aria-labelledby="dropdown-notifications" style="background-color:#1e2933;">
+                    <ul class="list-group">
+                        {% for notification in request.notifications %}
+                        <a href="#" class="list-group-item my-1 mx-1" style="color:white; {% if not notification.read %} background-color:#ffc107; {% endif %}">
+                            {{ notification.message }}
+                        </a>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+
+
+            <a class="mx-1" href="{% url 'profile' request.user %}"><b style="color:white;">@{{ request.user }}</b></a>
+            <button class="btn btn-outline-info mx-1"><i class="fas fa-door-open"></i></button>
+        </div>
     </form>
 
     {% else %}
