@@ -10,17 +10,18 @@ from utils.models import PyrtyModel
 class PrivateMessage(PyrtyModel):
 	"""A private message sent by a user to another user."""
 
-	from_user = models.ForeignKey(
+	origin_user = models.ForeignKey(
 		'users.User',
-		related_name='from_user',
 		on_delete=models.CASCADE,
-		null=False
+		null=False,
+		related_name='message_origin'
 	)
-	to_user = models.ForeignKey(
+
+	target_user = models.ForeignKey(
 		'users.User',
-		related_name='to_user',
 		on_delete=models.CASCADE,
-		null=False
+		null=False,
+		related_name='message_target'
 	)
 
 	subject = models.CharField(

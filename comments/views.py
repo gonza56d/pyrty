@@ -1,16 +1,20 @@
 """Comment views."""
 
 # Python
-import pdb
+# import pdb
 
 # Django
 from django.core.exceptions import ObjectDoesNotExist
+from django.db import transaction
 from django.http import JsonResponse
 from django.shortcuts import redirect
+from django.urls import reverse
 
 # Pyrty
 from comments.forms import CommentForm
 from comments.models import Comment
+from notifications.models import Notification
+from users.models import User
 
 
 def create_comment(request):
@@ -18,10 +22,11 @@ def create_comment(request):
 	if request.method == 'POST':
 		form = CommentForm(None, data=request.POST)
 		if form.is_valid():
-			comment = form.save(commit=False)
-			comment.user = request.user
-			comment.save()
-		return redirect('post', pk=int(request.POST['post']))
+			with transaction.atomic():
+				comment = form.save(commit=False)
+				comment.user = request.user
+				create_notification(request, form)
+		return redirect('post', pk=request.POST['post'])
 
 
 def delete_comment(request):
@@ -36,3 +41,14 @@ def delete_comment(request):
 	else:
 		return JsonResponse({'status': 405, 'message': 'Method not allowed'})
 	return JsonResponse({'status': 400, 'message': 'Bad request'})
+
+
+def create_notification(request, form):
+	"""Create a notification from a new comment."""
+	post = form.cleaned_data.get('post')
+	notification = Notification()
+	notification.origin_user = request.user
+	notification.target_user = User.objects.get(pk=post.user.id)
+	notification.message = "{} commented in your post: '{}'".format(request.user, post.title)
+	notification.url = reverse('post', args=[post.id])
+	notification.save()

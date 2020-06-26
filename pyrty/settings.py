@@ -62,6 +62,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'utils.middlewares.LoginFormMiddleware',
+    'utils.middlewares.NotificationMiddleware',
+    'utils.middlewares.PrivateMessageMiddleware',
 ]
 
 ROOT_URLCONF = 'pyrty.urls'
