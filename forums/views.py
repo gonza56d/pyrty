@@ -1,7 +1,7 @@
-"""Forums views."""
+"""Forum views."""
 
 # Python
-import pdb
+# import pdb
 
 # Django
 from django.views.generic import ListView
@@ -13,6 +13,7 @@ from subforums.models import Subforum
 
 class SubforumList(ListView):
 	"""List all the subforums children of the forum passed in the GET request."""
+
 	model = Subforum
 	forum = None
 

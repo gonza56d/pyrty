@@ -11,13 +11,13 @@
         <!-- Messages dropdown -->
         <div class="form-inline">
             <div class="dropdown mx-1">
-                <button type="button" class="btn {% if request.messages %}btn-warning{% else %}btn-info{% endif %} dropdown-toggle" id="dropdown-messages" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <button type="button" class="btn {% if request.non_read_msgs %}btn-warning{% else %}btn-info{% endif %} dropdown-toggle" id="dropdown-messages" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="fa fa-envelope"></i>
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdown-messages" style="background-color:#1e2933;">
                     <ul class="list-group">
                         {% for message in request.messages %}
-                        <a href="#" class="list-group-item my-1 mx-1" style="color:white; {% if not message.read %} background-color:#ffc107; {% endif %}">
+                        <a href="{% url 'private_message' message.origin_user %}" class="list-group-item my-1 mx-1" style="{% if not message.seen %} background-color:#ffc107; color:black; {% else %}color:white; {% endif %}">
                         Message from {{ message.origin_user }}
                         </a>
                         {% endfor %}
@@ -27,11 +27,11 @@
             
             <!-- Notifications dropdown -->
             <div class="dropdown mx-1">
-                <button type="button" class="btn {% if request.notifications %}btn-warning{% else %}btn-info{% endif %} dropdown-toggle" id="dropdown-notifications" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-bell"></i></button>
+                <button type="button" class="btn {% if request.non_seen_notifs %}btn-warning{% else %}btn-info{% endif %} dropdown-toggle" id="dropdown-notifications" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-bell"></i></button>
                 <div class="dropdown-menu" aria-labelledby="dropdown-notifications" style="background-color:#1e2933;">
                     <ul class="list-group">
                         {% for notification in request.notifications %}
-                        <a href="#" class="list-group-item my-1 mx-1" style="color:white; {% if not notification.read %} background-color:#ffc107; {% endif %}">
+                        <a href="{{ notification.url }}" class="list-group-item my-1 mx-1" style="color:white; {% if not notification.read %} background-color:#ffc107; {% endif %}">
                             {{ notification.message }}
                         </a>
                         {% endfor %}

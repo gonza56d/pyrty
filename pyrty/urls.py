@@ -18,6 +18,8 @@ urlpatterns = [
     path('forums/', include('forums.urls')),
     # Posts
     path('posts/', include('posts.urls')),
+    # Private Messages
+    path('private_messages/', include('private_messages.urls')),
     # Profiles
     path('profiles/', include('profiles.urls')),
     # Subforums

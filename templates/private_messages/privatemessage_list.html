@@ -1,0 +1,48 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<h3 class="p-2 mb-4 rounded text-white" style="background-color:#2b5b84;">
+    Inbox
+</h3>
+
+<div class="row">
+
+	<div class="col-4">
+		{% for user in inbox %}
+		{% if user.username == current_inbox %}
+		<div class="breadcrumb" style="background-color:#ffc107;">
+			<h3>
+				<a href="{% url 'private_message' user %}" style="color:black;">{{ user }}</a>
+			</h3>
+		</div>
+		{% else %}
+		<div class="breadcrumb">
+			<h3>
+				<a href="{% url 'private_message' user %}" style="color:white;">{{ user }}</a>
+			</h3>
+		</div>
+		{% endif %}
+		{% endfor %}
+	</div>
+	<div class="col-8">
+		<div class="breadcrumb">
+			{% for object in object_list %}
+			<div class="col-8">
+				<a href="{% url 'profile' object.origin_user %}" style="{% if object.origin_user == request.user %}color:white;{% else %} color:#ffc107; {% endif %}">
+					@{{ object.origin_user }}:
+				</a>
+			</div>
+			<div class="col-4">
+				{{ object.created }}
+			</div>
+			<div class="col-12">
+				<p>{{ object.message }}</p>
+			</div>
+			{% endfor %}
+		</div>
+	</div>
+
+</div>
+
+{% endblock %}
