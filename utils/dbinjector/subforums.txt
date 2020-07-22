@@ -1,0 +1,12 @@
+Python,Pure Python
+Python,Django
+Python,Flask
+Python,Numpy
+Python,Pandas
+Python,Selenium
+Non-Python,Java
+Non-Python,C++
+Non-Python,C#
+Non-Python,JavaScript
+Non-Python,Databases
+Off Topic,Off Topic
