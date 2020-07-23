@@ -4,7 +4,7 @@
 from django.contrib import admin
 
 # Pyrty
-from private_messages.models import PrivateMessage
+from privatemessages.models import PrivateMessage
 
 
 @admin.register(PrivateMessage)

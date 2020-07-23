@@ -4,7 +4,7 @@
 from django.urls import path
 
 # Pyrty
-from private_messages.views import PrivateMessageList
+from privatemessages.views import PrivateMessageList
 
 
 urlpatterns = [

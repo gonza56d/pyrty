@@ -27,7 +27,7 @@ PROJECT_APPS = [
     'forums.apps.ForumsConfig',
     'notifications.apps.NotificationsConfig',
     'posts.apps.PostsConfig',
-    'private_messages.apps.PrivateMessagesConfig',
+    'privatemessages.apps.PrivateMessagesConfig',
     'profiles.apps.ProfilesConfig',
     'subforums.apps.SubforumsConfig',
     'users.apps.UsersConfig',

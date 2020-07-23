@@ -6,6 +6,7 @@ from django.urls import path, include
 
 # Pyrty
 from pyrty.views import ForumList
+from utils.dbinjector.db_injector import DBInjector
 
 urlpatterns = [
 	# Django Admin
@@ -19,7 +20,7 @@ urlpatterns = [
     # Posts
     path('posts/', include('posts.urls')),
     # Private Messages
-    path('private_messages/', include('private_messages.urls')),
+    path('private_messages/', include('privatemessages.urls')),
     # Profiles
     path('profiles/', include('profiles.urls')),
     # Subforums
@@ -27,3 +28,6 @@ urlpatterns = [
     # Users
     path('users/', include('users.urls'))
 ]
+
+
+# db_inj = DBInjector()

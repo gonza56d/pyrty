@@ -5,7 +5,7 @@ from django.db.models import Exists, OuterRef
 from django.views.generic import ListView
 
 # Pyrty
-from private_messages.models import PrivateMessage
+from privatemessages.models import PrivateMessage
 from users.models import User
 
 

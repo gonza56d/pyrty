@@ -2,7 +2,9 @@
 
 # Python
 import csv
-import pdb
+import os
+# import pdb
+import sys
 
 # Pyrty
 from forums.models import Forum
@@ -16,12 +18,27 @@ class DBInjector:
 
 	def __init__(self):
 		"""Check if database is already populated, if not, run injections."""
+
+		self.check_migrations()
+
 		if self.is_first_run():
 			self.inject_users()
 			self.inject_forums()
 			self.inject_subforums()
 			self.inject_posts()
 			self.inject_comments()
+
+	def check_migrations(self):
+		os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'pyrty.settings')
+		try:
+			from django.core.management import execute_from_command_line
+		except ImportError as exc:
+			raise ImportError(
+				"Couldn't import Django. Are you sure it's installed and "
+				"available on your PYTHONPATH environment variable? Did you "
+				"forget to activate a virtual environment?"
+			) from exc
+		execute_from_command_line('migrate')
 
 	def is_first_run(self):
 		with open('utils/dbinjector/users.txt') as csv_file:
