@@ -5,7 +5,7 @@
 
 # Pyrty
 from notifications.models import Notification
-from private_messages.models import PrivateMessage
+from privatemessages.models import PrivateMessage
 from users.forms import LoginForm
 
 
