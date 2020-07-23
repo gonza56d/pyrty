@@ -2,11 +2,13 @@
 
 # Python
 import csv
-import os
-# import pdb
-import sys
+import pdb
+
+# Django
+from django.core.management import call_command
 
 # Pyrty
+from comments.models import Comment
 from forums.models import Forum
 from posts.models import Post
 from subforums.models import Subforum
@@ -19,7 +21,9 @@ class DBInjector:
 	def __init__(self):
 		"""Check if database is already populated, if not, run injections."""
 
-		self.check_migrations()
+		call_command('migrate')
+
+		pdb.set_trace()
 
 		if self.is_first_run():
 			self.inject_users()
@@ -28,25 +32,11 @@ class DBInjector:
 			self.inject_posts()
 			self.inject_comments()
 
-	def check_migrations(self):
-		os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'pyrty.settings')
-		try:
-			from django.core.management import execute_from_command_line
-		except ImportError as exc:
-			raise ImportError(
-				"Couldn't import Django. Are you sure it's installed and "
-				"available on your PYTHONPATH environment variable? Did you "
-				"forget to activate a virtual environment?"
-			) from exc
-		execute_from_command_line('migrate')
-
 	def is_first_run(self):
-		with open('utils/dbinjector/users.txt') as csv_file:
-			csv_reader = csv.reader(csv_file, delimiter=',')
-			return not User.objects.filter(username=list(csv_reader)[0]).exists()
+		return not User.objects.filter(username='gonza56d').exists()
 
 	def inject_users(self):
-		with open('utils/dbinjector/users.txt') as csv_file:
+		with open('utils/dbinjector/users.txt', newline='') as csv_file:
 			csv_reader = csv.reader(csv_file, delimiter=',')
 			for row in csv_reader:
 				User.objects.create(username=row[0], email=row[1], password=row[2])
@@ -56,7 +46,7 @@ class DBInjector:
 				profile.save()
 
 	def inject_forums(self):
-		with open('utils/dbinjector/forums.txt') as csv_file:
+		with open('utils/dbinjector/forums.txt', newline='') as csv_file:
 			csv_reader = csv.reader(csv_file, delimiter=',')
 			for row in csv_reader:
 				forum = Forum()
@@ -64,7 +54,7 @@ class DBInjector:
 				forum.save()
 
 	def inject_subforums(self):
-		with open('utils/dbinjector/subforums.txt') as csv_file:
+		with open('utils/dbinjector/subforums.txt', newline='') as csv_file:
 			csv_reader = csv.reader(csv_file, delimiter=',')
 			for row in csv_reader:
 				subforum = Subforum()
@@ -73,7 +63,7 @@ class DBInjector:
 				subforum.save()
 
 	def inject_posts(self):
-		with open('utils/dbinjector/posts.txt') as csv_file:
+		with open('utils/dbinjector/posts.txt', newline='') as csv_file:
 			csv_reader = csv.reader(csv_file, delimiter=',')
 			for row in csv_reader:
 				post = Post()
@@ -84,7 +74,7 @@ class DBInjector:
 				post.save()
 
 	def inject_comments(self):
-		with open('utils/dbinjector/comments.txt') as csv_file:
+		with open('utils/dbinjector/comments.txt', newline='') as csv_file:
 			csv_reader = csv.reader(csv_file, delimiter=',')
 			for row in csv_reader:
 				comment = Comment()
