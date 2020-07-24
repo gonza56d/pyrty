@@ -2,7 +2,7 @@
 
 # Python
 import csv
-import pdb
+# import pdb
 
 # Django
 from django.core.management import call_command
@@ -11,6 +11,7 @@ from django.core.management import call_command
 from comments.models import Comment
 from forums.models import Forum
 from posts.models import Post
+from profiles.models import Profile
 from subforums.models import Subforum
 from users.models import User
 
@@ -23,8 +24,6 @@ class DBInjector:
 
 		call_command('migrate')
 
-		pdb.set_trace()
-
 		if self.is_first_run():
 			self.inject_users()
 			self.inject_forums()
@@ -36,7 +35,7 @@ class DBInjector:
 		return not User.objects.filter(username='gonza56d').exists()
 
 	def inject_users(self):
-		with open('utils/dbinjector/users.txt', newline='') as csv_file:
+		with open('utils/dbinjector/users.csv', newline='') as csv_file:
 			csv_reader = csv.reader(csv_file, delimiter=',')
 			for row in csv_reader:
 				User.objects.create(username=row[0], email=row[1], password=row[2])
@@ -46,7 +45,7 @@ class DBInjector:
 				profile.save()
 
 	def inject_forums(self):
-		with open('utils/dbinjector/forums.txt', newline='') as csv_file:
+		with open('utils/dbinjector/forums.csv', newline='') as csv_file:
 			csv_reader = csv.reader(csv_file, delimiter=',')
 			for row in csv_reader:
 				forum = Forum()
@@ -54,7 +53,7 @@ class DBInjector:
 				forum.save()
 
 	def inject_subforums(self):
-		with open('utils/dbinjector/subforums.txt', newline='') as csv_file:
+		with open('utils/dbinjector/subforums.csv', newline='') as csv_file:
 			csv_reader = csv.reader(csv_file, delimiter=',')
 			for row in csv_reader:
 				subforum = Subforum()
@@ -63,7 +62,7 @@ class DBInjector:
 				subforum.save()
 
 	def inject_posts(self):
-		with open('utils/dbinjector/posts.txt', newline='') as csv_file:
+		with open('utils/dbinjector/posts.csv', newline='') as csv_file:
 			csv_reader = csv.reader(csv_file, delimiter=',')
 			for row in csv_reader:
 				post = Post()
@@ -74,7 +73,7 @@ class DBInjector:
 				post.save()
 
 	def inject_comments(self):
-		with open('utils/dbinjector/comments.txt', newline='') as csv_file:
+		with open('utils/dbinjector/comments.csv', newline='') as csv_file:
 			csv_reader = csv.reader(csv_file, delimiter=',')
 			for row in csv_reader:
 				comment = Comment()
