@@ -25,6 +25,7 @@ def create_comment(request):
 			with transaction.atomic():
 				comment = form.save(commit=False)
 				comment.user = request.user
+				form.save()
 				create_notification(request, form)
 		return redirect('post', pk=request.POST['post'])
 

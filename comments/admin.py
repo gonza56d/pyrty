@@ -11,8 +11,6 @@ from comments.models import Comment
 class CommentAdmin(admin.ModelAdmin):
 	"""Comment model admin."""
 
-	list_display = ('user', 'post', 'content', 'positive_votes', 'negative_votes', 
-		'created', 'modified')
-	list_filter = ('user__username', 'user__email', 'post__title', 'content',
-		'positive_votes', 'negative_votes', 'created', 'modified')
+	list_display = ('user', 'post', 'content', 'created', 'modified')
+	list_filter = ('user__username', 'user__email', 'post__title', 'content', 'created', 'modified')
 	search_fields = ('user__username', 'user__email', 'post__title', 'content')

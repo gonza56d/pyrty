@@ -24,6 +24,8 @@ class DBInjector:
 
 		call_command('migrate')
 
+		# pdb.set_trace()
+
 		if self.is_first_run():
 			self.inject_users()
 			self.inject_forums()
@@ -38,7 +40,7 @@ class DBInjector:
 		with open('utils/dbinjector/users.csv', newline='') as csv_file:
 			csv_reader = csv.reader(csv_file, delimiter=',')
 			for row in csv_reader:
-				User.objects.create(username=row[0], email=row[1], password=row[2])
+				User.objects.create_user(username=row[0], email=row[1], password=row[2])
 				user = User.objects.get(username=row[0])
 				profile = Profile()
 				profile.user = user
