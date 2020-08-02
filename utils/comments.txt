@@ -1,4 +1,0 @@
-gonza56d,Button color with jQuery,Nice post!
-cobhc,First Django Project,This looks like the best web framework in the world.
-gonza56d,First Django Project,Indeed!
-animallover,Hello World in C++,Some comment.
