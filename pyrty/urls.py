@@ -17,6 +17,8 @@ urlpatterns = [
     path('comments/', include('comments.urls')),
     # Forums
     path('forums/', include('forums.urls')),
+    # Notifications
+    path('notifications/', include('notifications.urls')),
     # Posts
     path('posts/', include('posts.urls')),
     # Private Messages

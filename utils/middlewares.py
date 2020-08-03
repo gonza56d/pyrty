@@ -29,7 +29,7 @@ class NotificationMiddleware:
 	def __call__(self, request):
 		if request.user.is_authenticated:  # AnnonymousUser is not iterable therefore we need to check if it is authenticated.
 			request.non_seen_notifs = Notification.objects.filter(target_user=request.user, seen=False).exists()
-			request.notifications = Notification.objects.filter(target_user=request.user)
+			request.notifications = Notification.objects.filter(target_user=request.user)[:5]
 		return self.get_response(request)
 
 
@@ -42,5 +42,5 @@ class PrivateMessageMiddleware:
 	def __call__(self, request):
 		if request.user.is_authenticated:
 			request.non_read_msgs = PrivateMessage.objects.filter(target_user=request.user, seen=False).exists()
-			request.messages = PrivateMessage.objects.filter(target_user=request.user)
+			request.messages = PrivateMessage.objects.filter(target_user=request.user)[:5]
 		return self.get_response(request)
