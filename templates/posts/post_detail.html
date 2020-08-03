@@ -6,6 +6,8 @@
 
 {{ object.content }}
 
+<!--{% if comments.len > 0 %}-->
+
 <div class="breadcrumb my-5">
 	<ul class="list-group">
 	{% for comment in comments %}
@@ -26,6 +28,8 @@
 	{% endfor %}
 	</ul>
 </div>
+
+<!--{% endif %}-->
 
 {% if user.is_authenticated %}
 <form class="breadcrumb my-3" method="POST" enctype="application/x-www-form-urlencoded" action="{% url 'create_comment' %}">
