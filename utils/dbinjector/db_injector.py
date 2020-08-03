@@ -2,7 +2,7 @@
 
 # Python
 import csv
-# import pdb
+import pdb
 
 # Django
 from django.core.management import call_command
@@ -24,7 +24,7 @@ class DBInjector:
 
 		call_command('migrate')
 
-		# pdb.set_trace()
+		pdb.set_trace()
 
 		if self.is_first_run():
 			self.inject_users()
