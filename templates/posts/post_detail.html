@@ -8,7 +8,7 @@
 
 
 <div class="breadcrumb my-5">
-	<ul class="list-group">
+	<ul class="list-group col-12">
 	{% for comment in comments %}
 		<li class="list-group-item my-3">
 			<div class="form-inline">
@@ -18,7 +18,7 @@
 				<div class="ml-auto">
 					{{ comment.created }}
 					{% if comment.user == request.user %}
-					<button id="delete_comment_{{ comment.id }}" class="btn btn-danger delete_comment" type="button"><i class="fas fa-trash"></i></button><!--TODO-->
+					<button id="delete_comment_{{ comment.id }}" class="btn btn-danger delete_comment" type="button"><i class="fas fa-trash"></i></button>
 					{% endif %}
 				</div>
 			</div>
