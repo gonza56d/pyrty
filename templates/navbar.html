@@ -31,13 +31,18 @@
             <div class="dropdown mx-1">
                 <button type="button" class="btn {% if request.non_seen_notifs %}btn-warning{% else %}btn-info{% endif %} dropdown-toggle" id="dropdown-notifications" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-bell"></i></button>
                 <div class="dropdown-menu" aria-labelledby="dropdown-notifications" style="background-color:#1e2933;">
-                    <ul class="list-group">
+                    <ul class="list-group" style="font-size:13px;">
                         {% for notification in request.notifications %}
                         <a href="{{ notification.url }}" class="list-group-item my-1 mx-1" style="color:white; {% if not notification.seen %} background-color:#ffc107; {% endif %}">
                             {{ notification.message }}
                         </a>
                         {% endfor %}
                     </ul>
+                    <div class="text-center">
+                        <a href="{% url 'notifications' 1 %}" class="btn btn-info">
+                            View all
+                        </a>
+                    </div>
                 </div>
             </div>
 

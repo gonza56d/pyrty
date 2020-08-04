@@ -3,6 +3,7 @@ comments/__pycache__/*
 forums/migrations/__pycache__/*
 forums/__pycache__/*
 notifications/migrations/__pycache__/*
+notifications/templatetags/__pycache__/*
 notifications/__pycache__/*
 posts/migrations/__pycache__/*
 posts/__pycache__/*
