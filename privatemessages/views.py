@@ -2,9 +2,11 @@
 
 # Django
 from django.db.models import Exists, OuterRef
+from django.http import JsonResponse
 from django.views.generic import ListView
 
 # Pyrty
+from privatemessages.forms import PrivateMessageForm
 from privatemessages.models import PrivateMessage
 from users.models import User
 
@@ -29,3 +31,13 @@ class PrivateMessageList(ListView):
 		).order_by('created')
 		private_messages.update(seen=True)
 		return private_messages
+
+
+def create_private_message(request):
+	if request.method == 'POST':
+		form = PrivateMessageForm(data=request.POST)
+		if form.is_valid():
+			private_message = form.save(commit=False)
+			private_message.origin_user = request.user
+			private_message.save()
+			return JsonResponse({'status': 200, 'message': 'Private message sent'})

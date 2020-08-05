@@ -24,13 +24,6 @@ class PrivateMessage(PyrtyModel):
 		related_name='message_target'
 	)
 
-	subject = models.CharField(
-		'message subject',
-		max_length=50,
-		null=False,
-		blank=False
-	)
-
 	message = models.TextField(
 		'message content',
 		max_length=3000,
