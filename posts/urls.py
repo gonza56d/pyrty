@@ -2,9 +2,12 @@
 
 # Django
 from django.urls import path
-from posts.views import PostDetailView
+
+# Pyrty
+from posts.views import CreatePostView, PostDetailView
 
 
 urlpatterns = [
-	path('<int:pk>', PostDetailView.as_view(), name='post')
+	path('<int:pk>', PostDetailView.as_view(), name='post'),
+	path('create/<int:subforum_id>', CreatePostView.as_view(), name='create_post')
 ]

@@ -45,7 +45,7 @@
 			</div>
 		</div>
 		<!-- New message panel -->
-		<form class="row" id="new_private_message" method="POST" enctype="application/x-www-form-urlencoded" action="{% url 'create_private_message' %}">
+		<form class="row" id="new_private_message" method="POST" enctype="application/x-www-form-urlencoded" action="{% url 'create_private_message' %}">{% csrf_token %}
 			<div class="row col-11">
 				{% for field in private_message_form %}
 					{{ field }}

@@ -1,15 +1,18 @@
 """Post views."""
 
 # Python
-# import pdb
+import pdb
 
 # Django
+from django import forms
 from django.views.generic.detail import DetailView
+from django.views.generic.edit import CreateView
 
 # Pyrty
 from comments.forms import CommentForm
 from comments.models import Comment
 from posts.models import Post
+from subforums.models import Subforum
 
 
 class PostDetailView(DetailView):
@@ -28,3 +31,18 @@ class PostDetailView(DetailView):
 		context['current_forum_url'] = self.object.subforum.forum.url_name
 		context['comment_form'] = CommentForm(context['object'])
 		return context
+
+
+class CreatePostView(CreateView):
+	"""Create a new post view."""
+
+	model = Post
+	subforum = None
+
+	fields = ['subforum', 'title', 'content']
+
+	#  TODO
+
+	def get(self, request, *args, **kwargs):
+		self.subforum = Subforum.objects.get(pk=self.kwargs['subforum_id'])
+		return super().get(request, *args, **kwargs)

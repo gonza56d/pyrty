@@ -2,7 +2,12 @@
 
 {% block content %}
 
-<h2>{{ current_subforum }} Posts</h2>
+<div class="row col-12 mb-3">
+	<h2>{{ current_subforum }} Posts</h2> 
+	<form class="ml-auto" method="GET" action="{% url 'create_post' current_subforum.id %}">
+		<button class="btn btn-info">New Post</button>
+	</form>
+</div>
 <ul class="list-group">
 {% for post in object_list %}
 	<li class="list-group-item inline">
