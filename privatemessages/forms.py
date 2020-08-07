@@ -12,7 +12,9 @@ class PrivateMessageForm(forms.ModelForm):
 	def __init__(self, target_user=None, *args, **kwargs):
 		super(PrivateMessageForm, self).__init__(*args, **kwargs)
 
-		self.fields['message'].widget = forms.Textarea(attrs={'class': 'form-control'})
+		self.fields['message'].widget = forms.Textarea(
+			attrs={'class': 'form-control', 'rows': 3}
+		)
 
 		if target_user is not None:
 			self.fields['target_user'] = forms.ModelChoiceField(

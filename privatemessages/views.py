@@ -1,7 +1,7 @@
 """Private message views."""
 
 # Django
-from django.db.models import Exists, OuterRef
+from django.db.models import Exists, OuterRef, Q
 from django.http import JsonResponse
 from django.views.generic import ListView
 
@@ -22,14 +22,23 @@ class PrivateMessageList(ListView):
 		context['inbox'] = User.objects.filter(
 			Exists(PrivateMessage.objects.filter(origin_user=OuterRef('pk')))
 		)
+		context['private_message_form'] = PrivateMessageForm(
+			target_user=User.objects.get(username=self.kwargs['origin_user'])
+		)
 		return context
 
 	def get_queryset(self, queryset=None):
 		private_messages = PrivateMessage.objects.filter(
-			target_user=self.request.user, 
-			origin_user__username=self.kwargs['origin_user']
+			Q(
+				target_user=self.request.user,
+				origin_user__username=self.kwargs['origin_user']
+			) |
+			Q (
+				target_user__username=self.kwargs['origin_user'],
+				origin_user=self.request.user
+			)
 		).order_by('created')
-		private_messages.update(seen=True)
+		private_messages.filter(target_user=self.request.user).update(seen=True)
 		return private_messages
 
 
