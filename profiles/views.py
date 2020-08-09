@@ -10,7 +10,7 @@ from users.models import User
 
 
 class ProfileDetailView(DetailView):
-	"""Display a profile info."""
+	"""Display profile info."""
 
 	model = Profile
 

@@ -8,8 +8,8 @@ from utils.models import PyrtyModel
 
 
 class Forum(PyrtyModel):
-	"""A forum is the model which contains subforums as childrens. They can be
-	dinamically created, modified or deleted by Pyrty admins.
+	"""
+	Object that contains subforums.
 	"""
 
 	name = models.CharField(

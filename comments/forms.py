@@ -12,7 +12,12 @@ from posts.models import Post
 
 
 class CommentForm(forms.ModelForm):
+	"""Create new comment form."""
+
 	def __init__(self, post, *args, **kwargs):
+		"""Init form with comment's post to set ready for create. Pass None
+		when handling a post method."""
+
 		super(CommentForm, self).__init__(*args, **kwargs)
 
 		if post is not None:

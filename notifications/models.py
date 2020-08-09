@@ -8,7 +8,9 @@ from utils.models import PyrtyModel
 
 
 class Notification(PyrtyModel):
-	"""Notification model."""
+	"""Notification model.
+
+	Notify some user about something."""
 
 	origin_user = models.ForeignKey(
 		'users.User', 

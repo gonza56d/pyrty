@@ -17,13 +17,14 @@ from subforums.models import Subforum
 
 
 class PostDetailView(DetailView):
-	"""Display a post with its children comments."""
+	"""Display a post with its comments."""
 
 	model = Post
 	forum = None
 	subforum = None
 
 	def get_context_data(self, **kwargs):
+
 		context = super().get_context_data(**kwargs)
 		context['comments'] = Comment.objects.filter(post=self.object)
 		context['current_subforum'] = self.object.subforum
@@ -38,13 +39,13 @@ class CreatePostView(CreateView):
 	"""Create a new post view."""
 
 	model = Post
-	subforum = None
+	subforum = None  # used to set post's subforum
 
 	fields = ['subforum', 'title', 'content']
 
 	def get_context_data(self, **kwargs):
 		context = super().get_context_data(**kwargs)
-		context['subforum'] = self.subforum
+		context['subforum'] = self.subforum  # used as url parameter
 		return context
 
 	def get_form(self, form_class=None):
@@ -66,10 +67,16 @@ class CreatePostView(CreateView):
 		return form
 
 	def get(self, request, *args, **kwargs):
+		"""
+		Handle get method and populate Subforum object.
+		"""
 		self.subforum = Subforum.objects.get(pk=self.kwargs['subforum_id'])
 		return super().get(request, *args, **kwargs)
 
 	def post(self, request, *args, **kwargs):
+		"""
+		Handle post method and create a new Post object.
+		"""
 		self.subforum = Subforum.objects.get(pk=self.kwargs['subforum_id'])
 		form = self.get_form()
 		if form.is_valid():
