@@ -4,9 +4,11 @@
 
 <h2 class="mt-3"><a href="{% url 'profile' object.user %}" style="color:#ffd343;">@{{ object.user }}</a>: {{ object.title }}</h2>
 
+<hr style="color:white;">
 {{ object.content }}
+<hr>
 
-
+{% if comments.count > 0 %}
 <div class="breadcrumb my-5">
 	<ul class="list-group col-12">
 	{% for comment in comments %}
@@ -27,6 +29,7 @@
 	{% endfor %}
 	</ul>
 </div>
+{% endif %}
 
 
 {% if user.is_authenticated %}
