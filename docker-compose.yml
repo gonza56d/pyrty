@@ -1,13 +1,20 @@
 version: '3'
 
+volumes:
+  local_postgres_data: {}
+
 services:
-  db:
+  postgres:
     image: postgres
     environment:
       - POSTGRES_DB=postgres
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
-  web:
+    volumes:
+      - local_postgres_data:/var/lib/postgresql/data
+    env_file:
+      - ./.envs/.postgres
+  django:
     build: .
     command: python manage.py runserver 0.0.0.0:8000
     volumes:
@@ -15,4 +22,20 @@ services:
     ports:
       - "8000:8000"
     depends_on:
-      - db
+      - postgres
+  rabbitmq:
+    image: rabbitmq:3.8.6
+  celeryworker:
+    image: celeryworker
+    restart: always
+    depends_on:
+      - rabbitmq
+      - postgres
+    command: celery -A pyrty worker -l INFO
+  celerybeat:
+    image: celerybeat
+    restart: always
+    depends_on:
+      - rabbitmq
+      - postgres
+    command: celery -A pyrty beat -l INFO

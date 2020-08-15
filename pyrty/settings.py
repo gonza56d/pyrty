@@ -96,7 +96,7 @@ DATABASES = {
         'NAME': 'postgres',
         'USER': 'postgres',
         'PASSWORD': 'postgres',
-        'HOST': 'db',
+        'HOST': 'postgres',
         'PORT': 5432,
     }
 }
@@ -151,3 +151,11 @@ AUTH_USER_MODEL = 'users.User'
 
 # Auth backend override
 AUTHENTICATION_BACKENDS = ['users.backends.UserBackend']
+
+# Celery conf
+BROKER_URL = 'rabbitmq://localhost:5672'
+CELERY_RESULT_BACKEND = 'rabbitmq://localhost:5672'
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TIMEZONE = 'America/Argentina/Buenos_Aires'

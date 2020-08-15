@@ -1,3 +1,4 @@
+.vscode/*
 comments/migrations/__pycache__/*
 comments/__pycache__/*
 forums/migrations/__pycache__/*
