@@ -14,7 +14,8 @@ services:
       - local_postgres_data:/var/lib/postgresql/data
     env_file:
       - ./.envs/.postgres
-  django:
+
+  django: &django
     build: .
     command: python manage.py runserver 0.0.0.0:8000
     volumes:
@@ -23,19 +24,26 @@ services:
       - "8000:8000"
     depends_on:
       - postgres
+
   rabbitmq:
     image: rabbitmq:3.8.6
+
   celeryworker:
+    <<: *django
     image: celeryworker
     restart: always
     depends_on:
       - rabbitmq
       - postgres
+    ports: []
     command: celery -A pyrty worker -l INFO
+
   celerybeat:
+    <<: *django
     image: celerybeat
     restart: always
     depends_on:
       - rabbitmq
       - postgres
+    ports: []
     command: celery -A pyrty beat -l INFO
