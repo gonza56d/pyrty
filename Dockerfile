@@ -1,4 +1,4 @@
-FROM python:3.8.5-alpine
+FROM python:3.6-alpine
 ENV PYTHONUNBUFFERED 1
 
 RUN apk update \
@@ -10,7 +10,8 @@ RUN apk update \
     # CFFI dependencies
     && apk add libffi-dev py-cffi \
     && apk add --no-cache openssl-dev libffi-dev \
-    && apk add libc-dev
+    && apk add libc-dev \
+    && apk add python-dev
 
 RUN mkdir /app
 WORKDIR /app

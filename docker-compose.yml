@@ -31,7 +31,6 @@ services:
   celeryworker:
     <<: *django
     image: celeryworker
-    restart: always
     depends_on:
       - rabbitmq
       - postgres
@@ -41,7 +40,6 @@ services:
   celerybeat:
     <<: *django
     image: celerybeat
-    restart: always
     depends_on:
       - rabbitmq
       - postgres
