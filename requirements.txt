@@ -1,7 +1,7 @@
 Django==3.1
 psycopg2==2.8.3
 djangorestframework==3.11.0
-Celery==4.4.7
+Celery==4.2.1
 rabbitmq==0.2.0
 Pillow==7.1.2
 django-extensions==2.2.9

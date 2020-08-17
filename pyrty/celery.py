@@ -7,7 +7,7 @@ from celery import Celery
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'pyrty.settings')
 
-app = Celery('pyrty')
+app = Celery('pyrty', broker='amqp://user:password@localhost:5672')
 
 app.config_from_object('django.conf:settings', namespace='CELERY')
 
