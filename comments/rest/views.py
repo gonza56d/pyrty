@@ -5,6 +5,7 @@
 
 # Django REST Framework
 from rest_framework import status
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.serializers import ValidationError
 from rest_framework import viewsets
 from rest_framework.response import Response
@@ -18,6 +19,12 @@ class CommentViewSet(viewsets.ModelViewSet):
 
 	serializer_class = CommentSerializer
 	queryset = Comment.objects.all()
+
+	def get_permissions(self):
+		permissions = []
+		if self.action == 'create':
+			permissions.append(IsAuthenticated)
+		return [p() for p in permissions]
 
 	def list(self, request):
 		"""List all the comments from some post."""
