@@ -1,7 +1,7 @@
 """Comment rest api views."""
 
 # Python
-import pdb
+# import pdb
 
 # Django REST Framework
 from rest_framework import status
