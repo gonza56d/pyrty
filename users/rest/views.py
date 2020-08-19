@@ -28,7 +28,7 @@ def oauth(request):
             try :
                 token = Token.objects.create(user=user)
             except IntegrityError:
-                return Response({'message': 'Token already exists.'}, status=status.HTTP_400_BAD_REQUEST)
+                return Response({'message': 'A token for this user already exists.'}, status=status.HTTP_400_BAD_REQUEST)
             return Response({'token': token.key}, status=status.HTTP_200_OK)
         return Response({'message': 'Invalid username and/or password.'}, status=status.HTTP_401_UNAUTHORIZED)
     return Response({'message': 'Username/email and password must be provided.'}, status=status.HTTP_400_BAD_REQUEST)
