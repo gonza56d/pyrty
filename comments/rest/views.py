@@ -1,7 +1,7 @@
 """Comment rest api views."""
 
 # Python
-# import pdb
+import pdb
 
 # Django REST Framework
 from rest_framework import status
@@ -34,13 +34,6 @@ class CommentViewSet(viewsets.ModelViewSet):
 
 		q = self.queryset.filter(post=request.query_params['post'])
 		serializer = CommentSerializer(q, many=True)
-		return Response(serializer.data)
-
-	def create(self, request):
-		"""Create a comment in some post."""
-
-		serializer = CommentSerializer(request.data)
-		serializer.save()
 		return Response(serializer.data)
 
 	def retrieve(self, request, pk=None):

@@ -5,7 +5,6 @@
 
 # Django
 from django.contrib import auth
-from django.db.utils import IntegrityError
 
 # Django REST Framework
 from rest_framework import status
@@ -25,10 +24,7 @@ def oauth(request):
         password = form.cleaned_data.get('password')
         user = auth.authenticate(username=username, password=password)
         if user is not None:
-            try :
-                token = Token.objects.create(user=user)
-            except IntegrityError:
-                return Response({'message': 'A token for this user already exists.'}, status=status.HTTP_400_BAD_REQUEST)
+            token, created = Token.objects.get_or_create(user=user)
             return Response({'token': token.key}, status=status.HTTP_200_OK)
         return Response({'message': 'Invalid username and/or password.'}, status=status.HTTP_401_UNAUTHORIZED)
     return Response({'message': 'Username/email and password must be provided.'}, status=status.HTTP_400_BAD_REQUEST)
