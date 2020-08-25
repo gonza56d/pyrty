@@ -1,7 +1,7 @@
 """Comment rest api views."""
 
 # Python
-import pdb
+# import pdb
 
 # Django REST Framework
 from rest_framework import status
@@ -22,19 +22,17 @@ class CommentViewSet(viewsets.ModelViewSet):
 
 	def get_permissions(self):
 		permissions = []
-		if self.action == 'create':
+		if self.action == 'create' or self.action == 'destroy':
 			permissions.append(IsAuthenticated)
 		return [p() for p in permissions]
 
-	def list(self, request):
-		"""List all the comments from some post."""
+	def destroy(self, request, *args, **kwargs):
+		"""Delete a comment created by request.user from a post."""
 
-		if 'post' not in request.query_params:
-			raise ValidationError('Post id must be provided.')
-
-		q = self.queryset.filter(post=request.query_params['post'])
-		serializer = CommentSerializer(q, many=True)
-		return Response(serializer.data)
+		instance = self.get_object()
+		if instance.user != self.context['request'].user:
+			raise ValidationError('Comment does not belong to the authenticated user.')
+		self.perform_destroy(instance)
 
 	def retrieve(self, request, pk=None):
 		pass
@@ -43,7 +41,4 @@ class CommentViewSet(viewsets.ModelViewSet):
 		pass
 
 	def partial_update(self, request, pk=None):
-		pass
-
-	def destroy(self, request, pk=None):
 		pass
