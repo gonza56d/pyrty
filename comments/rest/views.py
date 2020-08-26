@@ -1,7 +1,7 @@
 """Comment rest api views."""
 
 # Python
-# import pdb
+import pdb
 
 # Django REST Framework
 from rest_framework import status
@@ -28,9 +28,10 @@ class CommentViewSet(viewsets.ModelViewSet):
 
 	def destroy(self, request, *args, **kwargs):
 		"""Delete a comment created by request.user from a post."""
-
+		
 		instance = self.get_object()
-		if instance.user != self.context['request'].user:
+		pdb.set_trace()
+		if instance.user != request.user:
 			raise ValidationError('Comment does not belong to the authenticated user.')
 		self.perform_destroy(instance)
 
