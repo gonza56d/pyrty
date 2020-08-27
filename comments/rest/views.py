@@ -1,10 +1,11 @@
 """Comment rest api views."""
 
 # Python
-import pdb
+# import pdb
 
 # Django REST Framework
 from rest_framework import status
+from rest_framework.generics import get_object_or_404
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.serializers import ValidationError
 from rest_framework import viewsets
@@ -26,14 +27,18 @@ class CommentViewSet(viewsets.ModelViewSet):
 			permissions.append(IsAuthenticated)
 		return [p() for p in permissions]
 
+	def get_object(self):
+		"""Return comment by primary key."""
+		return get_object_or_404(Comment, id=self.kwargs['pk'])
+
 	def destroy(self, request, *args, **kwargs):
 		"""Delete a comment created by request.user from a post."""
-		
+
 		instance = self.get_object()
-		pdb.set_trace()
 		if instance.user != request.user:
 			raise ValidationError('Comment does not belong to the authenticated user.')
 		self.perform_destroy(instance)
+		return Response(status=status.HTTP_204_NO_CONTENT)
 
 	def retrieve(self, request, pk=None):
 		pass
