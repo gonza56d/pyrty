@@ -1,0 +1,28 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<div class="breadcrumb">
+    <form class="form-group" method="POST" action="{% url 'self_profile' object.slug %}" enctype="application/x-www-form-urlencoded">{% csrf_token %}
+        <div class="form-inline">
+            <h2><b>User:</b> @{{ object.user }}</h2>
+            <button type="button" id="btn_edit_profile" class="btn btn-warning ml-3 mb-2">
+                <i class="fa fa-pencil"></i>
+            </button>
+            <button type="button" id="btn_cancel_edit_profile" class="btn btn-danger ml-3 mb-2" style="display:none;">
+                <i class="fa fa-window-close"></i>
+            </button>
+            <button id="btn_confirm_edit_profile" class="btn btn-success ml-3 mb-2" style="display:none;">
+                <i class="fa fa-check"></i>
+            </button>
+        </div>
+        <div>
+            <b>Fisrt name:</b> <input id="id_first_name" value="{{ object.first_name }}" class="form-control" disabled="">
+        </div>
+        <div>
+            <b>Last name:</b> <input id="id_last_name" value="{{ object.last_name }}" class="form-control" disabled="">
+        </div>
+    </form>
+</div>
+
+{% endblock %}
