@@ -3,18 +3,52 @@
 {% block content %}
 
 <div class="breadcrumb">
-	<div class="form-group">
-		<div class="form-inline">
-			<h2><b>User:</b> @{{ object.user }}</h2>
-			<button type="button" id="btn_new_message" class="btn btn-warning ml-3 mb-2" data-toggle="modal" data-target="#modal_new_message">
-				<i class="fa fa-envelope"></i>
-			</button>
+	<div class="row px-4 col-12">
+		<div class="form-group col-6">
+			<div class="form-inline">
+				<h2><b>User:</b> @{{ object.user }}</h2>
+				<button type="button" id="btn_new_message" class="btn btn-warning ml-3 mb-2" data-toggle="modal" data-target="#modal_new_message">
+					<i class="fa fa-envelope"></i>
+				</button>
+			</div>
+			<div>
+				<b>First name:</b> {{ object.first_name }}
+			</div>
+			<div>
+				<b>Last name:</b> {{ object.last_name }}
+			</div>
 		</div>
-		<div>
-			<b>First name:</b> {{ object.first_name }}
-		</div>
-		<div>
-			<b>Last name:</b> {{ object.last_name }}
+		<div class="col-6">
+
+			<!-- display profile's last 10 posts -->
+			<h3 class="col-12">Profile last posts:</h3>
+			<ul class="list-group">
+				{% for post in profile_posts %}
+				<span class="col-12">
+					<li class="list-group-item inline">
+						<b><a style="color:yellow;" href="{% url 'post' post.pk %}">{{ post }}</a></b> on <a style="color:yellow;" href="{% url 'forum' post.subforum.forum %}">{{ post.subforum.forum }}</a> > <a style="color:yellow;" href="{% url 'subforum' post.subforum %}">{{ post.subforum }}</a>
+				</span>
+				{% endfor %}
+			</ul>
+			{% if not profile_posts %}
+			<span class="col-12">This profile has not posted anything yet.</span>
+			{% endif %}
+			<hr/>
+			<!-- display profile's last 10 comments -->
+			<h3 class="col-12">Profile last comments:</h3>
+			<ul class="list-group">
+				{% for comment in profile_comments %}
+				<span class="col-12">
+					<li class="list-group-item inline">
+						<b>{{ comment }}</b> on <a style="color:yellow;" href="{% url 'post' comment.post.pk %}">{{ comment.post }}</a> - {{ comment.created }}
+					</li>
+				</span>
+				{% endfor %}
+			</ul>
+			{% if not profile_comments %}
+			<span class="col-12">This profile has not commented on any post yet.</span>
+			{% endif %}
+
 		</div>
 	</div>
 </div>

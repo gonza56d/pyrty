@@ -12,7 +12,7 @@
 {% for post in object_list %}
 	<li class="list-group-item inline">
 		<a href="{% url 'post' post.id %}" style="color: white;"><h3>{{ post }}</h3></a>
-		<a href="{% url 'profile' post.user %}">by @ {{ post.user }}</a>
+		by <a href="{% url 'profile' post.user %}">@{{ post.user }}</a>
 	</li>	
 {% endfor %}
 </ul>

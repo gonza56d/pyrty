@@ -10,6 +10,8 @@ from django.views.generic.detail import DetailView
 from django.views.generic.edit import UpdateView
 
 # Pyrty
+from comments.models import Comment
+from posts.models import Post
 from privatemessages.forms import PrivateMessageForm
 from profiles.models import Profile
 from users.models import User
@@ -37,6 +39,8 @@ class ProfileDetailView(DetailView):
 		context['private_message_form'] = PrivateMessageForm(
 			target_user=User.objects.get(username=self.kwargs['slug'])
 		)
+		context['profile_posts'] = Post.objects.filter(user=context['object'].user)[:10]
+		context['profile_comments'] = Comment.objects.filter(user=context['object'].user)[:10]
 		return context
 
 
