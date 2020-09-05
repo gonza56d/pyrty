@@ -27,7 +27,34 @@
 
         <div class="col-6">
 
-            <!-- TODO -->
+            <!-- display profile's last 10 posts -->
+            <h3 class="col-12">Your last posts:</h3>
+            <ul class="list-group">
+                {% for post in profile_posts %}
+                <span class="col-12">
+                    <li class="list-group-item inline">
+                        <b><a style="color:yellow;" href="{% url 'post' post.pk %}">{{ post }}</a></b> on <a style="color:yellow;" href="{% url 'forum' post.subforum.forum %}">{{ post.subforum.forum }}</a> > <a style="color:yellow;" href="{% url 'subforum' post.subforum %}">{{ post.subforum }}</a>
+                </span>
+                {% endfor %}
+            </ul>
+            {% if not profile_posts %}
+            <span class="col-12">You have not posted anything yet.</span>
+            {% endif %}
+            <hr/>
+            <!-- display profile's last 10 comments -->
+            <h3 class="col-12">Your last comments:</h3>
+            <ul class="list-group">
+                {% for comment in profile_comments %}
+                <span class="col-12">
+                    <li class="list-group-item inline">
+                        <b>{{ comment }}</b> on <a style="color:yellow;" href="{% url 'post' comment.post.pk %}">{{ comment.post }}</a> - {{ comment.created }}
+                    </li>
+                </span>
+                {% endfor %}
+            </ul>
+            {% if not profile_comments %}
+            <span class="col-12">You have not commented on any post yet.</span>
+            {% endif %}
 
         </div>
     </div>
