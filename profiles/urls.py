@@ -1,7 +1,7 @@
 """Profile urls."""
 
 # Django
-from django.urls import path, reverse
+from django.urls import path
 from profiles.views import ProfileDetailView, ProfileUpdateView
 
 

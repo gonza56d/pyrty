@@ -17,7 +17,7 @@
                     <i class="fa fa-envelope"></i>
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdown-messages" style="background-color:#1e2933;">
-                    <ul class="list-group">
+                    <ul class="list-group" style="font-size:13px;">
                         {% for message in request.messages %}
                         <a href="{% url 'private_message' message.origin_user %}" class="list-group-item my-1 mx-1" style="{% if not message.seen %} background-color:#ffc107; color:black; {% else %}color:white; {% endif %}">
                         Message from {{ message.origin_user }}
