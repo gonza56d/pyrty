@@ -1,10 +1,11 @@
 """Profile views."""
 
 # Python
-import pdb
+# import pdb
 
 # Django
 from django.shortcuts import redirect
+from django.urls import reverse
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import UpdateView
 
@@ -44,6 +45,9 @@ class ProfileUpdateView(UpdateView):
 
 	model = Profile
 	fields = ['first_name', 'last_name']
+
+	def get_success_url(self):
+		return reverse('self_profile', args=[self.request.user])
 
 	def get(self, request, *args, **kwargs):
 		"""Redirect to ProfileDetailView if the requested profile is not request.user."""
