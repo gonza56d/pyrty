@@ -6,5 +6,7 @@ $("#btn_cancel_edit_profile").click(function(){
 
     $("#id_first_name").attr("disabled", "");
     $("#id_last_name").attr("disabled", "");
+    $("#id_birthday").attr("disabled", "");
+    $("#id_bio").attr("disabled", "");
 
 });

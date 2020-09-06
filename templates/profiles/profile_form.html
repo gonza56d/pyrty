@@ -17,12 +17,11 @@
                     <i class="fa fa-check"></i>
                 </button>
             </div>
+            {% for field in form %}
             <div>
-                <b>Fisrt name:</b> <input id="id_first_name" name="first_name" class="form-control col-6" value="{{ object.first_name }}" disabled="">
+                <b>{{ field.label }}</b> {{ field }}
             </div>
-            <div>
-                <b>Last name:</b> <input id="id_last_name" name="last_name" class="form-control col-6" value="{{ object.last_name }}" disabled="">
-            </div>
+            {% endfor %}
         </form>
 
         <div class="col-6">

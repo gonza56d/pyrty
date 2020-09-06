@@ -6,6 +6,8 @@ $("#btn_edit_profile").click(function(){
 
     $("#id_first_name").removeAttr("disabled");
     $("#id_last_name").removeAttr("disabled");
+    $("#id_birthday").removeAttr("disabled");
+    $("#id_bio").removeAttr("disabled");
     $("#id_first_name").focus();
 
 });

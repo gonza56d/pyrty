@@ -17,6 +17,12 @@
 			<div>
 				<b>Last name:</b> {{ object.last_name }}
 			</div>
+			<div>
+				<b>Birthday:</b> {% if object.birthday is not None %}{{ object.birthday }}{% endif %}
+			</div>
+			<div>
+				<b>Bio:</b> {{ object.bio }}
+			</div>
 		</div>
 		<div class="col-6">
 

@@ -4,6 +4,7 @@
 # import pdb
 
 # Django
+from django import forms
 from django.shortcuts import redirect
 from django.urls import reverse
 from django.views.generic.detail import DetailView
@@ -48,7 +49,21 @@ class ProfileUpdateView(UpdateView):
 	"""Display own user's profile info and handle edit."""
 
 	model = Profile
-	fields = ['first_name', 'last_name']
+	fields = ['first_name', 'last_name', 'birthday', 'bio']
+
+	def set_widgets(self, form):
+		form.fields['first_name'].widget = forms.TextInput(
+			attrs={'class': 'form-control', 'disabled': ''}
+		)
+		form.fields['last_name'].widget = forms.TextInput(
+			attrs={'class': 'form-control', 'disabled': ''}
+		)
+		form.fields['birthday'].widget = forms.DateInput(
+			attrs={'class': 'form-control', 'disabled': '', 'type': 'date'}
+		)
+		form.fields['bio'].widget = forms.Textarea(
+			attrs={'class': 'form-control', 'disabled': '', 'rows': '5'}
+		)
 
 	def get_success_url(self):
 		return reverse('self_profile', args=[self.request.user])
@@ -66,6 +81,7 @@ class ProfileUpdateView(UpdateView):
 
 	def get_context_data(self, **kwargs):
 		context = super().get_context_data(**kwargs)
-		context['profile_posts'] = Post.objects.filter(user=self.object.user)
-		context['profile_comments'] = Comment.objects.filter(user=self.object.user)
+		context['profile_posts'] = Post.objects.filter(user=self.object.user)[:10]
+		context['profile_comments'] = Comment.objects.filter(user=self.object.user)[:10]
+		self.set_widgets(context['form'])
 		return context

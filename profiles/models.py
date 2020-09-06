@@ -47,6 +47,8 @@ class Profile(PyrtyModel):
 
 	bio = models.TextField(max_length=1000, blank=True)
 
+	birthday = models.DateField(null=True)
+
 	is_moderator = models.BooleanField(default=False)
 
 	# Stats
