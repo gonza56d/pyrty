@@ -15,6 +15,7 @@ class PrivateMessageList(ListView):
 	"""Display inbox with list of messages from a user."""
 
 	model = PrivateMessage
+	paginate_by = 10
 
 	def get_context_data(self, **kwargs):
 		context = super(PrivateMessageList, self).get_context_data(**kwargs)
@@ -39,7 +40,7 @@ class PrivateMessageList(ListView):
 				origin_user=self.request.user
 			)
 		).order_by('created')
-		private_messages.filter(target_user=self.request.user).update(seen=True)
+		PrivateMessage.objects.filter(target_user=self.request.user).update(seen=True)
 		return private_messages
 
 
