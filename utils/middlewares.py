@@ -42,5 +42,6 @@ class PrivateMessageMiddleware:
 	def __call__(self, request):
 		if request.user.is_authenticated:
 			request.non_read_msgs = PrivateMessage.objects.filter(target_user=request.user, seen=False).exists()
-			request.messages = PrivateMessage.objects.filter(target_user=request.user)[:5]
+			request.messages = PrivateMessage.objects.select_related('origin_user')\
+				.filter(target_user=request.user)[:5]
 		return self.get_response(request)

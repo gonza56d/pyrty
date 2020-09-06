@@ -1,7 +1,7 @@
 """Post views."""
 
 # Python
-import pdb
+# import pdb
 
 # Django
 from django import forms
@@ -47,6 +47,9 @@ class CreatePostView(CreateView):
 
 	fields = ['subforum', 'title', 'content']
 
+	def get_success_url(self):
+		return reverse('subforum', args=[self.kwargs['subforum_id']])
+
 	def get_context_data(self, **kwargs):
 		context = super().get_context_data(**kwargs)
 		context['subforum'] = self.subforum  # used as url parameter
@@ -60,6 +63,7 @@ class CreatePostView(CreateView):
 		form.fields['subforum'] = forms.ModelChoiceField(
 			queryset=Subforum.objects.filter(pk=self.subforum.id),
 			empty_label=None,
+			label = '',
 			widget = forms.Select(attrs={'class': 'form-control', 'style': 'display:none;'})
 		)
 		form.fields['title'].widget = forms.TextInput(
@@ -88,3 +92,4 @@ class CreatePostView(CreateView):
 			post.user = request.user
 			post.save()
 			return redirect('post', pk=post.id)
+		return super().post(request, *args, **kwargs)
