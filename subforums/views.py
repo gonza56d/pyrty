@@ -26,6 +26,9 @@ class PostList(ListView):
 		return context
 
 	def get_queryset(self, queryset=None):
-		self.subforum = Subforum.objects.get(name=self.kwargs['subforum'].replace('_', ' '))
+		self.subforum = Subforum.objects.select_related('forum')\
+			.get(name=self.kwargs['subforum'].replace('_', ' '))
+
 		self.forum = self.subforum.forum
+
 		return Post.objects.filter(subforum=self.subforum)

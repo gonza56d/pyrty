@@ -1,6 +1,11 @@
 """Profile model definition."""
 
+# Python
+# import pdb
+from datetime import datetime
+
 # Django
+from django.core.exceptions import ValidationError
 from django.db import models
 
 # Django extensions
@@ -12,6 +17,13 @@ from utils.models import PyrtyModel
 
 def slugify(content):
 	return str(content)
+
+
+def validate_birthday(value):
+	if value > datetime.date(datetime.now()):
+		raise ValidationError(
+			'Birthday cannot be later than today', code='invalid_birthday'
+		)
 
 
 class Profile(PyrtyModel):
@@ -47,7 +59,7 @@ class Profile(PyrtyModel):
 
 	bio = models.TextField(max_length=1000, blank=True)
 
-	birthday = models.DateField(null=True)
+	birthday = models.DateField(null=True, validators=[validate_birthday])
 
 	is_moderator = models.BooleanField(default=False)
 

@@ -23,6 +23,13 @@ class ProfileDetailView(DetailView):
 
 	model = Profile
 
+	def get_object(self, queryset=None):
+		"""Override to select related user."""
+
+		return Profile.objects.select_related('user').get(
+			slug=self.kwargs.get(self.slug_url_kwarg)
+		)
+
 	def get(self, request, *args, **kwargs):
 		"""Redirect to ProfileUpdateView if the requested profile is the same than request.user."""
 		user = None
@@ -36,20 +43,33 @@ class ProfileDetailView(DetailView):
 			return self.render_to_response(context)
 
 	def get_context_data(self, **kwargs):
+		"""Load private message form, and profile's last posts and comments."""
+
 		context = super().get_context_data(**kwargs)
 		context['private_message_form'] = PrivateMessageForm(
 			target_user=User.objects.get(username=self.kwargs['slug'])
 		)
-		context['profile_posts'] = Post.objects.filter(user=context['object'].user)[:10]
-		context['profile_comments'] = Comment.objects.filter(user=context['object'].user)[:10]
+		context['profile_posts'] = Post.objects.select_related('subforum__forum').filter(
+			user=context['object'].user
+		)[:10]
+		context['profile_comments'] = Comment.objects.select_related('post').filter(
+			user=context['object'].user
+		)[:10]
 		return context
 
 
 class ProfileUpdateView(UpdateView):
-	"""Display own user's profile info and handle edit."""
+	"""Display own user's profile info and handle update."""
 
 	model = Profile
 	fields = ['first_name', 'last_name', 'birthday', 'bio']
+
+	def get_object(self, queryset=None):
+		"""Override to select related user."""
+
+		return Profile.objects.select_related('user').get(
+			slug=self.kwargs.get(self.slug_url_kwarg)
+		)
 
 	def get_form(self, form_class=None):
 		"""Set widgets for form and initialy disable each field."""
@@ -71,6 +91,7 @@ class ProfileUpdateView(UpdateView):
 		return form
 
 	def get_success_url(self):
+		"""Redirect to own profile on update success."""
 		return reverse('self_profile', args=[self.request.user])
 
 	def get(self, request, *args, **kwargs):
@@ -85,7 +106,10 @@ class ProfileUpdateView(UpdateView):
 			return super().get(request, *args, **kwargs)
 
 	def get_context_data(self, **kwargs):
+		"""Load profile's last posts and comments."""
 		context = super().get_context_data(**kwargs)
-		context['profile_posts'] = Post.objects.filter(user=self.object.user)[:10]
+		context['profile_posts'] = Post.objects.select_related('subforum__forum')\
+			.filter(user=self.object.user)[:10]
+
 		context['profile_comments'] = Comment.objects.filter(user=self.object.user)[:10]
 		return context

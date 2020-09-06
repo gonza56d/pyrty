@@ -20,8 +20,12 @@ class PostDetailView(DetailView):
 	"""Display a post with its comments."""
 
 	model = Post
-	forum = None
-	subforum = None
+
+	def get_object(self, queryset=None):
+		"""Override to select related Subforum and forum"""
+
+		return Post.objects.select_related('subforum__forum')\
+			.select_related('user').get(pk=self.kwargs.get(self.pk_url_kwarg))
 
 	def get_context_data(self, **kwargs):
 

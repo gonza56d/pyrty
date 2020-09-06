@@ -28,7 +28,8 @@ class PrivateMessageList(ListView):
 		return context
 
 	def get_queryset(self, queryset=None):
-		private_messages = PrivateMessage.objects.filter(
+		private_messages = PrivateMessage.objects\
+			.select_related('origin_user').filter(
 			Q(
 				target_user=self.request.user,
 				origin_user__username=self.kwargs['origin_user']
