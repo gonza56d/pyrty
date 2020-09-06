@@ -51,7 +51,11 @@ class ProfileUpdateView(UpdateView):
 	model = Profile
 	fields = ['first_name', 'last_name', 'birthday', 'bio']
 
-	def set_widgets(self, form):
+	def get_form(self, form_class=None):
+		"""Set widgets for form and initialy disable each field."""
+		
+		form = super(UpdateView, self).get_form(form_class)
+
 		form.fields['first_name'].widget = forms.TextInput(
 			attrs={'class': 'form-control', 'disabled': ''}
 		)
@@ -64,6 +68,7 @@ class ProfileUpdateView(UpdateView):
 		form.fields['bio'].widget = forms.Textarea(
 			attrs={'class': 'form-control', 'disabled': '', 'rows': '5'}
 		)
+		return form
 
 	def get_success_url(self):
 		return reverse('self_profile', args=[self.request.user])
@@ -83,5 +88,4 @@ class ProfileUpdateView(UpdateView):
 		context = super().get_context_data(**kwargs)
 		context['profile_posts'] = Post.objects.filter(user=self.object.user)[:10]
 		context['profile_comments'] = Comment.objects.filter(user=self.object.user)[:10]
-		self.set_widgets(context['form'])
 		return context
