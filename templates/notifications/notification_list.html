@@ -6,7 +6,7 @@
 
 <h3>Notifications</h3>
 <ul class="list-group">
-	{% for notification in object_list %}
+	{% for notification in page_obj %}
 		<li class="list-group-item inline">
 			<a href="{{ notification.url }}" class="list-group-item my-1 mx-1" style="color:white; {% if not notification.seen %} background-color:#ffc107; {% endif %}">
 			 	<b>{{ notification.created }}</b> - {{ notification.message }}
@@ -20,59 +20,35 @@
 	<ul class="pagination">
 
 		<!-- previous -->
+		{% if page_obj.has_previous %}
 		<li class="page-item ml-auto">
-			<a class="page-link" href="{% if offset < count %}{% url 'notifications' page|substract:1 %}{% else %}#{% endif %}" aria-label="Previous">
-				<span aria-hidden="true">&laquo;</span>
-				<span class="sr-only">Previous</span>
-			</a>
+			<a class="page-link" href="?page=1">&laquo;</a>
 		</li>
-
-		<!-- previous page -1 -->
-		{% if page > 2 %}
 		<li class="page-item">
-			<a class="page-link" href="{% url 'notifications' page|substract:2 %}">
-				{{ page|substract:2 }}
-			</a>
+			<a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+		</li>
+		{% else %}
+		<li class="page-item ml-auto">
+			<a class="page-link" href="#" disabled="">&laquo;</a>
 		</li>
 		{% endif %}
 
-		<!-- previous page -->
-		{% if page > 1 %}
-		<li class="page-item">
-			<a class="page-link" href="{% url 'notifications' page|substract:1 %}">
-				{{ page|substract:1 }}
-			</a>
+		<li class="page-item active">
+			<a class="page-link" disabled="">{{ page_obj.number }}</a>
 		</li>
-		{% endif %}
 
-		<!-- current page -->
-		<li class="page-item active"><a class="page-link" href="#">{{ page }}<span class="sr-only">(current)</span></a></li>
-		
-		<!-- next page -->
-		{% if count > offset %}
+		{% if page_obj.has_next %}
 		<li class="page-item">
-			<a class="page-link" href="{% url 'notifications' page|add:1 %}">
-				{{ page|add:1 }}
-			</a>
+			<a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a>
 		</li>
-		{% endif %}
-
-		<!-- next page + 1 -->
-		{% if count > next_offset %}
-		<li class="page-item">
-			<a class="page-link" href="{% url 'notifications' page|add:2 %}">
-				{{ page|add:2 }}
-			</a>
-		</li>
-		{% endif %}
-
-		<!-- next -->
 		<li class="page-item mr-auto">
-			<a class="page-link" href="{% if count > offset %}{% url 'notifications' page|add:1 %}{% else %}#{% endif %}" aria-label="Next">
-				<span aria-hidden="true">&raquo;</span>
-				<span class="sr-only">Next</span>
-			</a>
+			<a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">&raquo;</a>
 		</li>
+		{% else %}
+		<li class="page-item mr-auto">
+			<a class="page-link" href="#" disabled="">&raquo;</a>
+		</li>
+		{% endif %}
 
 	</ul>
 </nav>
