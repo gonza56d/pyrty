@@ -12,16 +12,17 @@
 				</button>
 			</div>
 			<div>
-				<b>First name:</b> {{ object.first_name }}
+				<b>First name:</b> <input value="{{ object.first_name }}" disabled="" class="form-control">
 			</div>
 			<div>
-				<b>Last name:</b> {{ object.last_name }}
+				<b>Last name:</b> <input value="{{ object.last_name }}" disabled="" class="form-control">
 			</div>
 			<div>
-				<b>Birthday:</b> {% if object.birthday is not None %}{{ object.birthday }}{% endif %}
+				<b>Birthday:</b> <input type="date" value="{% if object.birthday is not None %}{{ object.birthday }}{% endif %}" disabled="" class="form-control">
 			</div>
 			<div>
-				<b>Bio:</b> {{ object.bio }}
+				<b>Bio:</b>
+				<textarea rows="5" cols="40" class="form-control" disabled="">{{ object.bio }}</textarea>
 			</div>
 		</div>
 		<div class="col-6">
