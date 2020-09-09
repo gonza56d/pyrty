@@ -5,6 +5,7 @@
 
 # Django
 from django import forms
+from django.db.models import Prefetch
 from django.shortcuts import redirect
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView
@@ -12,8 +13,10 @@ from django.views.generic.edit import CreateView
 # Pyrty
 from comments.forms import CommentForm
 from comments.models import Comment
+from posts.forms import PostVoteForm
 from posts.models import Post
 from subforums.models import Subforum
+from users.models import User
 
 
 class PostDetailView(DetailView):
@@ -22,13 +25,17 @@ class PostDetailView(DetailView):
 	model = Post
 
 	def get_object(self, queryset=None):
-		"""Override to select related Subforum and forum"""
+		"""Override to select related Subforum, forum and user vote."""
 
-		return Post.objects.select_related('subforum__forum')\
-			.select_related('user').get(pk=self.kwargs.get(self.pk_url_kwarg))
+		user_queryset = User.objects.filter(username=self.request.user.username)
+		positive_vote_prefetch = Prefetch('positive_votes', queryset=user_queryset, to_attr='user_positive_vote')
+		negative_vote_prefetch = Prefetch('negative_votes', queryset=user_queryset, to_attr='user_negative_vote')
+
+		return Post.objects.select_related('subforum__forum').select_related('user')\
+			.prefetch_related(positive_vote_prefetch).prefetch_related(negative_vote_prefetch)\
+			.get(pk=self.kwargs.get(self.pk_url_kwarg))
 
 	def get_context_data(self, **kwargs):
-
 		context = super().get_context_data(**kwargs)
 		context['comments'] = Comment.objects.filter(post=self.object)
 		context['current_subforum'] = self.object.subforum
@@ -36,6 +43,8 @@ class PostDetailView(DetailView):
 		context['current_forum'] = self.object.subforum.forum
 		context['current_forum_url'] = self.object.subforum.forum.url_name
 		context['comment_form'] = CommentForm(context['object'])
+		context['positive_vote_form'] = PostVoteForm(post_id=self.object.id, positive=True)
+		context['negative_vote_form'] = PostVoteForm(post_id=self.object.id, positive=False)
 		return context
 
 
@@ -93,3 +102,27 @@ class CreatePostView(CreateView):
 			post.save()
 			return redirect('post', pk=post.id)
 		return super().post(request, *args, **kwargs)
+
+
+def submit_positive_vote(request):
+	"""Handle positive vote submit.
+
+	Create if not exists, delete if exists.
+	On create, delete negative vote of the same user and post if exists."""
+
+	if not request.user.is_authenticated:
+		return redirect('signup')
+
+	if request.method == 'POST':
+		form = PostVoteForm(post_id=request.POST['post'], data=request.POST)
+		if form.is_valid():
+			form.submit_vote(request.user)
+		return redirect('post', pk=request.POST['post'])
+
+
+def submit_negative_vote(request):
+	"""Handle negative vote submit.
+
+	Create if not exists, delete if exists.
+	On create, delete positive vote of the same user and post if exists."""
+	pass
