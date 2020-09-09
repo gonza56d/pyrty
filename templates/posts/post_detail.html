@@ -3,12 +3,8 @@
 {% block content %}
 
 <div class="row">
-	<div class="col-11">
-		<h2 class="mt-3">
-			<a href="{% url 'profile' object.user %}" style="color:#ffd343;">@{{ object.user }}</a>: {{ object.title }}
-		</h2>
-	</div>
-	<div class="col-1">
+	{% if request.user != object.user %}
+	<div class="col-1 text-right">
 		<form method="POST" class="my-1" enctype="application/x-www-form-urlencoded"
 			action="{% url 'submit_vote' %}">
 			{% csrf_token %}
@@ -16,7 +12,7 @@
 			<button type="submit" class="btn {% if not object.user_positive_vote %}btn-primary{% else %}btn-warning{% endif %}">
 				<i class="fas fa-plus"></i>
 			</button>
-		</form>
+		</form>{{ positive_vote_form.errors }}
 		<form method="POST" class="my-1" enctype="application/x-www-form-urlencoded"
 			action="{% url 'submit_vote' %}">
 			{% csrf_token %}
@@ -25,6 +21,17 @@
 				<i class="fas fa-minus"></i>
 			</button>
 		</form>
+	</div>
+	{% endif %}
+	<div class="col-1">
+		<div class="alert {% if object.score > 0 %}alert-success{% elif object.score < 0 %}alert-danger{% else %}alert-secondary{% endif %} text-center mt-3" role="alert">
+			<span>{{ object.score }}</span>
+		</div>
+	</div>
+	<div class="{% if request.user != object.user %}col-10{% else %}col-11{% endif %}">
+		<h2 class="mt-3">
+			<a href="{% url 'profile' object.user %}" style="color:#ffd343;">@{{ object.user }}</a>: {{ object.title }}
+		</h2>
 	</div>
 </div>
 

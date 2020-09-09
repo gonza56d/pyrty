@@ -11,8 +11,22 @@
 <ul class="list-group">
 {% for post in object_list %}
 	<li class="list-group-item inline">
-		<a href="{% url 'post' post.id %}" style="color: white;"><h3>{{ post }}</h3></a>
-		by <a href="{% url 'profile' post.user %}">@{{ post.user }}</a>
+		<div class="row">
+			<div class="col-10">
+				<a href="{% url 'post' post.id %}" style="color: white;"><h3>{{ post }}</h3></a>
+			</div>
+			<div class="col-2">
+				Score: {{ post.score }}
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-10">
+				by <a href="{% url 'profile' post.user %}">@{{ post.user }}</a>
+			</div>
+			<div class="col-2">
+				Comments: {{ post.comments }}
+			</div>
+		</div>
 	</li>	
 {% endfor %}
 </ul>

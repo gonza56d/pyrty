@@ -1,10 +1,11 @@
 """Post positive and negative votes forms."""
 
 # Python
-import pdb
+# import pdb
 
 # Django
 from django import forms
+from django.core.exceptions import ValidationError
 from django.db.models import Prefetch
 
 # Pyrty
@@ -15,7 +16,11 @@ from users.models import User
 class PostVoteForm(forms.Form):
     """Form for post vote submit."""
 
-    def __init__(self, post_id=None, positive=None, *args, **kwargs):
+    post = forms.ModelChoiceField(queryset=Post.objects.all())
+    positive = forms.BooleanField()
+    user = None
+
+    def __init__(self, post_id=None, positive=None, user=None, *args, **kwargs):
         """Init with post's id to vote, and positive=True/False for voting value."""
 
         super(PostVoteForm, self).__init__(*args, **kwargs)
@@ -29,9 +34,13 @@ class PostVoteForm(forms.Form):
             initial=positive,
             required=False
         )
+        self.user = user
 
-    post = forms.ModelChoiceField(queryset=Post.objects.all())
-    positive = forms.BooleanField()
+    def clean(self):
+        cd = self.cleaned_data
+        post = cd.get('post')
+        if post.user == self.user:
+            raise ValidationError("Voting your own post is not allowed")
 
     def submit_vote(self, user):
         """Handle user vote request

@@ -114,7 +114,9 @@ def submit_vote(request):
 		return redirect('signup')
 
 	if request.method == 'POST':
-		form = PostVoteForm(post_id=request.POST['post'], data=request.POST)
+		form = PostVoteForm(
+			post_id=request.POST['post'], data=request.POST, user=request.user
+		)
 		if form.is_valid():
 			form.submit_vote(request.user)
 		return redirect('post', pk=request.POST['post'])

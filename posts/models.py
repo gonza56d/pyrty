@@ -1,9 +1,13 @@
 """Posts model definition."""
 
+# Python
+# import pdb
+
 # Django
 from django.db import models
 
 # Pyrty
+from comments.models import Comment
 from utils.models import PyrtyModel
 
 
@@ -31,7 +35,19 @@ class Post(PyrtyModel):
 	positive_votes = models.ManyToManyField('users.User', related_name='positive_vote_set')
 	negative_votes = models.ManyToManyField('users.User', related_name='negative_vote_set')
 
-	answers = 0
+	comments = 0
+	score = 0
+
+	def __init__(self, *args, **kwargs):
+		# init with the ammount of comments and score (positive votes - negative votes)
+		# if the post is persisted
+		super(Post, self).__init__(*args, **kwargs)
+		if self.id is not None:
+			self.comments = Comment.objects.filter(post=self).count()
+			self.score = (
+				self.positive_votes.all().count() -
+				self.negative_votes.all().count()
+			)
 
 	def __str__(self):
 		"""Return post's title and autor."""
