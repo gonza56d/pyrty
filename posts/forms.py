@@ -63,7 +63,7 @@ class PostVoteForm(forms.Form):
             # positive vote create request and existing negative vote
             existing.negative_votes.remove(user)
 
-        # create correspondent vote after deletion check
+        # create correspondent vote after contrary vote deletion check
         if positive:
             existing.positive_votes.add(user)
         elif not positive:
