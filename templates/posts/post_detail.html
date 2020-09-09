@@ -10,18 +10,18 @@
 	</div>
 	<div class="col-1">
 		<form method="POST" class="my-1" enctype="application/x-www-form-urlencoded"
-			action="{% url 'submit_positive_vote' %}">
+			action="{% url 'submit_vote' %}">
 			{% csrf_token %}
 			<span style="display:none;">{{ positive_vote_form }}</span>
-			<button class="btn {% if not object.user_positive_vote %}btn-primary{% else %}btn-warning{% endif %}">
+			<button type="submit" class="btn {% if not object.user_positive_vote %}btn-primary{% else %}btn-warning{% endif %}">
 				<i class="fas fa-plus"></i>
 			</button>
 		</form>
 		<form method="POST" class="my-1" enctype="application/x-www-form-urlencoded"
-			action="{% url 'submit_negative_vote' %}">
+			action="{% url 'submit_vote' %}">
 			{% csrf_token %}
 			<span style="display:none;">{{ negative_vote_form }}</span>
-			<button class="btn {% if not object.user_negative_vote %}btn-primary{% else %}btn-warning{% endif %}">
+			<button type="submit" class="btn {% if not object.user_negative_vote %}btn-primary{% else %}btn-warning{% endif %}">
 				<i class="fas fa-minus"></i>
 			</button>
 		</form>

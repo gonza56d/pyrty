@@ -104,11 +104,11 @@ class CreatePostView(CreateView):
 		return super().post(request, *args, **kwargs)
 
 
-def submit_positive_vote(request):
-	"""Handle positive vote submit.
+def submit_vote(request):
+	"""Handle vote submit.
 
 	Create if not exists, delete if exists.
-	On create, delete negative vote of the same user and post if exists."""
+	On create, delete contrary vote of the same user and post if exists."""
 
 	if not request.user.is_authenticated:
 		return redirect('signup')
@@ -118,11 +118,3 @@ def submit_positive_vote(request):
 		if form.is_valid():
 			form.submit_vote(request.user)
 		return redirect('post', pk=request.POST['post'])
-
-
-def submit_negative_vote(request):
-	"""Handle negative vote submit.
-
-	Create if not exists, delete if exists.
-	On create, delete positive vote of the same user and post if exists."""
-	pass

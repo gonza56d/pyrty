@@ -9,6 +9,7 @@ from django.db.models import Prefetch
 
 # Pyrty
 from posts.models import Post
+from users.models import User
 
 
 class PostVoteForm(forms.Form):
@@ -26,31 +27,44 @@ class PostVoteForm(forms.Form):
         )
         self.fields['positive'] = forms.BooleanField(
             initial=positive,
-            required=True
+            required=False
         )
 
     post = forms.ModelChoiceField(queryset=Post.objects.all())
     positive = forms.BooleanField()
 
     def submit_vote(self, user):
-        post, positive = self.cleaned_data.get('post'), self.cleaned_data.get('positive')
-        user_queryset = User.objects.filter(username=self.request.user.username)
+        """Handle user vote request
 
+        Vote can be either positive or negative.
+        If a vote of the same type (negative/positive) already exists for this post
+        and user, delete and exit function.
+        If a vote of the contrary type already exists for this post and user,
+        delete the contrary vote and create the submit type.
+        """
+
+        post, positive = self.cleaned_data.get('post'), self.cleaned_data.get('positive')
+        user_queryset = User.objects.filter(username=user.username)
         prefetch_positive = Prefetch('positive_votes', queryset=user_queryset, to_attr='user_positive_vote')
         prefetch_negative = Prefetch('negative_votes', queryset=user_queryset, to_attr='user_negative_vote')
-
         existing = Post.objects.prefetch_related(prefetch_positive).prefetch_related(prefetch_negative).get(pk=post.id)
 
-        if positive and positive_vote.delete():
-            return
+        if positive and len(existing.user_positive_vote) > 0:
+            # positive vote delete request
+            return existing.positive_votes.remove(user)
+        elif not positive and len(existing.user_positive_vote) > 0:
+            # negative vote create request and existing positive vote
+            existing.positive_votes.remove(user)
 
-        
-        negative_vote = Post.objects.prefetch_related(prefetch_negative).user_negative_vote
+        if not positive and len(existing.user_negative_vote) > 0:
+            # negative vote delete request
+            return existing.negative_votes.remove(user)
+        elif positive and len(existing.user_negative_vote) > 0:
+            # positive vote create request and existing negative vote
+            existing.negative_votes.remove(user)
 
-        if not positive and negative_vote.delete():
-            return
-        
-        positive_vote.delete()
-        negative_vote.delete()#TODO
-
-
+        # create correspondent vote after deletion check
+        if positive:
+            existing.positive_votes.add(user)
+        elif not positive:
+            existing.negative_votes.add(user)
