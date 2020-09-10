@@ -32,5 +32,6 @@ class Subforum(PyrtyModel):
 		"""Return subforum name."""
 		return self.name
 
-	class Meta:
+	class Meta(PyrtyModel.Meta):
+		ordering = ['created', 'modified']
 		unique_together = ['forum', 'name']

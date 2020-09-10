@@ -12,19 +12,29 @@
 {% for post in object_list %}
 	<li class="list-group-item inline">
 		<div class="row">
-			<div class="col-10">
-				<a href="{% url 'post' post.id %}" style="color: white;"><h3>{{ post }}</h3></a>
+			<div class="col-10 my-auto">
+				<div class="row">
+					<div class="col-12">
+						<a href="{% url 'post' post.id %}" style="color: white;"><h3>{{ post }}</h3></a>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-12">
+						<b>by <a href="{% url 'profile' post.user %}">@{{ post.user }}</a>, {{ post.created }}</b>
+					</div>
+				</div>
 			</div>
-			<div class="col-2">
-				Score: {{ post.score }}
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-10">
-				by <a href="{% url 'profile' post.user %}">@{{ post.user }}</a>
-			</div>
-			<div class="col-2">
-				Comments: {{ post.comments }}
+			<div class="col-2 my-auto">
+				<div class="row">
+					<div class="col-12">
+						Score: {{ post.score }}
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-12">
+						Comments: {{ post.comments }}
+					</div>
+				</div>
 			</div>
 		</div>
 	</li>	
