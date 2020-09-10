@@ -3,36 +3,36 @@
 {% block content %}
 
 <div class="row">
+	<div class="{% if request.user != object.user %}col-10{% else %}col-11{% endif %}">
+		<h2 class="mt-3">
+			<a href="{% url 'profile' object.user %}" style="color:#ffd343;">@{{ object.user }}</a>: {{ object.title }}
+		</h2>
+	</div>
+	<div class="col-1">
+		<div class="alert {% if object.score > 0 %}alert-success{% elif object.score < 0 %}alert-danger{% else %}alert-secondary{% endif %} text-center mt-3" role="alert">
+			<span>{{ object.score }}</span>
+		</div>
+	</div>
 	{% if request.user != object.user %}
 	<div class="col-1 text-right">
 		<form method="POST" class="my-1" enctype="application/x-www-form-urlencoded"
-			action="{% url 'submit_vote' %}">
+			action="{% url 'submit_post_vote' %}">
 			{% csrf_token %}
-			<span style="display:none;">{{ positive_vote_form }}</span>
+			<span style="display:none;">{{ positive_post_vote_form }}</span>
 			<button type="submit" class="btn {% if not object.user_positive_vote %}btn-primary{% else %}btn-warning{% endif %}">
 				<i class="fas fa-plus"></i>
 			</button>
-		</form>{{ positive_vote_form.errors }}
+		</form>
 		<form method="POST" class="my-1" enctype="application/x-www-form-urlencoded"
-			action="{% url 'submit_vote' %}">
+			action="{% url 'submit_post_vote' %}">
 			{% csrf_token %}
-			<span style="display:none;">{{ negative_vote_form }}</span>
+			<span style="display:none;">{{ negative_post_vote_form }}</span>
 			<button type="submit" class="btn {% if not object.user_negative_vote %}btn-primary{% else %}btn-warning{% endif %}">
 				<i class="fas fa-minus"></i>
 			</button>
 		</form>
 	</div>
 	{% endif %}
-	<div class="col-1">
-		<div class="alert {% if object.score > 0 %}alert-success{% elif object.score < 0 %}alert-danger{% else %}alert-secondary{% endif %} text-center mt-3" role="alert">
-			<span>{{ object.score }}</span>
-		</div>
-	</div>
-	<div class="{% if request.user != object.user %}col-10{% else %}col-11{% endif %}">
-		<h2 class="mt-3">
-			<a href="{% url 'profile' object.user %}" style="color:#ffd343;">@{{ object.user }}</a>: {{ object.title }}
-		</h2>
-	</div>
 </div>
 
 <hr style="color:white;">
@@ -45,17 +45,58 @@
 	{% for comment in comments %}
 		<li class="list-group-item my-3">
 			<div class="form-inline">
-				<div class="text-left">
-					<a href="{% url 'profile' comment.user %}" style="color:#ffd343;">@{{ comment.user }}</a>:
+				<div class="text-left col-10">
+					<div class="row">
+						<div class="col-12">
+							<b>
+								<a href="{% url 'profile' comment.user %}" style="color:#ffd343;">@{{ comment.user }}</a>, {{ comment.created }}:
+							</b>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-12">
+							<p>{{ comment.content }}<p>
+						</div>
+					</div>
 				</div>
-				<div class="ml-auto">
-					{{ comment.created }}
-					{% if comment.user == request.user %}
+				<div class="ml-auto col-1">
+					<div class="alert {% if comment.score > 0 %}alert-success{% elif comment.score < 0 %}alert-danger{% else %}alert-secondary{% endif %} text-center mt-3" role="alert">
+						{{ comment.score }}
+					</div>
+				</div>
+				<div class="col-1 my-auto">
+					{% if comment.user == request.user %}<!-- delete button if user is comment.user -->
 					<button id="delete_comment_{{ comment.id }}" class="btn btn-danger delete_comment" type="button"><i class="fas fa-trash"></i></button>
+					
+					{% else %} <!-- vote buttons if user is not comment user -->
+					
+					<form method="POST" class="my-1" enctype="application/x-www-form-urlencoded"
+						action="{% url 'submit_comment_vote' %}">
+						{% csrf_token %}
+						<span style="display:none;">
+							<input type="number" value="{{ object.id }}" required name="post_id" style="display:none;">
+							<input type="number" value="{{ comment.id }}" required name="comment_id" style="display:none;">
+							{{ positive_comment_vote_form }}
+						</span>
+						<button type="submit" class="btn {% if not comment.user_positive_vote %}btn-primary{% else %}btn-warning{% endif %}">
+							<i class="fas fa-plus"></i>
+						</button>
+					</form>
+					<form method="POST" class="my-1" enctype="application/x-www-form-urlencoded"
+						action="{% url 'submit_comment_vote' %}">
+						{% csrf_token %}
+						<span style="display:none;">
+							<input type="number" value="{{ object.id }}" required name="post_id" style="display:none;">
+							<input type="number" value="{{ comment.id }}" required name="comment_id" style="display:none;">
+							{{ negative_comment_vote_form }}
+						</span>
+						<button type="submit" class="btn {% if not comment.user_negative_vote %}btn-primary{% else %}btn-warning{% endif %}">
+							<i class="fas fa-minus"></i>
+						</button>
+					</form>
 					{% endif %}
 				</div>
 			</div>
-			<p>{{ comment.content }}<p>
 		</li>
 	{% endfor %}
 	</ul>

@@ -1,7 +1,7 @@
 """Comment views."""
 
 # Python
-# import pdb
+import pdb
 
 # Django
 from django.core.exceptions import ObjectDoesNotExist
@@ -11,7 +11,7 @@ from django.shortcuts import redirect
 from django.urls import reverse
 
 # Pyrty
-from comments.forms import CommentForm
+from comments.forms import CommentForm, CommentVoteForm
 from comments.models import Comment
 from notifications.models import Notification
 from users.models import User
@@ -55,3 +55,16 @@ def create_notification(request, form):
 		notification.message = "{} commented in your post: '{}'".format(request.user, post.title)
 		notification.url = reverse('post', args=[post.id])
 		notification.save()
+
+
+def submit_vote(request):
+	"""Receive and validate vote request."""
+
+	if not request.user.is_authenticated:
+		return redirect('signup')
+
+	if request.method == 'POST':
+		form = CommentVoteForm(comment_id=request.POST['comment_id'], data=request.POST, user=request.user)
+		if form.is_valid():
+			form.submit_vote(request.user)
+		return redirect('post', pk=request.POST['post_id'])

@@ -32,8 +32,8 @@ class Post(PyrtyModel):
 		blank=False
 	)
 
-	positive_votes = models.ManyToManyField('users.User', related_name='positive_vote_set')
-	negative_votes = models.ManyToManyField('users.User', related_name='negative_vote_set')
+	positive_votes = models.ManyToManyField('users.User', related_name='p_positive_vote_set')
+	negative_votes = models.ManyToManyField('users.User', related_name='p_negative_vote_set')
 
 	comments = 0
 	score = 0

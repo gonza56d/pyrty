@@ -11,6 +11,7 @@ from django.db.models import Prefetch
 # Pyrty
 from posts.models import Post
 from users.models import User
+from utils import vote_manager
 
 
 class PostVoteForm(forms.Form):
@@ -43,37 +44,14 @@ class PostVoteForm(forms.Form):
             raise ValidationError("Voting your own post is not allowed")
 
     def submit_vote(self, user):
-        """Handle user vote request
+        """Submit user vote for a post."""
 
-        Vote can be either positive or negative.
-        If a vote of the same type (negative/positive) already exists for this post
-        and user, delete and exit function.
-        If a vote of the contrary type already exists for this post and user,
-        delete the contrary vote and create the submit type.
-        """
-
+        # get variables
         post, positive = self.cleaned_data.get('post'), self.cleaned_data.get('positive')
         user_queryset = User.objects.filter(username=user.username)
         prefetch_positive = Prefetch('positive_votes', queryset=user_queryset, to_attr='user_positive_vote')
         prefetch_negative = Prefetch('negative_votes', queryset=user_queryset, to_attr='user_negative_vote')
-        existing = Post.objects.prefetch_related(prefetch_positive).prefetch_related(prefetch_negative).get(pk=post.id)
+        instance = Post.objects.prefetch_related(prefetch_positive).prefetch_related(prefetch_negative).get(pk=post.id)
 
-        if positive and len(existing.user_positive_vote) > 0:
-            # positive vote delete request
-            return existing.positive_votes.remove(user)
-        elif not positive and len(existing.user_positive_vote) > 0:
-            # negative vote create request and existing positive vote
-            existing.positive_votes.remove(user)
-
-        if not positive and len(existing.user_negative_vote) > 0:
-            # negative vote delete request
-            return existing.negative_votes.remove(user)
-        elif positive and len(existing.user_negative_vote) > 0:
-            # positive vote create request and existing negative vote
-            existing.negative_votes.remove(user)
-
-        # create correspondent vote after contrary vote deletion check
-        if positive:
-            existing.positive_votes.add(user)
-        elif not positive:
-            existing.negative_votes.add(user)
+        # vote submit
+        vote_manager.handle(positive, instance, user)
