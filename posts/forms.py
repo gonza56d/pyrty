@@ -1,7 +1,7 @@
 """Post positive and negative votes forms."""
 
 # Python
-# import pdb
+import pdb
 
 # Django
 from django import forms
@@ -22,7 +22,9 @@ class PostVoteForm(forms.Form):
     user = None
 
     def __init__(self, post_id=None, positive=None, user=None, *args, **kwargs):
-        """Init with post's id to vote, and positive=True/False for voting value."""
+        """
+        Init with post's id to vote, and positive=True/False for voting value.
+        """
 
         super(PostVoteForm, self).__init__(*args, **kwargs)
 
@@ -47,11 +49,19 @@ class PostVoteForm(forms.Form):
         """Submit user vote for a post."""
 
         # get variables
-        post, positive = self.cleaned_data.get('post'), self.cleaned_data.get('positive')
+        cd = self.cleaned_data
+        post, positive = cd.get('post'), cd.get('positive')
+
         user_queryset = User.objects.filter(username=user.username)
-        prefetch_positive = Prefetch('positive_votes', queryset=user_queryset, to_attr='user_positive_vote')
-        prefetch_negative = Prefetch('negative_votes', queryset=user_queryset, to_attr='user_negative_vote')
-        instance = Post.objects.prefetch_related(prefetch_positive).prefetch_related(prefetch_negative).get(pk=post.id)
+
+        prefetch_positive = Prefetch('positive_votes', queryset=user_queryset, 
+            to_attr='user_positive_vote')
+
+        prefetch_negative = Prefetch('negative_votes', queryset=user_queryset, 
+            to_attr='user_negative_vote')
+
+        instance = Post.objects.prefetch_related(prefetch_positive)\
+            .prefetch_related(prefetch_negative).get(pk=post.id)
 
         # vote submit
         vote_manager.handle(positive, instance, user)

@@ -3,7 +3,7 @@
 {% block content %}
 
 <div class="row">
-	<div class="{% if request.user != object.user %}col-10{% else %}col-11{% endif %}">
+	<div class="col-10">
 		<h2 class="mt-3">
 			<a href="{% url 'profile' object.user %}" style="color:#ffd343;">@{{ object.user }}</a>: {{ object.title }}
 		</h2>
@@ -13,8 +13,9 @@
 			<span>{{ object.score }}</span>
 		</div>
 	</div>
-	{% if request.user != object.user %}
-	<div class="col-1 text-right">
+	<div class="col-1 text-right my-auto">
+		{% if request.user != object.user %}
+		<!-- voting panel -->
 		<form method="POST" class="my-1" enctype="application/x-www-form-urlencoded"
 			action="{% url 'submit_post_vote' %}">
 			{% csrf_token %}
@@ -31,8 +32,15 @@
 				<i class="fas fa-minus"></i>
 			</button>
 		</form>
+		{% else %}
+		<!-- delete panel -->
+		<form method="POST" class="my-1" enctype="application/x-www-form-urlencoded" action="{% url 'delete_post' %}">
+			{% csrf_token %}
+			<input type="number" value="{{ object.id }}" required name="delete_post_id" style="display:none;">
+			<button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
+		</form>
+		{% endif %}
 	</div>
-	{% endif %}
 </div>
 
 <hr style="color:white;">

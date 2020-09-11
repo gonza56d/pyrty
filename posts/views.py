@@ -1,10 +1,12 @@
 """Post views."""
 
 # Python
-# import pdb
+import pdb
 
 # Django
 from django import forms
+from django.contrib.auth.decorators import login_required
+from django.core.exceptions import ValidationError
 from django.db.models import Prefetch
 from django.shortcuts import redirect
 from django.views.generic.detail import DetailView
@@ -37,8 +39,9 @@ class PostDetailView(DetailView):
 		self.negative_vote_prefetch = Prefetch(
 			'negative_votes', queryset=self.user_queryset, to_attr='user_negative_vote'
 		)
-		return Post.objects.select_related('subforum__forum').select_related('user')\
-			.prefetch_related(self.positive_vote_prefetch).prefetch_related(self.negative_vote_prefetch)\
+		return Post.objects.select_related('subforum__forum')\
+			.select_related('user').prefetch_related(self.positive_vote_prefetch)\
+			.prefetch_related(self.negative_vote_prefetch)\
 			.get(pk=self.kwargs.get(self.pk_url_kwarg))
 
 	def get_context_data(self, **kwargs):
@@ -76,7 +79,10 @@ class CreatePostView(CreateView):
 		return context
 
 	def get_form(self, form_class=None):
-		"""Init form by hiding subforum option and leaving current subforum as the only choice."""
+		"""
+		Init form by hiding subforum option and leaving current subforum 
+		as the only choice.
+		"""
 
 		form = super(CreatePostView, self).get_form(form_class)
 
@@ -84,7 +90,9 @@ class CreatePostView(CreateView):
 			queryset=Subforum.objects.filter(pk=self.subforum.id),
 			empty_label=None,
 			label = '',
-			widget = forms.Select(attrs={'class': 'form-control', 'style': 'display:none;'})
+			widget = forms.Select(
+				attrs={'class': 'form-control', 'style': 'display:none;'}
+			)
 		)
 		form.fields['title'].widget = forms.TextInput(
 			attrs={'class': 'form-control my-2', 'placeholder': 'Title'}
@@ -115,11 +123,23 @@ class CreatePostView(CreateView):
 		return super().post(request, *args, **kwargs)
 
 
+@login_required
+def delete_post(request):
+	"""Post delete request."""
+
+	if request.method == 'POST':
+		post = Post.objects.get(id=request.POST['delete_post_id'])
+		
+		if post.user == request.user:
+			post.delete()
+			return redirect('forums')
+		else:
+			raise ValidationError("Deletion of other users' posts is not allowed")
+
+
+@login_required
 def submit_vote(request):
 	"""Receive and validate vote request."""
-
-	if not request.user.is_authenticated:
-		return redirect('signup')
 
 	if request.method == 'POST':
 		form = PostVoteForm(
