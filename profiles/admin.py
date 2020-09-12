@@ -11,7 +11,6 @@ from profiles.models import Profile
 class ProfileAdmin(admin.ModelAdmin):
 	"""Profile model admin."""
 
-	list_display = ('user', 'is_moderator', 'posts', 'comments', 'reputation',
-		'created', 'modified')
+	list_display = ('user', 'is_moderator', 'reputation', 'created', 'modified')
 	search_fields = ('user__username', 'user__email', 'user__first_name', 'user__last_name')
 	list_filter = ('reputation', 'is_moderator', 'created', 'modified')

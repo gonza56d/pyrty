@@ -64,21 +64,13 @@ class Profile(PyrtyModel):
 	is_moderator = models.BooleanField(default=False)
 
 	# Stats
-	posts = models.PositiveIntegerField(
-		'posts made',
-		default=0
-	)
-	comments = models.PositiveIntegerField(
-		'comments made',
-		default=0
-	)
 	reputation = models.PositiveIntegerField(
 		'user reputation',
 		default=0,
-		help_text='Score obtained from comments and votes received.'
+		help_text='Score obtained from posts and comments made, and votes received.'
 	)
 
-	def get_rank_by_reputation(self):
+	def get_rank(self):
 		"""Return rank name based on reputation score."""
 		if self.reputation < 100:
 			return "Initiate"
