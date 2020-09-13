@@ -1,5 +1,7 @@
 {% extends 'main.html' %}
 
+{% load i18n %}
+
 {% block content %}
 
 <div class="breadcrumb">
@@ -17,7 +19,7 @@
                     <i class="fa fa-check"></i>
                 </button>
             </div>
-            Rank: {{ object.get_rank }} - Reputation: {{ object.reputation }}
+            {% translate 'Rank' %}: {{ object.get_rank }} - {% translate 'Reputation' %}: {{ object.reputation }}
             <hr/>
             {{ form }}
         </form>
@@ -25,7 +27,7 @@
         <div class="col-6">
 
             <!-- display profile's last 10 posts -->
-            <h3 class="col-12">Your last posts:</h3>
+            <h3 class="col-12">{% translate 'Your last posts' %}:</h3>
             <ul class="list-group">
                 {% for post in profile_posts %}
                 <span class="col-12">
@@ -35,11 +37,11 @@
                 {% endfor %}
             </ul>
             {% if not profile_posts %}
-            <span class="col-12">You have not posted anything yet.</span>
+            <span class="col-12">{% translate 'You have not posted anything yet.' %}</span>
             {% endif %}
             <hr/>
             <!-- display profile's last 10 comments -->
-            <h3 class="col-12">Your last comments:</h3>
+            <h3 class="col-12">{% translate 'Your last comments' %}:</h3>
             <ul class="list-group">
                 {% for comment in profile_comments %}
                 <span class="col-12">
@@ -50,7 +52,7 @@
                 {% endfor %}
             </ul>
             {% if not profile_comments %}
-            <span class="col-12">You have not commented on any post yet.</span>
+            <span class="col-12">{% translate 'You have not commented on any post yet.' %}</span>
             {% endif %}
 
         </div>

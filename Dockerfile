@@ -8,6 +8,8 @@ RUN apk update \
 	&& apk add postgresql-dev \
 	# Pillow dependencies
 	&& apk add jpeg-dev zlib-dev freetype-dev lcms2-dev openjpeg-dev tiff-dev tk-dev tcl-dev \
+	# Translation dependencies
+	&& apk add gettext \
 	# CFFI dependencies
 	&& apk add libffi-dev py-cffi \
 	&& apk add --no-cache openssl-dev libffi-dev \

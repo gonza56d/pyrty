@@ -8,11 +8,14 @@ from django.urls import path, include
 from pyrty.views import ForumList
 from utils.dbinjector.db_injector import DBInjector
 
+
 urlpatterns = [
 	# Django Admin
     path('admin/', admin.site.urls),
     # Pyrty
     path('', ForumList.as_view(), name='forums'),
+    # Translation
+    path('i18n/', include('django.conf.urls.i18n')),
     # Comments
     path('comments/', include('comments.urls')),
     # Forums

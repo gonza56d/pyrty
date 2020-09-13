@@ -1,5 +1,7 @@
 {% extends 'main.html' %}
 
+{% load i18n %}
+
 {% load math %}
 
 {% block content %}
@@ -25,7 +27,7 @@
 			<a class="page-link" href="?page=1">&laquo;</a>
 		</li>
 		<li class="page-item">
-			<a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+			<a class="page-link" href="?page={{ page_obj.previous_page_number }}">{% translate 'Previous' %}</a>
 		</li>
 		{% else %}
 		<li class="page-item ml-auto">
@@ -39,7 +41,7 @@
 
 		{% if page_obj.has_next %}
 		<li class="page-item">
-			<a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a>
+			<a class="page-link" href="?page={{ page_obj.next_page_number }}">{% translate 'Next' %}</a>
 		</li>
 		<li class="page-item mr-auto">
 			<a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">&raquo;</a>

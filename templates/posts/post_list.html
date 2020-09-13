@@ -1,11 +1,13 @@
 {% extends 'main.html' %}
 
+{% load i18n %}
+
 {% block content %}
 
 <div class="row col-12 mb-3">
-	<h2>{{ current_subforum }} Posts</h2> 
+	<h2>{{ current_subforum }} {% translate 'Posts' %}</h2> 
 	<form class="ml-auto" method="GET" action="{% url 'create_post' current_subforum.id %}">
-		<button class="btn btn-info">New Post</button>
+		<button class="btn btn-info">{% translate 'New Post' %}</button>
 	</form>
 </div>
 <ul class="list-group">
@@ -20,19 +22,19 @@
 				</div>
 				<div class="row">
 					<div class="col-12">
-						<b>by <a href="{% url 'profile' post.user %}">@{{ post.user }}</a>, {{ post.created }}</b>
+						<b>{% translate 'by' %} <a href="{% url 'profile' post.user %}">@{{ post.user }}</a>, {{ post.created }}</b>
 					</div>
 				</div>
 			</div>
 			<div class="col-2 my-auto">
 				<div class="row">
 					<div class="col-12">
-						Score: {{ post.score }}
+						{% translate 'Score' %}: {{ post.score }}
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-12">
-						Comments: {{ post.comments }}
+						{% translate 'Comments' %}: {{ post.comments }}
 					</div>
 				</div>
 			</div>

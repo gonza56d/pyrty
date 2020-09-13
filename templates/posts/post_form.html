@@ -1,11 +1,13 @@
 {% extends 'main.html' %}
 
+{% load i18n %}
+
 {% block content %}
 
 <form method="POST" enctype="application/x-www-form-urlencoded" action="{% url 'create_post' subforum.id %}">{% csrf_token %}
 	{{ form }}
 	<div class="text-right">
-		<button class="btn btn-info my-2">Post</button>
+		<button class="btn btn-info my-2">{% translate 'Post' %}</button>
 	</div>
 </form>
 

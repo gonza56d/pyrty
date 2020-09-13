@@ -1,8 +1,10 @@
 {% extends 'main.html' %}
 
+{% load i18n %}
+
 {% block content %}
 
-<h2>Main Forums</h2>
+<h2>{% translate 'Main Forums' %}</h2>
 <ul class="list-group">
 {% for forum in object_list %}
 	<li class="list-group-item"><a href="{% url 'forum' forum.url_name %}" style="color: white;"><h3>{{ forum }}</h3></a></li>	

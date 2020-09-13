@@ -1,18 +1,20 @@
 {% extends 'main.html' %}
 
+{% load i18n %}
+
 {% block content %}
 
 <form class="breadcrumb" method="POST" enctype="application/x-www-form-urlencoded">{% csrf_token %}
-{% for field in form %}
-<div class="row col-12">
-<span class="my-1 col-6 mx-auto">{{ field }}</span>
-</div>
-{% endfor %}
-<div class="row col-12">
-	<span class="my-1 col-6 mx-auto">
-	<button class="btn btn-info col-12">Sign up! <i class="fa fa-rocket"></i></button>
-	</span>
-</div>
+	{% for field in form %}
+	<div class="row col-12">
+		<span class="my-1 col-6 mx-auto">{{ field }}</span>
+	</div>
+	{% endfor %}
+	<div class="row col-12">
+		<span class="my-1 col-6 mx-auto">
+			<button class="btn btn-info col-12">{% translate 'Sign up!' %} <i class="fa fa-rocket"></i></button>
+		</span>
+	</div>
 </form>
 
 {% endblock %}
