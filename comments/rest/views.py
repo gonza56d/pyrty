@@ -14,6 +14,7 @@ from rest_framework.response import Response
 # Pyrty
 from comments.models import Comment
 from comments.rest.serializers import CommentSerializer
+from profiles.utils import run_reputation_update
 
 
 class CommentViewSet(viewsets.ModelViewSet):
@@ -38,6 +39,7 @@ class CommentViewSet(viewsets.ModelViewSet):
 		if instance.user != request.user:
 			raise ValidationError('Comment does not belong to the authenticated user.')
 		self.perform_destroy(instance)
+		run_reputation_update(request.user)
 		return Response(status=status.HTTP_204_NO_CONTENT)
 
 	def retrieve(self, request, pk=None):

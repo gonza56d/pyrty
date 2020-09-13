@@ -14,6 +14,7 @@ from django.urls import reverse
 from comments.forms import CommentForm, CommentVoteForm
 from comments.models import Comment
 from notifications.models import Notification
+from profiles.utils import run_reputation_update
 from users.models import User
 
 
@@ -27,6 +28,7 @@ def create_comment(request):
 				comment.user = request.user
 				form.save()
 				create_notification(request, form)
+				run_reputation_update(request.user)
 		return redirect('post', pk=request.POST['post'])
 
 
@@ -36,6 +38,7 @@ def delete_comment(request):
 		try :
 			comment = Comment.objects.get(id=request.POST.get('id'), user=request.user)
 			comment.delete()
+			run_reputation_update(request.user)
 			return JsonResponse({'status': 200, 'message': 'Comment deleted'})
 		except ObjectDoesNotExist:
 			return JsonResponse({'status': 404, 'message': 'Comment not found'})

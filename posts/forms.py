@@ -10,6 +10,7 @@ from django.db.models import Prefetch
 
 # Pyrty
 from posts.models import Post
+from profiles.utils import run_reputation_update
 from users.models import User
 from utils import vote_manager
 
@@ -61,7 +62,10 @@ class PostVoteForm(forms.Form):
             to_attr='user_negative_vote')
 
         instance = Post.objects.prefetch_related(prefetch_positive)\
-            .prefetch_related(prefetch_negative).get(pk=post.id)
+            .prefetch_related(prefetch_negative).select_related('user').get(pk=post.id)
 
         # vote submit
         vote_manager.handle(positive, instance, user)
+
+        # profile score update
+        run_reputation_update(instance.user)

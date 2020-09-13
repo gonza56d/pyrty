@@ -1,7 +1,7 @@
 """Post views."""
 
 # Python
-import pdb
+# import pdb
 
 # Django
 from django import forms
@@ -17,6 +17,7 @@ from comments.forms import CommentForm, CommentVoteForm
 from comments.models import Comment
 from posts.forms import PostVoteForm
 from posts.models import Post
+from profiles.utils import run_reputation_update
 from subforums.models import Subforum
 from users.models import User
 
@@ -119,6 +120,7 @@ class CreatePostView(CreateView):
 			post = form.save(commit=False)
 			post.user = request.user
 			post.save()
+			run_reputation_update(request.user)
 			return redirect('post', pk=post.id)
 		return super().post(request, *args, **kwargs)
 
@@ -132,6 +134,7 @@ def delete_post(request):
 		
 		if post.user == request.user:
 			post.delete()
+			run_reputation_update(request.user)
 			return redirect('forums')
 		else:
 			raise ValidationError("Deletion of other users' posts is not allowed")

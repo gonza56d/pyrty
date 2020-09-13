@@ -11,6 +11,7 @@ from django.db.models import Prefetch
 # Pyrty
 from comments.models import Comment
 from posts.models import Post
+from profiles.utils import run_reputation_update
 from users.models import User
 from utils import vote_manager
 
@@ -74,3 +75,6 @@ class CommentVoteForm(forms.Form):
 
 		# vote submit
 		vote_manager.handle(positive, instance, user)
+
+		# profile score update
+		run_reputation_update(instance.user)
