@@ -2,6 +2,7 @@
 
 # Python
 import csv
+import logging
 # import pdb
 
 # Django
@@ -25,20 +26,25 @@ class DBInjector:
 
 		call_command('migrate')
 
-		# pdb.set_trace()
+		logging.info('Checking if database is populated...')
 
 		if self.is_first_run():
+			logging.info('Database is empty. Performing object injections...')
 			self.inject_users()
 			self.inject_forums()
 			self.inject_subforums()
 			self.inject_posts()
 			self.inject_comments()
 			self.inject_scores()
+			logging.info('Injections finished successfully.')
+		else:
+			logging.info('Database is populated. Injections skipped.')
 
 	def is_first_run(self):
 		return not User.objects.filter(username='gonza56d').exists()
 
 	def inject_users(self):
+		logging.info('Injecting users...')
 		with open('utils/dbinjector/users.csv', newline='') as csv_file:
 			csv_reader = csv.reader(csv_file, delimiter=',')
 			for row in csv_reader:
@@ -52,6 +58,7 @@ class DBInjector:
 				profile.save()
 
 	def inject_forums(self):
+		logging.info('Injecting forums...')
 		with open('utils/dbinjector/forums.csv', newline='') as csv_file:
 			csv_reader = csv.reader(csv_file, delimiter=',')
 			for row in csv_reader:
@@ -60,6 +67,7 @@ class DBInjector:
 				forum.save()
 
 	def inject_subforums(self):
+		logging.info('Injecting subforums...')
 		with open('utils/dbinjector/subforums.csv', newline='') as csv_file:
 			csv_reader = csv.reader(csv_file, delimiter=',')
 			for row in csv_reader:
@@ -69,6 +77,7 @@ class DBInjector:
 				subforum.save()
 
 	def inject_posts(self):
+		logging.info('Injecting posts...')
 		with open('utils/dbinjector/posts.csv', newline='') as csv_file:
 			csv_reader = csv.reader(csv_file, delimiter=',')
 			for row in csv_reader:
@@ -80,6 +89,7 @@ class DBInjector:
 				post.save()
 
 	def inject_comments(self):
+		logging.info('Injecting comments...')
 		with open('utils/dbinjector/comments.csv', newline='') as csv_file:
 			csv_reader = csv.reader(csv_file, delimiter=',')
 			for row in csv_reader:
@@ -90,5 +100,6 @@ class DBInjector:
 				comment.save()
 
 	def inject_scores(self):
+		logging.info('Injecting profile scores...')
 		users = User.objects.all()
 		[run_reputation_update(user) for user in users]
