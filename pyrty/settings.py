@@ -130,7 +130,7 @@ LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'America/Argentina/Buenos_Aires'
 
-USE_I18N = True
+USE_I18N = False
 
 USE_L10N = True
 
@@ -142,7 +142,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-LOGIN_URL = 'forums'
+LOGIN_URL = 'signup'
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),

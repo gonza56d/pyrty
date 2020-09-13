@@ -12,6 +12,7 @@ from comments.models import Comment
 from forums.models import Forum
 from posts.models import Post
 from profiles.models import Profile
+from profiles.utils import run_reputation_update
 from subforums.models import Subforum
 from users.models import User
 
@@ -32,6 +33,7 @@ class DBInjector:
 			self.inject_subforums()
 			self.inject_posts()
 			self.inject_comments()
+			self.inject_scores()
 
 	def is_first_run(self):
 		return not User.objects.filter(username='gonza56d').exists()
@@ -40,7 +42,10 @@ class DBInjector:
 		with open('utils/dbinjector/users.csv', newline='') as csv_file:
 			csv_reader = csv.reader(csv_file, delimiter=',')
 			for row in csv_reader:
-				User.objects.create_user(username=row[0], email=row[1], password=row[2])
+				if row[0] is not 'gonza56d':
+					User.objects.create_user(username=row[0], email=row[1], password=row[2])
+				else:
+					User.objects.create_superuser(username=row[0], email=row[1], password=row[2])
 				user = User.objects.get(username=row[0])
 				profile = Profile()
 				profile.user = user
@@ -83,3 +88,7 @@ class DBInjector:
 				comment.post = Post.objects.get(title=row[1])
 				comment.content = row[2]
 				comment.save()
+
+	def inject_scores(self):
+		users = User.objects.all()
+		[run_reputation_update(user) for user in users]
