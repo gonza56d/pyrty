@@ -24,3 +24,24 @@ services:
       - "8000:8000"
     depends_on:
       - postgres
+
+  rabbitmq:
+    image: rabbitmq:3.8.8
+
+  celeryworker:
+    <<: *django
+    image: pyrty_celeryworker
+    depends_on:
+      - rabbitmq
+      - postgres
+    ports: []
+    command: celery -A taskapp.tasks worker -l INFO
+
+  celerybeat:
+    <<: *django
+    image: pyrty_celerybeat
+    depends_on:
+      - rabbitmq
+      - postgres
+    ports: []
+    command: celery -A taskapp.tasks beat -l INFO
