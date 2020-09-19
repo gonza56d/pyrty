@@ -160,9 +160,9 @@ AUTH_USER_MODEL = 'users.User'
 AUTHENTICATION_BACKENDS = ['users.backends.UserBackend']
 
 # Celery conf
-BROKER_URL = 'amqp://gonza56d:abc123abc123@localhost'
-CELERY_RESULT_BACKEND = 'amqp://gonza56d:abc123abc123@localhost'
-CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_BROKER_URL = 'amqp://rabbitmq:5672'
+CELERY_RESULT_BACKEND = 'amqp://rabbitmq:5672'
+CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TIMEZONE = 'America/Argentina/Buenos_Aires'

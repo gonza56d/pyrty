@@ -2,7 +2,6 @@ version: '3'
 
 volumes:
   local_postgres_data: {}
-  local_rabbitmq_data: {}
 
 services:
   postgres:
@@ -28,14 +27,6 @@ services:
 
   rabbitmq:
     image: rabbitmq:3.8.8
-    environment:
-      - RABBITMQ_USER=gonza56d
-      - RABBITMQ_PASSWORD=abc123abc123
-      - NODE_IP_ADDRESS=127.0.0.1
-    volumes:
-      - local_rabbitmq_data:/var/lib/rabbitmq/data
-    env_file:
-      - ./.envs/.rabbitmq
 
   celeryworker:
     <<: *django
@@ -44,7 +35,7 @@ services:
       - rabbitmq
       - postgres
     ports: []
-    command: celery -A taskapp.tasks worker -l INFO
+    command: celery -A pyrty worker -l INFO
 
   celerybeat:
     <<: *django
@@ -53,4 +44,4 @@ services:
       - rabbitmq
       - postgres
     ports: []
-    command: celery -A taskapp.tasks beat -l INFO
+    command: celery -A pyrty beat -l INFO
