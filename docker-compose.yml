@@ -28,6 +28,13 @@ services:
   rabbitmq:
     image: rabbitmq:3.8.8
 
+  flower:
+    <<: *django
+    image: pyrty_flower
+    ports:
+      - "5555:5555"
+    command: celery flower -A pyrty --broker="amqp://rabbitmq:5672"
+
   celeryworker:
     <<: *django
     image: pyrty_celeryworker

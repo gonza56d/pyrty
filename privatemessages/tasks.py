@@ -27,4 +27,4 @@ def send_private_message(self, post_request, user_id):
         logging.info('PrivateMessage sent: ' + str(private_message))
     else:
         logging.warning('Private message failed: ' + 
-            'post_request: ' + str(post_request) ' - user_id: ' + str(user_id))
+            'post_request: ' + str(post_request) + ' - user_id: ' + str(user_id))
