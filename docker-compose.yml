@@ -35,7 +35,7 @@ services:
       - rabbitmq
       - postgres
     ports: []
-    command: celery -A pyrty worker -l INFO
+    command: celery -A pyrty worker -l info
 
   celerybeat:
     <<: *django
@@ -44,4 +44,4 @@ services:
       - rabbitmq
       - postgres
     ports: []
-    command: celery -A pyrty beat -l INFO
+    command: celery -A pyrty beat -l info

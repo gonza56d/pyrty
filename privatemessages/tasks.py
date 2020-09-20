@@ -1,7 +1,8 @@
 """Private message asynchronous tasks."""
 
 # Python
-import logging, time
+import logging
+from time import sleep
 
 # Django
 from django.core import serializers
@@ -13,15 +14,17 @@ from users.models import User
 
 
 @celery_app.task(bind=True, default_retry_delay=30)
-def send_private_message(*args, **kwargs):
+def send_private_message(self, post_request, user_id):
     """
     Asynchronously send private message. Retry in 30 secs if fail.
     """
+    sleep(10)
     form = PrivateMessageForm(data=post_request)
     if form.is_valid():
         private_message = form.save(commit=False)
         private_message.origin_user = User.objects.get(id=user_id)
         private_message.save()
-        print('saved')
-
-    logging.info('PrivateMessage sent: ' + str(private_message))
+        logging.info('PrivateMessage sent: ' + str(private_message))
+    else:
+        logging.warning('Private message failed: ' + 
+            'post_request: ' + str(post_request) ' - user_id: ' + str(user_id))

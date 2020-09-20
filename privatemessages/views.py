@@ -52,9 +52,5 @@ def create_private_message(request):
 	if request.method == 'POST':
 		form = PrivateMessageForm(data=request.POST)
 		if form.is_valid():
-
-			tasks.send_private_message.s(
-				request.POST, request.user.id
-			).apply_async(countdown=5)
-
+			tasks.send_private_message.delay(request.POST, request.user.id)
 			return JsonResponse({'status': 200, 'message': 'Private message sent'})
