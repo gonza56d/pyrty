@@ -69,7 +69,7 @@
 	<div class="modal-dialog modal-dialog-centered" role="document">
 		<form id="new_private_message" class="modal-content" method="POST" enctype="application/x-www-form-urlencoded" action="{% url 'create_private_message' %}">{% csrf_token %}
 			<div class="modal-header">
-				{% translate 'New Private Message %}
+				{% translate 'New Private Message' %}
 			</div>
 			<div class="modal-body">
 				<p>{% translate 'To' %}: @{{ object.user }}</p>
