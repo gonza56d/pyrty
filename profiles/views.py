@@ -15,6 +15,7 @@ from comments.models import Comment
 from posts.models import Post
 from privatemessages.forms import PrivateMessageForm
 from profiles.models import Profile
+from users.forms import UserConfigurationsForm
 from users.models import User
 
 
@@ -108,8 +109,14 @@ class ProfileUpdateView(UpdateView):
 	def get_context_data(self, **kwargs):
 		"""Load profile's last posts and comments."""
 		context = super().get_context_data(**kwargs)
-		context['profile_posts'] = Post.objects.select_related('subforum__forum')\
-			.filter(user=self.object.user)[:10]
 
-		context['profile_comments'] = Comment.objects.filter(user=self.object.user)[:10]
+		user = self.object.user
+
+		context['user_configurations_form'] = UserConfigurationsForm(
+			initial={'summary_reports': user.summary_reports}
+		)
+		context['profile_posts'] = Post.objects.select_related('subforum__forum')\
+			.filter(user=user)[:10]
+
+		context['profile_comments'] = Comment.objects.filter(user=user)[:10]
 		return context

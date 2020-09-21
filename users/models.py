@@ -9,6 +9,14 @@ from django.core.validators import RegexValidator
 from utils.models import PyrtyModel
 
 
+SUMMARY_REPORTS_CHOICES = [
+    ('', 'Never'),
+    ('D', 'Daily'),
+    ('W', 'Weekly'),
+    ('M', 'Monthly'),
+]
+
+
 class User(PyrtyModel, AbstractUser):
     """User model.
 
@@ -44,6 +52,15 @@ class User(PyrtyModel, AbstractUser):
         'verified',
         default=False,
         help_text='Set to true if user has verified its email.'
+    )
+
+    # Summary Reports
+    summary_reports = models.CharField(
+        'Summary report interval',
+        max_length=1,
+        default='',
+        choices=SUMMARY_REPORTS_CHOICES,
+        help_text='Set how often the summary report is obtained'
     )
 
     def __str__(self):

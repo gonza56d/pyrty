@@ -15,8 +15,11 @@
                 <button type="button" id="btn_cancel_edit_profile" class="btn btn-danger ml-3 mb-2" style="display:none;">
                     <i class="fa fa-window-close"></i>
                 </button>
-                <button id="btn_confirm_edit_profile" class="btn btn-success ml-3 mb-2" style="display:none;">
+                <button id="btn_confirm_edit_profile" class="btn btn-success ml-1 mb-2" style="display:none;">
                     <i class="fa fa-check"></i>
+                </button>
+                <button type="button" id="btn_edit_user_options" class="btn btn-warning ml-auto mb-2" data-toggle="modal" data-target="#modal_edit_user_options">
+                    <i class="fa fa-cogs"></i>                    
                 </button>
             </div>
             {% translate 'Rank' %}: {{ object.get_rank }} - {% translate 'Reputation' %}: {{ object.reputation }}
@@ -55,6 +58,23 @@
             <span class="col-12">{% translate 'You have not commented on any post yet.' %}</span>
             {% endif %}
 
+        </div>
+    </div>
+</div>
+
+<!-- user configurations modal -->
+<div id="modal_edit_user_options" style="color:black;" class="modal fade" role="dialog" aria-hidden="true" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <form id="form_edit_user_options" class="modal-content" method="POST" enctype="application/x-www-form-urlencoded" action="{% url 'edit_user_options' %}">{% csrf_token %}
+            <div class="modal-header">
+                {% translate 'User Options' %}
+            </div>
+            <div class="modal-body">
+                {{ user_configurations_form }}
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-info">{% translate 'Confirm' %}</button>
+            </div>
         </div>
     </div>
 </div>

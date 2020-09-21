@@ -26,14 +26,6 @@ def validate_birthday(value):
 		)
 
 
-SUMMARY_REPORTS_CHOICES = [
-	('', 'Never'),
-	('D', 'Daily'),
-	('W', 'Weekly'),
-	('M', 'Monthly'),
-]
-
-
 class Profile(PyrtyModel):
 	"""Profile model.
 
@@ -76,15 +68,6 @@ class Profile(PyrtyModel):
 		'user reputation',
 		default=0,
 		help_text='Score obtained from posts and comments made, and votes received.'
-	)
-
-	# Summary Reports
-	summary_reports = models.CharField(
-		'Summary report interval',
-		max_length=1,
-		default='',
-		choices=SUMMARY_REPORTS_CHOICES,
-		help_text='Set how often the summary report is obtained'
 	)
 
 	def get_rank(self):

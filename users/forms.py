@@ -2,6 +2,7 @@
 
 # Django
 from django import forms
+from django.utils.translation import gettext_lazy as _
 
 # Pyrty
 from users.models import User
@@ -13,6 +14,8 @@ class LoginForm(forms.Form):
 
 
 class SignUpForm(forms.ModelForm):
+	"""Users' registration."""
+
 	def __init__(self, *args, **kwargs):
 		super(SignUpForm, self).__init__(*args, **kwargs)
 		self.fields['username'].widget = forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Username'})
@@ -22,3 +25,18 @@ class SignUpForm(forms.ModelForm):
 	class Meta:
 		model = User
 		fields = ['username', 'email', 'password']
+
+
+class UserConfigurationsForm(forms.Form):
+	"""User summary reports interval configuration."""
+
+	def __init__(self, *args, **kwargs):
+		super(UserConfigurationsForm, self).__init__(*args, **kwargs)
+		self.fields['summary_reports'].widget = forms.Select(
+			attrs={'class': 'form-control'}
+		)
+		self.fields['summary_reports'].label = _('user_configurations_form')
+
+	class Meta:
+		model = User
+		fields = ['summary_reports']

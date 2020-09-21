@@ -13,7 +13,7 @@ from django.views.generic.edit import FormView
 # Pyrty
 from profiles.models import Profile
 from pyrty.views import ForumList
-from users.forms import LoginForm, SignUpForm
+from users.forms import LoginForm, SignUpForm, UserConfigurationsForm
 from users.models import User
 
 
@@ -51,3 +51,11 @@ class SignUp(FormView):
 		profile.user = user
 		profile.save()
 		return super().form_valid(form)
+
+
+def edit_user_options(request):
+	if request.method == 'POST':
+		form = UserConfigurationsForm(data=request.POST)
+		if form.is_valid():
+			form.save()
+			return redirect('self_profile', slug=request.user)
