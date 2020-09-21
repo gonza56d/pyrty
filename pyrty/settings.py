@@ -33,6 +33,7 @@ PROJECT_APPS = [
     'privatemessages.apps.PrivateMessagesConfig',
     'profiles.apps.ProfilesConfig',
     'subforums.apps.SubforumsConfig',
+    'summaryreports.apps.SummaryreportsConfig',
     'users.apps.UsersConfig',
 ]
 
