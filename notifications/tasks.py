@@ -12,8 +12,10 @@ from notifications.models import Notification
 
 @periodic_task(run_every=timedelta(hours=1))
 def clean_seen_notifications():
+	""" Every hour, delete seen notifications that are older 31 days.
+
+	Added one more day than a month in order to save the data for
+	users that have monthly summary report.
 	"""
-	Every hour, delete seen notifications that are equal or older than 7 days.
-	"""
-	interval = datetime.now() - timedelta(days=7)
-	Notification.objects.filter(created__lte=interval, seen=True).delete()
+	interval = datetime.now() - timedelta(days=31)
+	Notification.objects.filter(created__lt=interval, seen=True).delete()
