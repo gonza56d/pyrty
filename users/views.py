@@ -57,5 +57,7 @@ def edit_user_options(request):
 	if request.method == 'POST':
 		form = UserConfigurationsForm(data=request.POST)
 		if form.is_valid():
-			form.save()
+			summary_reports = form.cleaned_data.get('summary_reports')
+			request.user.summary_reports = summary_reports
+			request.user.save()
 			return redirect('self_profile', slug=request.user)

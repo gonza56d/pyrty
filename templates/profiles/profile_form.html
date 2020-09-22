@@ -70,7 +70,10 @@
                 {% translate 'User Options' %}
             </div>
             <div class="modal-body">
-                {{ user_configurations_form }}
+                <p>{% translate 'Get sumary reports' %}:</p>
+                {% for field in user_configurations_form %}
+                {{ field }}
+                {% endfor %}
             </div>
             <div class="modal-footer">
                 <button class="btn btn-info">{% translate 'Confirm' %}</button>
