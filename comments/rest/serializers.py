@@ -14,7 +14,7 @@ class CommentSerializer(serializers.ModelSerializer):
 
 	class Meta:
 		model = Comment
-		fields = ['user', 'post', 'content', 'created', 'modified']
+		fields = ['user', 'post', 'content', 'created', 'score']
 
 	def create(self, validated_data):
 		"""Create a new comment in some post, by request.user."""
