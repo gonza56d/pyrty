@@ -19,7 +19,7 @@ class PrivateMessageViewSet(viewsets.ModelViewSet):
 	serializer_class = PrivateMessageSerializer
 
 	def get_permissions(self):
-		return [IsAuthenticated,]
+		return [IsAuthenticated(),]
 
 	def list(self, request):
 		queryset = PrivateMessage.objects.filter(
