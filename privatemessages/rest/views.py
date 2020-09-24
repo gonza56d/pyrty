@@ -6,6 +6,7 @@ from django.shortcuts import get_object_or_404
 
 # Django REST Framework
 from rest_framework import viewsets
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
 # Pyrty
@@ -16,6 +17,9 @@ from privatemessages.rest.serializers import PrivateMessageSerializer
 class PrivateMessageViewSet(viewsets.ModelViewSet):
 
 	serializer_class = PrivateMessageSerializer
+
+	def get_permissions(self):
+		return [IsAuthenticated,]
 
 	def list(self, request):
 		queryset = PrivateMessage.objects.filter(

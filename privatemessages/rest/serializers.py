@@ -18,5 +18,5 @@ class PrivateMessageSerializer(serializers.ModelSerializer):
 	def create(self, validated_data):
 		"""Create a new PrivateMessage by user in session."""
 
-		validated_data['origin_user'] = self.context.['request'].user
+		validated_data['origin_user'] = self.context['request'].user
 		return super().create(validated_data)
