@@ -20,4 +20,6 @@ class CommentSerializer(serializers.ModelSerializer):
 		"""Create a new comment in some post, by request.user."""
 
 		validated_data['user'] = self.context['request'].user
-		return super().create(validated_data)
+		result = super().create(validated_data)
+		run_reputation_update(request.user)
+		return result

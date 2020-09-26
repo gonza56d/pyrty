@@ -21,5 +21,5 @@ urlpatterns = [
 	path('create_comment/', create_comment, name='create_comment'),
 	path('delete_comment/', delete_comment, name='delete_comment'),
 	path('submit_vote/', submit_vote, name='submit_comment_vote'),
-	path('rest/', include(router.urls))
+	path('rest/', include(router.urls)),
 ]
