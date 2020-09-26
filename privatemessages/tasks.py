@@ -20,14 +20,12 @@ def send_private_message(self, post_request, user_id=None):
     """
     sleep(10)
     form = PrivateMessageForm(data=post_request)
+
     if form.is_valid():
-        print('valid')
         private_message = form.save(commit=False)
         private_message.origin_user = User.objects.get(id=user_id or post_request['origin_user'])
-        
         private_message.save()
         logging.info('PrivateMessage sent: ' + str(private_message))
     else:
-        print('invalid')
         logging.warning('Private message failed: ' + 
             'post_request: ' + str(post_request) + ' - user_id: ' + str(user_id))
