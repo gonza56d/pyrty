@@ -30,7 +30,6 @@ class PostViewSet(viewsets.ModelViewSet):
 
     def destroy(self, request, *args, **kwargs):
         """Delete a post created by request.user."""
-
         instance = self.get_object()
         if instance.user != request.user:
             raise ValidationError('Post does not belong to the authenticated user.')
