@@ -14,6 +14,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+# Production / AWS
+AWS_STORAGE_BUCKET_NAME = 'pyrty'
+
 
 # Application definition
 DJANGO_APPS = [
@@ -23,6 +26,7 @@ DJANGO_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'storages',
 ]
 
 PROJECT_APPS = [
