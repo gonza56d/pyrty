@@ -10,9 +10,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '1cca#y=o2xcrx(kd_9!fpq&ykaej_m36q^d%*0tdjiex9l2uoc'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['18.216.42.42',]
 
 # Production / AWS
 AWS_STORAGE_BUCKET_NAME = 'pyrty'
@@ -43,6 +43,8 @@ PROJECT_APPS = [
 THIRD_PARTY_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
+    'storages',
+    'gunicorn',
 ]
 
 INSTALLED_APPS = DJANGO_APPS + PROJECT_APPS + THIRD_PARTY_APPS
