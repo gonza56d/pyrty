@@ -19,7 +19,7 @@ services:
     build:
       context: .
       dockerfile: ./compose/production/Dockerfile
-    command: /usr/local/bin/gunicorn pyrty.wsgi --bind 0.0.0.0:5000 --chdir=/app
+    command: gunicorn pyrty.wsgi
     volumes:
       - .:/app/
     depends_on:
