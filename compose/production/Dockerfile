@@ -17,6 +17,6 @@ RUN apk update \
 
 RUN mkdir /app
 WORKDIR /app
-COPY requirements.txt /app/
-RUN pip install -r requirements.txt
+COPY ./requirements/production.txt /app/
+RUN pip install -r production.txt
 COPY . /app/

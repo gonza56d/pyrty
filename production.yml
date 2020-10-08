@@ -1,0 +1,54 @@
+version: '3'
+
+volumes:
+  production_postgres_data: {}
+
+services:
+  postgres:
+    image: postgres:12
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - production_postgres_data:/var/lib/postgresql/data
+    env_file:
+      - ./.envs/.production/.postgres
+
+  django: &django
+    build:
+      context: .
+      dockerfile: ./compose/production/Dockerfile
+    command: /usr/local/bin/gunicorn pyrty.wsgi --bind 0.0.0.0:5000 --chdir=/app
+    volumes:
+      - .:/app/
+    depends_on:
+      - postgres
+
+  rabbitmq:
+    image: rabbitmq:3.8.8
+
+  flower:
+    <<: *django
+    image: pyrty_production_flower
+    ports:
+      - "5555:5555"
+    command: celery flower -A pyrty --broker="amqp://rabbitmq:5672"
+
+  celeryworker:
+    <<: *django
+    image: pyrty_production_celeryworker
+    depends_on:
+      - rabbitmq
+      - postgres
+    ports: []
+    command: celery -A pyrty worker -l info
+
+  celerybeat:
+    <<: *django
+    image: pyrty_production_celerybeat
+    depends_on:
+      - rabbitmq
+      - postgres
+    ports: []
+    command: celery -A pyrty beat -l info

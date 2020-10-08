@@ -13,10 +13,12 @@ services:
     volumes:
       - local_postgres_data:/var/lib/postgresql/data
     env_file:
-      - ./.envs/.postgres
+      - ./.envs/.local/.postgres
 
   django: &django
-    build: .
+    build:
+      context: .
+      dockerfile: ./compose/local/Dockerfile
     command: python manage.py runserver 0.0.0.0:8000
     volumes:
       - .:/app/
@@ -30,14 +32,14 @@ services:
 
   flower:
     <<: *django
-    image: pyrty_flower
+    image: pyrty_local_flower
     ports:
       - "5555:5555"
     command: celery flower -A pyrty --broker="amqp://rabbitmq:5672"
 
   celeryworker:
     <<: *django
-    image: pyrty_celeryworker
+    image: pyrty_local_celeryworker
     depends_on:
       - rabbitmq
       - postgres
@@ -46,7 +48,7 @@ services:
 
   celerybeat:
     <<: *django
-    image: pyrty_celerybeat
+    image: pyrty_local_celerybeat
     depends_on:
       - rabbitmq
       - postgres
