@@ -25,6 +25,19 @@ services:
     depends_on:
       - postgres
 
+  caddy:
+    build:
+      context: .
+      dockerfile: ./compose/production/caddy/Dockerfile
+    image: pyrty_production_caddy
+    depends_on:
+      - django
+    volumes:
+      - production_caddy:/root/.caddy
+    ports:
+      - "0.0.0.0:80:80"
+      - "0.0.0.0:443:443"
+
   rabbitmq:
     image: rabbitmq:3.8.8
 
