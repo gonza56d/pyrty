@@ -32,8 +32,6 @@ services:
     image: pyrty_production_caddy
     depends_on:
       - django
-    volumes:
-      - production_caddy:/root/.caddy
     ports:
       - "0.0.0.0:80:80"
       - "0.0.0.0:443:443"
