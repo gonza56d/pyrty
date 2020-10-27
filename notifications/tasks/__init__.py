@@ -1,0 +1,1 @@
+from notifications.tasks.periodics import clean_seen_notifications

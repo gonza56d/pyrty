@@ -9,7 +9,7 @@ from utils.models import PyrtyModel
 
 
 class Comment(PyrtyModel):
-	"""A comment is a content shared by a user in some post.""" 
+	"""Text from a user commented in a post.""" 
 
 	user = models.ForeignKey('users.User', on_delete=models.CASCADE, null=False)
 	post = models.ForeignKey('posts.Post', on_delete=models.CASCADE, null=False)

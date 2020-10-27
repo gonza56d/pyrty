@@ -1,13 +1,12 @@
 """Project's abstract utility model."""
 
+# Django
 from django.db import models
 
 
 class PyrtyModel(models.Model):
-	"""An abstract base model which any other project's model can extend from
-	in order to inherit some utility fields such as created and modified
-	and also ordering utilities by these fields.
-	"""
+	"""Project's base model. Inherit to get modified and created fields, and
+    ordering logic."""
 
 	created = models.DateTimeField(
 		'created at',

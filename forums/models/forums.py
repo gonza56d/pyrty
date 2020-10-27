@@ -8,9 +8,7 @@ from utils.models import PyrtyModel
 
 
 class Forum(PyrtyModel):
-	"""
-	Object that contains subforums.
-	"""
+	"""Main navigation tree. Object that contains subforums."""
 
 	name = models.CharField(
 		'forum title',

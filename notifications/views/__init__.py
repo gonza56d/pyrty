@@ -1,0 +1,1 @@
+from notifications.views.notifications import NotificationList
