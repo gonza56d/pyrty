@@ -1,0 +1,1 @@
+from privatemessages.tasks.async import send_private_message

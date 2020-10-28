@@ -1,0 +1,1 @@
+from summaryreports.models.sumary_reports import SummaryReport

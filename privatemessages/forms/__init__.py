@@ -1,0 +1,1 @@
+from privatemessages.forms.private_messages import PrivateMessageForm

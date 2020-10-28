@@ -1,2 +1,4 @@
-from posts.views.posts import CreatePost, delete_post, PostDetail,
+from posts.views.create import CreatePost
+from posts.views.delete import delete_post
+from posts.views.detail import PostDetail
 from posts.views.votes import submit_vote

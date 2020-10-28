@@ -1,4 +1,4 @@
-"""Notification tasks."""
+"""Periodic notification tasks."""
 
 # Python
 from datetime import datetime, timedelta

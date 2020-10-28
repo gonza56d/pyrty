@@ -1,1 +1,1 @@
-from forums.views.forums import SubforumList
+from forums.views.list import SubforumList

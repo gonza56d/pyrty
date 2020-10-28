@@ -1,22 +1,16 @@
 import os
+import environ
 
 from celery.schedules import crontab
 
 
-# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-# SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '1cca#y=o2xcrx(kd_9!fpq&ykaej_m36q^d%*0tdjiex9l2uoc'
 
-# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
-# Production / AWS
-AWS_STORAGE_BUCKET_NAME = 'pyrty'
-
 
 # Application definition
 DJANGO_APPS = [
@@ -93,10 +87,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'pyrty.wsgi.application'
 
-
-# Database
-# https://docs.djangoproject.com/en/3.0/ref/settings/#databases
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
@@ -109,10 +99,6 @@ DATABASES = {
 }
 
 # DATABASES['default']['ATOMIC_REQUESTS'] = True
-
-
-# Password validation
-# https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -129,10 +115,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
-# Internationalization
-# https://docs.djangoproject.com/en/3.0/topics/i18n/
-
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'America/Argentina/Buenos_Aires'
@@ -143,14 +125,9 @@ USE_L10N = True
 
 USE_TZ = True
 
-# Translation
 LOCALE_PATHS = [
     os.path.join(BASE_DIR, 'locale')
 ]
-
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
 
@@ -164,7 +141,7 @@ STATICFILES_DIRS = [
 AUTH_USER_MODEL = 'users.User'
 
 # Auth backend override
-AUTHENTICATION_BACKENDS = ['users.backends.UserBackend']
+AUTHENTICATION_BACKENDS = ['users.UserBackend']
 
 # Celery conf
 CELERY_BROKER_URL = 'amqp://rabbitmq:5672'

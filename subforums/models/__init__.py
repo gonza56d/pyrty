@@ -1,0 +1,1 @@
+from subforums.models.subforums import Subforum
