@@ -3,6 +3,7 @@
 # Django
 from django.urls import reverse
 from django.shortcuts import redirect
+from django.views.generic.edit import CreateView
 
 # Pyrty
 from posts.models import Post

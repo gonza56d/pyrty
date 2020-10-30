@@ -1,3 +1,11 @@
+"""Detail post views."""
+
+# Django
+from django.views.generic.detail import DetailView
+
+# Pyrty
+from posts.models import Post
+
 
 class PostDetail(DetailView):
 	"""Display a post with its comments."""

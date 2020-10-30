@@ -13,7 +13,7 @@ from comments.models import Comment
 from forums.models import Forum
 from posts.models import Post
 from profiles.models import Profile
-from profiles.utils import run_reputation_update
+from profiles.views import run_reputation_update
 from subforums.models import Subforum
 from users.models import User
 

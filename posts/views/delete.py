@@ -7,7 +7,7 @@ from django.shortcuts import redirect
 
 # Pyrty
 from posts.models import Post
-from profiles.views.utils import run_reputation_update
+from profiles.views import run_reputation_update
 
 
 @login_required

@@ -10,7 +10,6 @@ from django.http import JsonResponse
 # Pyrty
 from comments.forms import CommentVoteForm
 from comments.models import Comment
-from comments.views import create_notification
 from profiles.views import run_reputation_update
 
 

@@ -7,7 +7,7 @@ from django.db.models import Prefetch
 
 # Pyrty
 from comments.models import Comment
-from profiles.utils import run_reputation_update
+from profiles.views import run_reputation_update
 from users.models import User
 from utils import vote_manager
 

@@ -14,7 +14,7 @@ from rest_framework.response import Response
 # Pyrty
 from comments.models import Comment
 from comments.rest.serializers import CommentSerializer
-from profiles.utils import run_reputation_update
+from profiles.views import run_reputation_update
 
 
 class CommentViewSet(viewsets.ModelViewSet):
