@@ -1,19 +1,20 @@
 """User authentication forms."""
 
 # Django
-from django import forms
+from django.forms import Form, ModelForm
 from django.utils.translation import gettext_lazy as _
 
 # Pyrty
 from users.models import User
+from utils.forms import IconCharField, IconPasswordField, TextArea
 
 
-class LoginForm(forms.Form):
-	username = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Username or email'}))
-	password = forms.CharField(widget = forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Password'}))
+class LoginForm(Form):
+	username = IconCharField(placeholder='Username or email', icon='fas fa-user')
+	password = IconPasswordField(placeholder='Password', icon='fas fa-key')
 
 
-class SignUpForm(forms.ModelForm):
+class SignUpForm(ModelForm):
 	"""Users' registration."""
 
 	def __init__(self, *args, **kwargs):

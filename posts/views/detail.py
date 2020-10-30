@@ -1,10 +1,15 @@
 """Detail post views."""
 
 # Django
+from django.db.models import Prefetch
 from django.views.generic.detail import DetailView
 
 # Pyrty
+from comments.forms import CommentForm, CommentVoteForm
+from comments.models import Comment
+from posts.forms import PostVoteForm
 from posts.models import Post
+from users.models import User
 
 
 class PostDetail(DetailView):

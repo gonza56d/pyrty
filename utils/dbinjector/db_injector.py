@@ -5,9 +5,6 @@ import csv
 import logging
 # import pdb
 
-# Django
-from django.core.management import call_command
-
 # Pyrty
 from comments.models import Comment
 from forums.models import Forum
@@ -23,8 +20,6 @@ class DBInjector:
 
 	def __init__(self):
 		"""Check if database is already populated, if not, run injections."""
-
-		call_command('migrate')
 
 		logging.info('Checking if database is populated...')
 

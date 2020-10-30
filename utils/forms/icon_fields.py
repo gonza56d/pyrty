@@ -4,8 +4,6 @@ from django import forms
 
 class IconCharField(forms.CharField):
     """Django CharField with custom icon attr."""
-
-    icon = ''
     
     def __init__(self, *, icon='', placeholder=None, max_length=None, min_length=None, strip=True, empty_value='', **kwargs):
         super().__init__(**kwargs)
@@ -22,5 +20,16 @@ class IconEmailField(forms.EmailField):
         super().__init__(**kwargs)
         self.icon = icon
         self.widget=forms.TextInput(attrs={'class': 'form-control'})
+        if placeholder is not None:
+            self.widget.attrs['placeholder'] = placeholder
+
+
+class IconPasswordField(forms.CharField):
+    """Django CharField with custom icon attr and password widget."""
+    
+    def __init__(self, *, icon='', placeholder=None, max_length=None, min_length=None, strip=True, empty_value='', **kwargs):
+        super().__init__(**kwargs)
+        self.icon = icon
+        self.widget=forms.PasswordInput(attrs={'class': 'form-control'})
         if placeholder is not None:
             self.widget.attrs['placeholder'] = placeholder
