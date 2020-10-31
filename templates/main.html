@@ -1,49 +1,24 @@
 <!doctype html>
-
 {% load static %}
-
+{% load i18n %}
 <html lang="en">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <meta name="description" content="">
-        <meta name="author" content="">
-        <title>Pyrty | Python Enthusiasts</title>
-        <!-- Bootstrap core CSS -->
-        <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
-        <link href="{% static 'css/pyrty.css' %}" rel="stylesheet">
-        <!-- Custom styles for this template -->
-        <link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900" rel="stylesheet">
-        <!-- favicon -->
+        <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
         <link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}"/>
+        <title>Pyrty | {% block title %}{% endblock%}</title>
     </head>
-    <body style="background-color:#2b5b84;">
-        {% include 'navbar.html' %}
-        <main role="main" class="container mt-5">
-            <div class="row jumbotron p-3 p-md-5 text-white rounded bg-dark">
-                <div class="col blog-main">
-                    <h3 class="p-2 mb-5 rounded text-white" style="background-color:#2b5b84;">
-                        <a href="/" style="color:white;"> Main </a> > 
-                        {% if current_forum is not None %}
-                        <a href="{% url 'forum' current_forum_url %}" style="color:white;"> {{ current_forum }} </a> > 
-                        {% endif %}
-                        {% if current_subforum is not None %}
-                        <a href="{% url 'subforum' current_subforum_url %}" style="color:white;"> {{ current_subforum }} </a> >
-                        {% endif %}
-                    </h3>
-                    <div class="blog-post my-3">
-                        {% block content %}
-                        {% endblock %}
-                    </div>
+    <body>
+        {% include 'main/navbar.html' %}
+        <div class="container my-5">
+            {% include 'main/navigation.html' %}
+            <div class="row">
+                <div class="col">
+                    {% block container %}{% endblock %}
                 </div>
             </div>
-        </main>
-        <nav class="navbar fixed-bottom navbar-expand-sm navbar-dark bg-dark">
-            <div class="mx-auto">
-            </div>
-        </nav>
-        {% include 'scripts.html' %}
+        </div>
+        {% include 'main/scripts.html' %}
     </body>
 </html>
-
-

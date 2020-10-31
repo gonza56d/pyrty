@@ -1,0 +1,28 @@
+{% load i18n %}
+
+<div class="row d-none d-md-flex">
+    <div class="col form-inline">
+        <h1><a href="/">{% translate 'Main forums' %}</a> > </h1>
+        {% if current_forum is not None %}
+            <h1><a href="{% url 'forum' current_forum_url %}" class="mx-1">{{ current_forum }}</a>></h1>
+        {% endif %}
+        {% if current_subforum is not None %}
+            <h1><a href="{% url 'subforum' current_subforum_url %}" class="mx-1">{{ current_subforum }}</a>></h1>
+        {% endif %}
+    </div>
+</div>
+<div class="row d-flex d-md-none">
+    <div class="col-12">
+        <h3><a href="/">{% translate 'Main forums' %}</a>></h3>
+    </div>
+    <div class="col-12">
+        {% if current_forum is not None %}
+            <h3><a href="{% url 'forum' current_forum_url %}" class="mx-1">{{ current_forum }}</a>></h3>
+        {% endif %}
+    </div>
+    <div class="col-12">
+        {% if current_subforum is not None %}
+            <h3><a href="{% url 'subforum' current_subforum_url %}" class="mx-1">{{ current_subforum }}</a>></h3>
+        {% endif %}
+    </div>
+</div>

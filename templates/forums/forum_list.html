@@ -2,13 +2,15 @@
 
 {% load i18n %}
 
-{% block content %}
-
-<h2>{% translate 'Main Forums' %}</h2>
-<ul class="list-group">
-{% for forum in object_list %}
-	<li class="list-group-item"><a href="{% url 'forum' forum.url_name %}" style="color: white;"><h3>{{ forum }}</h3></a></li>	
-{% endfor %}
-</ul>
-
+{% block container %}
+    <div class="row">
+        <h2 class="my-3">{% translate 'Main Forums' %}</h2>
+    </div>
+    <div class="row">
+        {% for forum in object_list %}
+            <div class="col-12">
+                <a href="{% url 'forum' forum.url_name %}"><h3>{{ forum }}</h3></a>
+            </div>
+        {% endfor %}
+    </div>
 {% endblock %}

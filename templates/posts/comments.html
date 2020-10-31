@@ -1,0 +1,15 @@
+{% for comment in comments %}
+    <div class="row my-3">
+        <div class="col-9">
+            <a href="{% url 'profile' comment.user %}">{{ comment.user }}</a>
+        </div>
+        <div class="col-3 text-right">
+            {{ comment.created }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            {{ comment.content }}
+        <div>
+    </div>
+{% endfor %}

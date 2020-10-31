@@ -1,0 +1,29 @@
+{% load i18n %}
+
+{% if user.is_authenticated %}
+    <form method="POST" enctype="application/x-www-form-urlencoded" action="{% url 'create_comment' %}">
+        <div class="row">
+            {% csrf_token %}
+            <div class="col-12 my-1">
+                <h2 class="col-10">{% translate 'Leave a comment' %}:</h2><button class="btn btn-primary col-2">{% translate 'Post Comment' %}</button>
+            </div>
+            <div class="col-12 my-1">
+                {% for field in comment_form %}
+                    {{ field }}
+                {% endfor %}
+            </div>
+        </div>
+    </form>
+    <span style="display:none;" id="delete_comment" class="{% url 'delete_comment' %}"></span>
+{% else %}
+    <div class="row my-3">
+        <div class="col-12 my-1">
+            <div class="row">
+                <h2 class="col-10">{% translate 'Leave a comment' %}:</h2><a class="btn btn-primary col-2 my-auto" href="{% url 'signup' %}">{% translate 'Sign up' %}</a>
+            </div>
+        </div>
+        <div class="col-12 my-1">
+            <h3><a href="#" id="focus_login">{% translate 'Log in' %}</a> {% translate 'or' %} <a href="{% url 'signup' %}">{% translate 'sign up' %}</a> {% translate 'to leave a comment.' %}</h3>
+        </div>
+    </div>
+{% endif %}
