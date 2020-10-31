@@ -1,0 +1,37 @@
+<div class="row">
+    <div class="col-6 my-auto mx-auto alert alert-success">
+        {{ comment.score }}
+    </div>
+    <div class="col-6">
+        {% if comment.user == request.user %}<!-- delete button if user is comment.user -->
+            <button id="delete_comment_{{ comment.id }}" class="btn btn-danger delete_comment" type="button"><i class="fas fa-trash"></i></button>
+
+        {% else %} <!-- vote buttons if user is not comment user -->
+
+            <form method="POST" class="my-1" enctype="application/x-www-form-urlencoded"
+                action="{% url 'submit_comment_vote' %}">
+                {% csrf_token %}
+                <span style="display:none;">
+                    <input type="number" value="{{ object.id }}" required name="post_id" style="display:none;">
+                    <input type="number" value="{{ comment.id }}" required name="comment_id" style="display:none;">
+                    {{ positive_comment_vote_form }}
+                </span>
+                <button type="submit" class="btn {% if not comment.user_positive_vote %}btn-primary{% else %}btn-warning{% endif %}">
+                    <i class="fas fa-plus"></i>
+                </button>
+            </form>
+            <form method="POST" class="my-1" enctype="application/x-www-form-urlencoded"
+                action="{% url 'submit_comment_vote' %}">
+                {% csrf_token %}
+                <span style="display:none;">
+                    <input type="number" value="{{ object.id }}" required name="post_id" style="display:none;">
+                    <input type="number" value="{{ comment.id }}" required name="comment_id" style="display:none;">
+                    {{ negative_comment_vote_form }}
+                </span>
+                <button type="submit" class="btn {% if not comment.user_negative_vote %}btn-primary{% else %}btn-warning{% endif %}">
+                    <i class="fas fa-minus"></i>
+                </button>
+            </form>
+        {% endif %}
+    </div>
+</div>

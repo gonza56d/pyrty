@@ -1,15 +1,45 @@
+{% load i18n %}
+
 {% for comment in comments %}
-    <div class="row my-3">
-        <div class="col-9">
-            <a href="{% url 'profile' comment.user %}">{{ comment.user }}</a>
-        </div>
-        <div class="col-3 text-right">
-            {{ comment.created }}
-        </div>
-    </div>
     <div class="row">
-        <div class="col">
-            {{ comment.content }}
-        <div>
+        <div class="col-10">
+            <div class="row mt-3">
+                <div class="col-12">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="d-none d-md-block">
+                                <a href="{% url 'profile' comment.user %}">@{{ comment.user }}</a>
+                            </div>
+                            <div class="d-block d-md-none">
+                                <a href="{% url 'profile' comment.user %}">@{{ comment.user }}</a><small>, {{ comment.created }}</small>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <small class="text-muted">
+                                {% translate 'Rank' %}: {{ comment.user.profile.get_rank }}</br>
+                                {% translate 'Reputation' %}: {{ comment.user.profile.reputation }}
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    {{ comment.content }}
+                </div>
+            </div>
+        </div>
+        <div class="col-2">
+            <div class="row">
+                <div class="col-12 d-none d-md-block">
+                    <small>{{ comment.created }}</small>
+                </div>
+                <div class="col-12 text-center">
+                    <div class="my-auto">
+                        {% include 'posts/comment_vote_panel.html' %}
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 {% endfor %}
