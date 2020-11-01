@@ -2,6 +2,10 @@
 
 {% load i18n %}
 
+{% block title %}
+    {{ current_forum }} {% translate 'Subforums' %}
+{% endblock %}
+
 {% block container %}
     <div class="row breadcrumb breadcrumb-pyrty">
         <div class="col-12">
