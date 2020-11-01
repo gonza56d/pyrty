@@ -36,4 +36,3 @@ def create_notification(request, form):
 		notification.message = "{} commented in your post: '{}'".format(request.user, post.title)
 		notification.url = reverse('post', args=[post.id])
 		notification.save()
-

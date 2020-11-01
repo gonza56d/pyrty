@@ -2,10 +2,10 @@
 
 # Django
 from django.urls import path
-from notifications.views import NotificationList, update_notifications
+from notifications.views import get_notification, NotificationList
 
 
 urlpatterns = [
 	path('', NotificationList.as_view(), name='notifications'),
-	path('update_notifications', update_notifications, name='update_notifications')
+    path('get_notification/<int:pk>', get_notification, name='get_notification'),
 ]

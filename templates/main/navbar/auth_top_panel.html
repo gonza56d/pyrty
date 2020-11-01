@@ -30,7 +30,7 @@
             <div class="dropdown-menu" aria-labelledby="dropdown-notifications" style="background-color:#1e2933;">
                 <ul class="list-group" style="font-size:13px;">
                     {% for notification in request.notifications %}
-                    <a href="{{ notification.url }}" class="list-group-item my-1 mx-1" style="color:white; {% if not notification.seen %} background-color:#ffc107; {% endif %}">
+                    <a href="{% url 'get_notification' notification.pk %}" class="list-group-item my-1 mx-1" style="color:white; {% if not notification.seen %} background-color:#ffc107; {% endif %}">
                         {{ notification.message }}
                     </a>
                     {% endfor %}
