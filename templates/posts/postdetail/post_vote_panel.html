@@ -1,0 +1,29 @@
+<div class="row">
+    <div class="col-6 my-auto mx-auto alert alert-success">
+        {{ object.score }}
+    </div>
+    <div class="col-6">
+        {% if request.user == object.user %} <!-- delete button if user is post.user -->
+            <form class="my-1" method="POST" class="my-1" enctype="application/x-www-form-urlencoded" action="{% url 'delete_post' %}">
+                {% csrf_token %}
+                <input type="number" value="{{ object.id }}" required name="delete_post_id" style="display:none;">
+                <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
+            </form>
+        {% else %} <!-- vote panel if user is not post.user -->
+            <form class="my-1" method="POST" enctype="application/x-www-form-urlencoded" action="{% url 'submit_post_vote' %}">
+                {% csrf_token %}
+                <span style="display:none;">{{ positive_post_vote_form }}</span>
+                <button type="submit" class="btn {% if not object.user_positive_vote %}btn-primary{% else %}btn-warning{% endif %}">
+                    <i class="fas fa-plus"></i>
+                </button>
+            </form>
+            <form class="my-1" method="POST" enctype="application/x-www-form-urlencoded" action="{% url 'submit_post_vote' %}">
+                {% csrf_token %}
+                <span style="display:none;">{{ negative_post_vote_form }}</span>
+                <button type="submit" class="btn {% if not object.user_negative_vote %}btn-primary{% else %}btn-warning{% endif %}">
+                    <i class="fas fa-minus"></i>
+                </button>
+            </form>
+        {% endif %}
+    </div>
+</div>

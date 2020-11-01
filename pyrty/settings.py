@@ -139,7 +139,7 @@ STATICFILES_DIRS = [
 AUTH_USER_MODEL = 'users.User'
 
 # Auth backend override
-AUTHENTICATION_BACKENDS = ['users.UserBackend']
+AUTHENTICATION_BACKENDS = ['users.backends.UserBackend']
 
 # Celery conf
 CELERY_BROKER_URL = 'amqp://rabbitmq:5672'

@@ -4,13 +4,18 @@
 
 {% block container %}
     <div class="row" class="my-3">
-        {% include 'posts/title_vote_panel.html' %}
+        <div class="col-10">
+            <h2>{{ object.title }}</h2>
+        </div>
+        <div class="col-2 text-center">
+            {% include 'posts/postdetail/post_vote_panel.html' %}
+        </div>
     </div>
     <div class="row">
         <div class="col-12">
             {{ object.content }}
         </div>
     </div>
-    {% include 'posts/comments.html' %}
-    {% include 'posts/new_comment.html' %}
+    {% include 'posts/postdetail/comments.html' %}
+    {% include 'posts/postdetail/new_comment.html' %}
 {% endblock %}

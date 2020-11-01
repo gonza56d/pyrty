@@ -1,0 +1,28 @@
+{% load i18n %}
+
+<form id="login_form" class="row" action="{% url 'login' %}" method="POST" enctype="application/x-www-form-urlencoded">
+    {% csrf_token %}
+    <!-- Fields -->
+    {% for field in request.login_form %}
+        <div class="col-12 col-md-4 my-1 my-md-0">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <div class="input-group-text"><i class="{{ field.field.icon }} mx-auto"></i></div>
+                </div>
+                {{ field }}
+            </div>
+        </div>
+    {% endfor %}
+    <!-- Log in button -->
+    <div class="col-6 col-md-2 my-1 my-md-0">
+        <button class="btn btn-outline-info btn-block">
+            <i class="fas fa-rocket"></i>
+        </button>
+    </div>
+    <!-- Sign up button -->
+    <div class="col-6 col-md-2 my-1 my-md-0">
+        <a href="{% url 'signup' %}" class="btn btn-outline-info btn-block" style="color:white">
+            {% translate 'Sign up' %}
+        </a>
+    </div>
+</form>
