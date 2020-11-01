@@ -12,11 +12,17 @@
                     <i class="fa fa-envelope"></i>
                 </button>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown-messages">
-                    {% for message in request.messages %}
-                        <a href="{% url 'private_message' message.origin_user %}" class="dropdown-item my-1 px-1">
-                            {{ message.created }} | {% translate 'Message from'%} {{ message.origin_user }}
-                        </a>
-                    {% endfor %}
+                    {% if request.messages %}
+                        {% for message in request.messages %}
+                            <a href="{% url 'private_message' message.origin_user %}" class="dropdown-item my-1 px-1 {% if not message.seen %}unseen{% endif %}">
+                                {{ message.created }} | {% translate 'Message from'%} {{ message.origin_user }}
+                            </a>
+                        {% endfor %}
+                    {% else %}
+                        <div class="text-center mt-2">
+                        {% translate "You don't have any message." %}
+                    </div>
+                    {% endif %}
                 </div>
             </div>
         </div>
@@ -26,16 +32,22 @@
         <div class="dropdown mx-1">
             <button type="button" class="btn {% if request.non_seen_notifs %}btn-warning{% else %}btn-primary{% endif %} btn-block dropdown-toggle" id="dropdown-notifications" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-bell"></i></button>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown-notifications">
-                {% for notification in request.notifications %}
-                    <a href="{% url 'get_notification' notification.pk %}" class="dropdown-item my-1 px-1">
-                        {{ notification.created }} | {{ notification.message }}
-                    </a>
-                {% endfor %}
-                <div class="text-center mt-2">
-                    <a href="{% url 'notifications' %}" class="btn btn-primary">
-                        {% translate 'View all' %}
-                    </a>
-                </div>
+                {% if request.notifications %}
+                    {% for notification in request.notifications %}
+                        <a href="{% url 'get_notification' notification.pk %}" class="dropdown-item my-1 px-1 {% if not notification.seen %}unseen{% endif %}">
+                            {{ notification.created }} | {{ notification.message }}
+                        </a>
+                    {% endfor %}
+                    <div class="text-center mt-2">
+                        <a href="{% url 'notifications' %}" class="btn btn-primary">
+                            {% translate 'View all' %}
+                        </a>
+                    </div>
+                {% else %}
+                    <div class="text-center mt-2">
+                        {% translate "You don't have any notification." %}
+                    </div>
+                {% endif %}
             </div>
         </div>
     </div>

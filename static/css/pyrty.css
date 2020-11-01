@@ -7,6 +7,14 @@ a.alert.alert-pyrty:hover {
     color: #1e2933;
 }
 
+a.navbar-brand {
+    color: white;
+}
+
+a.navbar-brand:hover {
+    color: #ffd343;
+}
+
 .alert-pyrty {
     background-color: #2b5b84;
 }
@@ -36,6 +44,10 @@ a.alert.alert-pyrty:hover {
 .breadcrumb.breadcrumb-pyrty-inbox.current {
     background-color: #ffd343;
     color: #2b5b84;
+}
+
+.dropdown-item.unseen {
+    background-color: #ffd343;
 }
 
 .field_errors {
