@@ -1,5 +1,4 @@
 import os
-import environ
 
 from celery.schedules import crontab
 

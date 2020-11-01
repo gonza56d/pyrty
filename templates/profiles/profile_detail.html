@@ -1,0 +1,21 @@
+{% extends 'main.html' %}
+
+{% load i18n %}
+
+{% block container %}
+
+<div class="row">
+    <div class="col-12 col-md-6">
+        <!-- Profile attributes overview and edition-->
+        {% include 'profiles/profiledetail/detail.html'%}
+    </div>
+
+    <div class="col-12 col-md-6">
+        <!-- Lasts posts and comments -->
+        {% include 'profiles/profiledetail/activity_panel.html' %}
+    </div>
+</div>
+
+{% include 'profiles/profiledetail/modal.html' %}
+
+{% endblock %}

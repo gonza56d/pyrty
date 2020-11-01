@@ -2,15 +2,15 @@
 
 {% for comment in comments %}
     <div class="row">
-        <div class="col-10">
+        <div class="col-9">
             <div class="row mt-3">
                 <div class="col-12">
                     <div class="row">
                         <div class="col-12">
-                            <div class="d-none d-md-block">
+                            <div class="d-none d-md-block"><!-- Desktop display -->
                                 <a href="{% url 'profile' comment.user %}">@{{ comment.user }}</a>
                             </div>
-                            <div class="d-block d-md-none">
+                            <div class="d-block d-md-none"><!-- Mobile display -->
                                 <a href="{% url 'profile' comment.user %}">@{{ comment.user }}</a><small>, {{ comment.created }}</small>
                             </div>
                         </div>
@@ -29,7 +29,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-2">
+        <div class="col-3">
             <div class="row">
                 <div class="col-12 d-none d-md-block">
                     <small>{{ comment.created }}</small>

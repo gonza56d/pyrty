@@ -1,11 +1,13 @@
 """Profile detail views."""
 
 # Django
+from django.shortcuts import redirect
 from django.views.generic.detail import DetailView
 
 # Pyrty
 from comments.models import Comment
 from posts.models import Post
+from privatemessages.forms import PrivateMessageForm
 from profiles.models import Profile
 from users.models import User
 

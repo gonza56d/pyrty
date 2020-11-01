@@ -1,14 +1,7 @@
-"""Summary report async tasks."""
-
-# Python
-from datetime import datetime, timedelta
+"""Summary report create views."""
 
 # Django
 from django.db.models import Exists, OuterRef, Q
-
-# Celery
-from celery.decorators import periodic_task
-from celery.schedules import crontab
 
 # Pyrty
 from comments.models import Comment
@@ -16,7 +9,6 @@ from notifications.models import Notification
 from privatemessages.models import PrivateMessage
 from posts.models import Post
 from summaryreports.models import SummaryReport
-from users.models import User
 
 
 def create_summary_report(user, interval):

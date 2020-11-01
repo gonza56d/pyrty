@@ -7,6 +7,7 @@ from django.shortcuts import redirect
 # Pyrty
 from comments.forms import CommentForm
 from profiles.views import run_reputation_update
+from users.models import User
 
 
 def create_comment(request):

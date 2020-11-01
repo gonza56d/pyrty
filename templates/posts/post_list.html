@@ -4,10 +4,20 @@
 
 {% block container %}
     <div class="row">
-        <h2 class="my-3">{{ current_subforum }} {% translate 'Posts' %}</h2>
+        <div class="col-9">
+            <h2 class="my-3">{{ current_subforum }} {% translate 'Posts' %}</h2>
+        </div>
+        <div class="col-3 text-right my-auto">
+            <form class="ml-auto" method="GET" action="{% url 'create_post' current_subforum.id %}">
+                <button class="btn btn-info">{% translate 'New Post' %}</button>
+            </form>
+        </div>
     </div>
     <div class="row">
-    {% for post in object_list %}
-        <a href="{% url 'post' post.id %}"><h3>{{ post }}</h3></a>
-    {% endfor %}
+        <div class="col">
+            {% for post in object_list %}
+                <a href="{% url 'post' post.id %}"><h3>{{ post }}</h3></a>
+            {% endfor %}
+        </div>
+    </div>
 {% endblock %}

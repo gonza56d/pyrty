@@ -1,14 +1,14 @@
 <div class="row">
-    <div class="col-6 my-auto mx-auto alert alert-success">
+    <div class="col-6 my-auto mx-auto alert {% if comment.score > 0 %}alert-success{% elif comment.score < 0 %}alert-danger{% else %}alert-info{% endif %}">
         {{ comment.score }}
     </div>
-    <div class="col-6">
+    <div class="col-6 my-auto">
         {% if comment.user == request.user %}<!-- delete button if user is comment.user -->
-            <button id="delete_comment_{{ comment.id }}" class="btn btn-danger delete_comment" type="button"><i class="fas fa-trash"></i></button>
+            <button id="delete_comment_{{ comment.id }}" class="btn btn-danger delete_comment my-auto" type="button"><i class="fas fa-trash"></i></button>
 
         {% else %} <!-- vote buttons if user is not comment user -->
 
-            <form method="POST" class="my-1" enctype="application/x-www-form-urlencoded"
+            <form method="POST" class="mt-auto mb-1" enctype="application/x-www-form-urlencoded"
                 action="{% url 'submit_comment_vote' %}">
                 {% csrf_token %}
                 <span style="display:none;">
@@ -20,7 +20,7 @@
                     <i class="fas fa-plus"></i>
                 </button>
             </form>
-            <form method="POST" class="my-1" enctype="application/x-www-form-urlencoded"
+            <form method="POST" class="mb-auto mt-1" enctype="application/x-www-form-urlencoded"
                 action="{% url 'submit_comment_vote' %}">
                 {% csrf_token %}
                 <span style="display:none;">

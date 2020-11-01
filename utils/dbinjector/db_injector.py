@@ -43,7 +43,7 @@ class DBInjector:
 		with open('utils/dbinjector/users.csv', newline='') as csv_file:
 			csv_reader = csv.reader(csv_file, delimiter=',')
 			for row in csv_reader:
-				if row[0] is not 'gonza56d':
+				if row[0] != 'gonza56d':
 					User.objects.create_user(username=row[0], email=row[1], password=row[2])
 				else:
 					User.objects.create_superuser(username=row[0], email=row[1], password=row[2])

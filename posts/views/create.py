@@ -1,7 +1,9 @@
 """Create post views."""
 
 # Django
+from django import forms
 from django.urls import reverse
+from django.utils.translation import gettext_lazy as _
 from django.shortcuts import redirect
 from django.views.generic.edit import CreateView
 
@@ -39,15 +41,13 @@ class CreatePost(CreateView):
 			queryset=Subforum.objects.filter(pk=self.subforum.id),
 			empty_label=None,
 			label = '',
-			widget = forms.Select(
-				attrs={'class': 'form-control', 'style': 'display:none;'}
-			)
+			widget = forms.Select(attrs={'class': 'form-control', 'style': 'display:none;'})
 		)
 		form.fields['title'].widget = forms.TextInput(
-			attrs={'class': 'form-control my-2', 'placeholder': 'Title'}
+			attrs={'class': 'form-control my-2', 'placeholder': _('Title')}
 		)
 		form.fields['content'].widget = forms.Textarea(
-			attrs={'class': 'form-control my-2', 'placeholder': 'Content'}
+			attrs={'class': 'form-control my-2', 'placeholder': _('Content')}
 		)
 		return form
 

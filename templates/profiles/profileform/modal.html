@@ -1,0 +1,21 @@
+{% load i18n %}
+
+<!-- user configurations modal -->
+<div id="modal_edit_user_options" style="color:black;" class="modal fade" role="dialog" aria-hidden="true" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <form id="form_edit_user_options" class="modal-content" method="POST" enctype="application/x-www-form-urlencoded" action="{% url 'edit_user_options' %}">{% csrf_token %}
+            <div class="modal-header">
+                {% translate 'User Options' %}
+            </div>
+            <div class="modal-body">
+                <p>{% translate 'Get sumary reports' %}:</p>
+                {% for field in user_configurations_form %}
+                {{ field }}
+                {% endfor %}
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-info">{% translate 'Confirm' %}</button>
+            </div>
+        </div>
+    </div>
+</div>

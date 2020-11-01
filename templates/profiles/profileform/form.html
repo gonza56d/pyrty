@@ -1,0 +1,28 @@
+{% load i18n %}
+
+<form class="row" method="POST" action="{% url 'self_profile' object.slug %}" enctype="application/x-www-form-urlencoded">
+    {% csrf_token %}
+    <div class="col-12">
+        <h3><b>User:</b> @{{ object.user }}</h3></br>
+    </div>
+    <div class="col-5">
+        {% translate 'Rank' %}: {{ object.get_rank }}</br>{% translate 'Reputation' %}: {{ object.reputation }}
+    </div>
+    <div class="col-7 text-right">
+        <button type="button" id="btn_edit_profile" class="btn btn-warning mx-1 mb-2">
+            <i class="fa fa-pencil"></i>
+        </button>
+        <button id="btn_confirm_edit_profile" class="btn btn-success mx-1 mb-2" style="display:none;">
+            <i class="fa fa-check"></i>
+        </button>
+        <button type="button" id="btn_cancel_edit_profile" class="btn btn-danger mx-1 mb-2" style="display:none;">
+            <i class="fa fa-window-close"></i>
+        </button>
+        <button type="button" id="btn_edit_user_options" class="btn btn-warning mx-1 mb-2" data-toggle="modal" data-target="#modal_edit_user_options">
+            <i class="fa fa-cogs"></i>                    
+        </button>
+    </div>
+    <div class="col-12 mt-3">
+        {{ form }}
+    </div>
+</form>

@@ -12,6 +12,13 @@
     </head>
     <body>
         {% include 'main/navbar.html' %}
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-success" role="alert">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
         <div class="container my-5">
             {% include 'main/navigation.html' %}
             <div class="row">

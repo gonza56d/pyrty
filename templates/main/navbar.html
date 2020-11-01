@@ -13,7 +13,11 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <div class="navbar-nav ml-auto">
-            {% include 'main/navbar/login_form.html' %}
+            {% if user.is_authenticated %}
+                {% include 'main/navbar/auth_top_panel.html' %}
+            {% else %}
+                {% include 'main/navbar/login_form.html' %}
+            {% endif %}
         </div>
     </div>
 </nav>

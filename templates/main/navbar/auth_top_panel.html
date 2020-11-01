@@ -1,0 +1,57 @@
+{% load i18n %}
+
+<div class="row">
+    <div class="col-12 my-1 my-md-auto text-md-right">
+        <a class="mx-1 my-auto" href="{% url 'profile' request.user %}"><b style="color:white;">@{{ request.user }}</b></a>
+    </div>
+    <!-- Messages dropdown -->
+    <div class="col-3">
+        <div class="nav-item">
+            <div class="dropdown mx-1">
+                <button type="button" class="btn {% if request.non_read_msgs %}btn-warning{% else %}btn-info{% endif %} btn-block dropdown-toggle" id="dropdown-messages" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fa fa-envelope"></i>
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdown-messages" style="background-color:#1e2933;">
+                    <ul class="list-group" style="font-size:13px;">
+                        {% for message in request.messages %}
+                        <a href="{% url 'private_message' message.origin_user %}" class="list-group-item my-1 mx-1" style="{% if not message.seen %} background-color:#ffc107; color:black; {% else %}color:white; {% endif %}">
+                        {% translate 'Message from'%} {{ message.origin_user }}
+                        </a>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Notifications dropdown-->
+    <div class="col-3">
+        <div class="dropdown mx-1">
+            <button type="button" class="btn {% if request.non_seen_notifs %}btn-warning{% else %}btn-info{% endif %} btn-block dropdown-toggle" id="dropdown-notifications" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-bell"></i></button>
+            <div class="dropdown-menu" aria-labelledby="dropdown-notifications" style="background-color:#1e2933;">
+                <ul class="list-group" style="font-size:13px;">
+                    {% for notification in request.notifications %}
+                    <a href="{{ notification.url }}" class="list-group-item my-1 mx-1" style="color:white; {% if not notification.seen %} background-color:#ffc107; {% endif %}">
+                        {{ notification.message }}
+                    </a>
+                    {% endfor %}
+                </ul>
+                <div class="text-center">
+                    <a href="{% url 'notifications' %}" class="btn btn-info">
+                        {% translate 'View all' %}
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-3">
+        <form action="{% url 'logout' %}" method="GET" enctype="application/x-www-form-urlencoded">
+            <button class="btn btn-outline-info mx-1 btn-block"><i class="fas fa-door-open"></i></button>
+        </form>
+    </div>
+    <div class="col-3">
+        <form action="{% url 'set_language' %}" method="POST" enctype="application/x-www-form-urlencoded">{% csrf_token %}
+            <input id="id_language" name="language" value="es" type="hidden">
+            <button type="submit" class="btn btn-outline-info btn-block mx-1"><i class="fas fa-language"></i></button>
+        </form>
+    </div>
+</div>

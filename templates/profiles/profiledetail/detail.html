@@ -1,0 +1,29 @@
+{% load i18n %}
+
+<div class="row" method="POST">
+    {% csrf_token %}
+    <div class="col-12">
+        <h3><b>User:</b> @{{ object.user }}</h3></br>
+    </div>
+    <div class="col-5">
+        {% translate 'Rank' %}: {{ object.get_rank }}</br>{% translate 'Reputation' %}: {{ object.reputation }}
+    </div>
+    <div class="col-7 text-right">
+        <button type="button" id="btn_new_message" class="btn btn-warning ml-3 mb-2" data-toggle="modal" data-target="#modal_new_message">
+            <i class="fa fa-envelope"></i>
+        </button>
+    </div>
+    <div class="col-12 mt-3">
+        <b>{% translate 'First name' %}:</b> <input value="{{ object.first_name }}" disabled class="form-control">
+    </div>
+    <div class="col-12 mt-3">
+        <b>{% translate 'Last name' %}:</b> <input value="{{ object.last_name }}" disabled class="form-control">
+    </div>
+    <div class="col-12 mt-3">
+        <b>{% translate 'Birthday' %}:</b> <input type="date" value="{% if object.birthday is not None %}{{ object.birthday }}{% endif %}" disabled class="form-control">
+    </div>
+    <div class="col-12 mt-3">
+        <b>{% translate 'Bio' %}:</b>
+        <textarea rows="5" cols="40" class="form-control" disabled>{{ object.bio }}</textarea>
+    </div>
+</div>

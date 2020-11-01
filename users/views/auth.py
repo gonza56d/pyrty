@@ -4,10 +4,11 @@
 # import pdb
 
 # Django
-from django.contrib import auth
+from django.contrib import auth, messages
 from django.db import transaction
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
+from django.utils.translation import gettext_lazy as _
 from django.views.generic.edit import FormView
 
 # Pyrty
@@ -37,17 +38,18 @@ def logout_view(request):
 
 
 class SignUp(FormView):
-	"""Common users sign up view."""
-
-	template_name = 'users/signup.html'
-	form_class = SignUpForm
-	success_url = reverse_lazy('forums')
-
-	def form_valid(self, form):
-		user = form.save(commit=False)
-		User.objects.create_user(username=user.username, email=user.email, password=user.password)
-		user = User.objects.get(username=user.username)
-		profile = Profile()
-		profile.user = user
-		profile.save()
-		return super().form_valid(form)
+    """Common users sign up view."""
+    
+    template_name = 'users/signup.html'
+    form_class = SignUpForm
+    success_url = reverse_lazy('forums')
+    
+    def form_valid(self, form):
+        user = form.save(commit=False)
+        User.objects.create_user(username=user.username, email=user.email, password=user.password)
+        user = User.objects.get(username=user.username)
+        profile = Profile()
+        profile.user = user
+        profile.save()
+        messages.add_message(self.request, messages.INFO, _('Account registered successfully.'))
+        return super().form_valid(form)
