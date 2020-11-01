@@ -2,10 +2,11 @@
 
 # Django
 from django.db import transaction
-from django.shortcuts import redirect
+from django.shortcuts import redirect, reverse
 
 # Pyrty
 from comments.forms import CommentForm
+from notifications.models import Notification
 from profiles.views import run_reputation_update
 from users.models import User
 

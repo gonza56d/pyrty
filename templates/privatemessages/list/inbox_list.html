@@ -1,0 +1,17 @@
+{% for user in inbox %}
+    {% if user.username != request.user.username %}
+        {% if user.username == current_inbox %}
+        <div class="breadcrumb">
+            <h3>
+                <a href="{% url 'private_message' user %}">{{ user }}</a>
+            </h3>
+        </div>
+        {% else %}
+        <div class="breadcrumb">
+            <h3>
+                <a href="{% url 'private_message' user %}" style="color:white;">{{ user }}</a>
+            </h3>
+        </div>
+        {% endif %}
+    {% endif %}
+{% endfor %}

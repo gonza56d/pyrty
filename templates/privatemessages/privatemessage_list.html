@@ -1,0 +1,23 @@
+{% extends 'main.html' %}
+
+{% load i18n %}
+
+{% block container %}
+
+<div class="row">
+    <div class="col">
+        <h3>{% translate 'Inbox' %}</h3>
+    </div>
+</div>
+
+<div class="row">
+	<!-- Different chats list -->
+	<div class="col-4">
+        {% include 'privatemessages/list/inbox_list.html' %}
+    </div>
+    <div class="col-8">
+		{% include 'privatemessages/list/message_list.html' %}
+	</div>
+</div>
+
+{% endblock %}

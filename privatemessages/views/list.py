@@ -23,7 +23,8 @@ class PrivateMessageList(ListView):
 		context = super(PrivateMessageList, self).get_context_data(**kwargs)
 		context['current_inbox'] = self.kwargs['origin_user']
 		context['inbox'] = User.objects.filter(
-			Exists(PrivateMessage.objects.filter(origin_user=OuterRef('pk')))
+			Exists(PrivateMessage.objects.filter(origin_user=OuterRef('pk'))) |
+            Exists(PrivateMessage.objects.filter(target_user=OuterRef('pk')))
 		)
 		context['private_message_form'] = PrivateMessageForm(
 			target_user=User.objects.get(username=self.kwargs['origin_user'])
