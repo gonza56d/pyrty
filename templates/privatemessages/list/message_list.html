@@ -1,30 +1,29 @@
 <!-- Current inbox chat -->
-<div class="row pr-3">
-    <div class="breadcrumb">
-        {% for object in object_list %}
-            <div class="col-8">
-                <a href="{% url 'profile' object.origin_user %}" style="{% if object.origin_user == request.user %}color:white;{% else %} color:#ffc107; {% endif %}">
-                    <b>@{{ object.origin_user }}:</b>
-                </a>
-            </div>
-            <div class="col-4">
-                {{ object.created }}
-            </div>
-            <div class="col-12">
-                <p>{{ object.message }}</p>
-            </div>
-        {% endfor %}
+<div class="row">
+    <div class="col-12">
+        <div class="breadcrumb breadcrumb-messages">
+            {% for object in object_list %}
+                <div class="col-12 {% if object.origin_user == request.user %}text-right{% endif %}">
+                    <a href="{% url 'profile' object.origin_user %}">
+                        <button class="btn {% if object.origin_user == request.user %}btn-primary{% else %}btn-warning{% endif %}">@{{ object.origin_user }} at {{ object.created.time }}:</button>
+                    </a>
+                </div>
+                <div class="col-12 {% if object.origin_user == request.user %}text-right{% endif %}">
+                    <p>{{ object.message }}</p>
+                </div>
+            {% endfor %}
+        </div>
     </div>
 </div>
 <!-- New message panel -->
 <form class="row" id="new_private_message" method="POST" enctype="application/x-www-form-urlencoded" action="{% url 'create_private_message' %}">{% csrf_token %}
-    <div class="row col-11">
+    <div class="col-10">
         {% for field in private_message_form %}
             {{ field }}
         {% endfor %}
     </div>
-    <div class="row col-1">
-        <button class="btn btn-warning ml-2">
+    <div class="col-2">
+        <button class="btn btn-warning btn-block" style="height: 100%;">
             <i class="fas fa-paper-plane fa-2x"></i>
         </button>
     </div>

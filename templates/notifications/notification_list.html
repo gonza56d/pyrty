@@ -4,22 +4,28 @@
 
 {% block container %}
 
-<div class="row">
+<div class="row breadcrumb breadcrumb-pyrty">
     <div class="col">
         <h3>{% translate 'Notifications' %}</h3>
     </div>
 </div>
 
-<div class="row">
+<div class="row breadcrumb breadcrumb-pyrty">
     <div class="col">
         <ul class="list-group">
-            {% for notification in page_obj %}
+            {% if page_obj %}
+                {% for notification in page_obj %}
+                    <li class="list-group-item inline {% if not notification.seen %}unseen{% endif %}">
+                        <a href="{% url 'get_notification' notification.pk %}" class="my-1 mx-1">
+                            <b>{{ notification.created }}</b> - {{ notification.message }}
+                        </a>
+                    </li>
+                {% endfor %}
+            {% else %}
                 <li class="list-group-item inline">
-                    <a href="{{ notification.url }}" class="list-group-item my-1 mx-1" style="color:white; {% if not notification.seen %} background-color:#ffc107; {% endif %}">
-                        <b>{{ notification.created }}</b> - {{ notification.message }}
-                    </a>
+                    {% translate "You don't have any notification" %}
                 </li>
-            {% endfor %}
+            {% endif %}
         </ul>
     </div>
 </div>

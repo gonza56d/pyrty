@@ -1,6 +1,7 @@
 """User urls."""
 
 # Django
+from django.contrib.auth.decorators import login_required
 from django.urls import path
 
 # Pyrty
@@ -13,5 +14,5 @@ urlpatterns = [
 	path('logout/', logout_view, name='logout'),
 	path('signup/', SignUp.as_view(), name='signup'),
 	path('oauth/', oauth, name='oauth'),
-	path('edit_user_options/', edit_user_options, name='edit_user_options'),
+	path('edit_user_options/', login_required(edit_user_options), name='edit_user_options'),
 ]

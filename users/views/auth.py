@@ -6,6 +6,7 @@
 # Django
 from django.contrib import auth, messages
 from django.db import transaction
+from django.forms.utils import ErrorList
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
@@ -19,22 +20,26 @@ from users.models import User
 
 
 def login_view(request):
-	"""Handle login request."""
-	if request.method == "POST":
-		form = LoginForm(data=request.POST)
-		if form.is_valid():
-			username = form.cleaned_data.get('username')
-			password = form.cleaned_data.get('password')
-			user = auth.authenticate(username=username, password=password)
-			if user is not None:
-				auth.login(request, user)
-			return redirect('forums')
+    """Handle login request."""
+    if request.method == "POST":
+        form = LoginForm(data=request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = auth.authenticate(username=username, password=password)
+            if user is not None:  # login success
+                auth.login(request, user)
+                messages.add_message(request, messages.SUCCESS, _('Log in success.'))
+            else:  # wrong credentials
+                messages.add_message(request, messages.WARNING, _('Wrong username/password.'))
+        return redirect('forums')
 
 
 def logout_view(request):
-	"""Handle logout request."""
-	auth.logout(request)
-	return redirect('forums')
+    """Handle logout request."""
+    auth.logout(request)
+    messages.add_message(request, messages.SUCCESS, _('Log out success.'))
+    return redirect('forums')
 
 
 class SignUp(FormView):
@@ -51,5 +56,5 @@ class SignUp(FormView):
         profile = Profile()
         profile.user = user
         profile.save()
-        messages.add_message(self.request, messages.INFO, _('Account registered successfully.'))
+        messages.add_message(self.request, messages.SUCCESS, _('Account registered successfully.'))
         return super().form_valid(form)

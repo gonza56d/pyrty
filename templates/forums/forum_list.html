@@ -3,14 +3,14 @@
 {% load i18n %}
 
 {% block container %}
-    <div class="row">
-        <h2 class="my-3">{% translate 'Main Forums' %}</h2>
-    </div>
-    <div class="row">
+    <div class="row breadcrumb breadcrumb-pyrty">
+        <div class="col-12">
+            <h2 class="my-3">{% translate 'Main Forums' %}</h2>
+        </div>
         {% for forum in object_list %}
-            <div class="col-12">
-                <a href="{% url 'forum' forum.url_name %}"><h3>{{ forum }}</h3></a>
-            </div>
+            <a class="col-12 alert alert-pyrty" href="{% url 'forum' forum.url_name %}">
+                <h3>{{ forum }}</h3>
+            </a>
         {% endfor %}
     </div>
 {% endblock %}

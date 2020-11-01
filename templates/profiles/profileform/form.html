@@ -1,6 +1,6 @@
 {% load i18n %}
 
-<form class="row" method="POST" action="{% url 'self_profile' object.slug %}" enctype="application/x-www-form-urlencoded">
+<form class="row breadcrumb breadcrumb-pyrty mr-md-1 pb-4" method="POST" action="{% url 'self_profile' object.slug %}" enctype="application/x-www-form-urlencoded">
     {% csrf_token %}
     <div class="col-12">
         <h3><b>User:</b> @{{ object.user }}</h3></br>

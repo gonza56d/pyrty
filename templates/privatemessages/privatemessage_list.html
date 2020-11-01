@@ -4,13 +4,10 @@
 
 {% block container %}
 
-<div class="row">
-    <div class="col">
+<div class="row breadcrumb breadcrumb-pyrty">
+    <div class="col-12">
         <h3>{% translate 'Inbox' %}</h3>
     </div>
-</div>
-
-<div class="row">
 	<!-- Different chats list -->
 	<div class="col-4">
         {% include 'privatemessages/list/inbox_list.html' %}

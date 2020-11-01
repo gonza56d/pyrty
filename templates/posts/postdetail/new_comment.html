@@ -2,19 +2,19 @@
 
 {% if user.is_authenticated %}
     <form method="POST" enctype="application/x-www-form-urlencoded" action="{% url 'create_comment' %}">
-        <div class="row">
+        <div class="row breadcrumb breadcrumb-pyrty">
             {% csrf_token %}
-            <div class="col-12 my-1">
+            <div class="col-12 my-1 mt-2">
                 <div class="row">
-                    <div class="col-10">
+                    <div class="col-6">
                         <h2>{% translate 'Leave a comment' %}:</h2>
                     </div>
-                    <div class="col-2">
-                        <button class="btn btn-primary btn-block">{% translate 'Post Comment' %}</button>
+                    <div class="col-6 text-right">
+                        <button class="btn btn-primary">{% translate 'Post Comment' %}</button>
                     </div>
                 </div>
             </div>
-            <div class="col-12 my-1">
+            <div class="col-12 my-1 mb-2">
                 {% for field in comment_form %}
                     {{ field }}
                 {% endfor %}
@@ -23,12 +23,15 @@
     </form>
     <span style="display:none;" id="delete_comment" class="{% url 'delete_comment' %}"></span>
 {% else %}
-    <div class="row my-3">
+    <div class="row my-3 breadcrumb breadcrumb-pyrty">
         <div class="col-12 my-1">
-            <h2 class="col-10">{% translate 'Leave a comment' %}:</h2><a class="btn btn-primary col-2 my-auto" href="{% url 'signup' %}">{% translate 'Sign up' %}</a>
+            <div class="row">
+                <h2 class="col-10">{% translate 'Leave a comment' %}:</h2>
+                <a class="btn btn-primary col-2 my-auto" href="{% url 'signup' %}">{% translate 'Sign up' %}</a>
+            </div>
         </div>
         <div class="col-12 my-1">
-            <h3><a href="#" id="focus_login">{% translate 'Log in' %}</a> {% translate 'or' %} <a href="{% url 'signup' %}">{% translate 'sign up' %}</a> {% translate 'to leave a comment.' %}</h3>
+            <h3><a href="#" id="focus_login" style="color: #ffd343;">{% translate 'Log in' %}</a> {% translate 'or' %} <a href="{% url 'signup' %}" style="color: #ffd343;">{% translate 'sign up' %}</a> {% translate 'to leave a comment.' %}</h3>
         </div>
     </div>
 {% endif %}

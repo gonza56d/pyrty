@@ -4,6 +4,7 @@
 # import pdb
 
 # Django
+from django.contrib.auth.decorators import login_required
 from django.urls import include, path
 
 # Django REST Framework
@@ -18,8 +19,8 @@ router = routers.SimpleRouter()
 router.register(r'comments', CommentViewSet, basename='comments')
 
 urlpatterns = [
-	path('create_comment/', create_comment, name='create_comment'),
-	path('delete_comment/', delete_comment, name='delete_comment'),
-	path('submit_vote/', submit_vote, name='submit_comment_vote'),
+	path('create_comment/', login_required(create_comment), name='create_comment'),
+	path('delete_comment/', login_required(delete_comment), name='delete_comment'),
+	path('submit_vote/', login_required(submit_vote), name='submit_comment_vote'),
 	path('rest/', include(router.urls)),
 ]
