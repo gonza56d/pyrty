@@ -38,5 +38,5 @@ class PrivateMessageViewSet(viewsets.ModelViewSet):
 			Q(target_user=request.user)
 		)
 		private_message = get_object_or_404(queryset, pk=pk)
-		serializer = PrivateMessageSerializer(queryset)
+		serializer = PrivateMessageSerializer(private_message)
 		return Response(serializer.data)
