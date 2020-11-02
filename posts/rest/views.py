@@ -16,7 +16,19 @@ from posts.rest.serializers import PostSerializer
 class PostViewSet(viewsets.ModelViewSet):
 
     serializer_class = PostSerializer
-    queryset = Post.objects.all()
+
+    def get_queryset(self):
+        """Filter by subforum__id or list all the posts."""
+        queryset = Post.objects.all()
+        subforum_id = self.request.query_params.get('subforum_id', None)
+        if subforum_id is not None:
+            queryset = queryset.filter(subforum__id=subforum_id)
+        return queryset
+    
+    def list(self, queryset):
+        """List all the obtained posts."""
+        serializer = PostSerializer(self.get_queryset(), many=True)
+        return Response(serializer.data)
 
     def get_permissions(self):
         permissions = []
