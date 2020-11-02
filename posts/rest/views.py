@@ -36,9 +36,12 @@ class PostViewSet(viewsets.ModelViewSet):
             permissions.append(IsAuthenticated())
         return permissions
 
-    def get_object(self):
-        """Return post by primary key."""
-        return get_object_or_404(Post, id=self.kwargs['pk'])
+    def retrieve(self, request, pk=None):
+        """Retrieve a post."""
+        queryset = Post.objects.all()
+        forum = get_object_or_404(queryset, pk=pk)
+        serializer = PostSerializer(forum)
+        return Response(serializer.data)
 
     def destroy(self, request, *args, **kwargs):
         """Delete a post created by request.user."""
