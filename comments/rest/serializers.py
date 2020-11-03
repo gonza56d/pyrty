@@ -5,6 +5,7 @@ from rest_framework import serializers
 
 # Pyrty
 from comments.models import Comment
+from profiles.views import run_reputation_update
 
 
 class CommentSerializer(serializers.ModelSerializer):
@@ -21,5 +22,5 @@ class CommentSerializer(serializers.ModelSerializer):
 
 		validated_data['user'] = self.context['request'].user
 		result = super().create(validated_data)
-		run_reputation_update(request.user)
+		run_reputation_update(validated_data['user'])
 		return result

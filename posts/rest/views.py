@@ -11,6 +11,7 @@ from rest_framework.response import Response
 # Pyrty
 from posts.models import Post
 from posts.rest.serializers import PostSerializer
+from profiles.views import run_reputation_update
 
 
 class PostViewSet(viewsets.ModelViewSet):
