@@ -44,6 +44,11 @@ def submit_vote(request):
     comment = Comment.objects.prefetch_related(positive_vote_prefetch)\
         .prefetch_related(negative_vote_prefetch).get(pk=request.data['comment_id'])
     
+    # Validate vote it's not by request.user
+    if comment.user.id == request.user.id:
+        return Response(data={'status': status.HTTP_403_FORBIDDEN,
+        'message': 'User cannot vote its self comments.'})
+    
     # Send comment instance and vote value for handling
     positive = serialized_data.data['positive']
     vote_manager.handle(positive, comment, request.user)
