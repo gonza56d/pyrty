@@ -11,7 +11,7 @@ from django.urls import include, path
 from rest_framework import routers
 
 # Pyrty
-from comments.rest.views import CommentViewSet
+from comments.rest.views import CommentViewSet, submit_vote as r_submit_vote
 from comments.views import create_comment, delete_comment, submit_vote
 
 
@@ -23,4 +23,5 @@ urlpatterns = [
 	path('delete_comment/', login_required(delete_comment), name='delete_comment'),
 	path('submit_vote/', login_required(submit_vote), name='submit_comment_vote'),
 	path('rest/', include(router.urls)),
+    path('rest/submit_vote/', r_submit_vote, name='rest_submit_comment_vote')
 ]

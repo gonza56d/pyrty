@@ -16,9 +16,6 @@ class PostDetail(DetailView):
 	"""Display a post with its comments."""
 
 	model = Post
-	user_queryset = None
-	positive_vote_prefetch = None
-	negative_vote_prefetch = None
 
 	def get_object(self, queryset=None):
 		"""Override to select related Subforum, forum and user vote."""

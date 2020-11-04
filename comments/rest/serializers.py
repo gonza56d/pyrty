@@ -8,6 +8,13 @@ from comments.models import Comment
 from profiles.views import run_reputation_update
 
 
+class CommentVoteSerializer(serializers.Serializer):
+    """Serializer for comment votes."""
+
+    positive = serializers.BooleanField()
+    comment_id = serializers.IntegerField()
+
+
 class CommentSerializer(serializers.ModelSerializer):
 	"""Comment model serializer."""
 
