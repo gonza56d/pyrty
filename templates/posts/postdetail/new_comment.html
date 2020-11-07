@@ -3,6 +3,13 @@
 {% if user.is_authenticated %}
     <form method="POST" enctype="application/x-www-form-urlencoded" action="{% url 'create_comment' %}">
         <div class="row breadcrumb breadcrumb-pyrty">
+            {% if not comments %}
+                <div class="row breadcrumb breadcrumb-pyrty">
+                    <div class="col-12">
+                        {% translate "This post doesn't have any comment yet." %}
+                    </div>
+                </div>
+            {% endif %}
             {% csrf_token %}
             <div class="col-12 my-1 mt-2">
                 <div class="row">

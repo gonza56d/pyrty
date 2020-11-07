@@ -16,6 +16,11 @@
                 <button class="btn btn-primary">{% translate 'New Post' %}</button>
             </form>
         </div>
+        {% if not object_list %}
+            <div class="col-12">
+                {% translate "This subforum doesn't have any post yet." %}
+            </div>
+        {% endif %}
         {% for post in object_list %}
             <a class="col-12 alert alert-pyrty" href="{% url 'post' post.id %}">
                 <h3>{{ post }}</h3>
