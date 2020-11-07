@@ -28,7 +28,7 @@
                                     Post by <a href="{% url 'profile' object.user %}">@{{ object.user }}</a>
                                 </div>
                                 <div class="col-12">
-                                    {% translate 'Rank' %} {{ object.user.profile.get_rank }} - {% translate 'Score' %} {{ object.user.score }}
+                                    {% translate 'Rank' %} {{ object.user.profile.get_rank }} - {% translate 'Score' %} {{ object.user.profile.reputation }}
                                 </div>
                             </div>
                         </div>

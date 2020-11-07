@@ -20,7 +20,7 @@ class UserConfigurationsForm(forms.ModelForm):
 			attrs={'class': 'form-control'},
 			choices=SUMMARY_REPORTS_CHOICES
 		)
-		self.fields['summary_reports'].label = _('user_configurations_form')
+		self.fields['summary_reports'].label = _('Reports every')
 
 	class Meta:
 		model = User

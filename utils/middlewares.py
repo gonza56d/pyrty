@@ -21,21 +21,21 @@ class LoginFormMiddleware:
 
 
 class NotificationMiddleware:
-	"""Perform a query for notifications for the user."""
-
-	def __init__(self, get_response):
-		self.get_response = get_response
-
-	def __call__(self, request):
-		if request.user.is_authenticated:  # AnnonymousUser is not iterable therefore we need to check if it is authenticated.
-
-			request.non_seen_notifs = Notification.objects.filter(
-				target_user=request.user, seen=False).exists()
-
-			request.notifications = Notification.objects.filter(
-				target_user=request.user)[:5]
-
-		return self.get_response(request)
+    """Perform a query for notifications for the user."""
+    
+    def __init__(self, get_response):
+        self.get_response = get_response
+    
+    def __call__(self, request):
+        if request.user.is_authenticated:  # AnnonymousUser is not iterable therefore we need to check if it is authenticated.
+            
+            request.non_seen_notifs = Notification.objects.filter(
+                target_user=request.user, seen=False).exists()
+            
+            request.notifications = Notification.objects.filter(
+                target_user=request.user)[:5]
+        
+        return self.get_response(request)
 
 
 class PrivateMessageMiddleware:

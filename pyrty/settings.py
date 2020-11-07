@@ -60,6 +60,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'utils.middlewares.LoginFormMiddleware',
     'utils.middlewares.NotificationMiddleware',
     'utils.middlewares.PrivateMessageMiddleware',
@@ -139,7 +140,7 @@ LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'America/Argentina/Buenos_Aires'
 
-USE_I18N = False
+USE_I18N = True
 
 USE_L10N = True
 
