@@ -27,8 +27,6 @@ class CommentForm(forms.ModelForm):
 				widget=forms.Select(attrs={'style': 'display:none;'})
 			)
 
-		self.fields['content'].widget = forms.Textarea(attrs={'class': 'form-control'})
-
 	class Meta:
 		model = Comment
 		fields = ['post', 'content']

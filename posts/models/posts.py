@@ -5,6 +5,7 @@
 
 # Django
 from django.db import models
+from django_quill.fields import QuillField
 
 # Pyrty
 from comments.models import Comment
@@ -25,7 +26,7 @@ class Post(PyrtyModel):
 		null=False, 
 		blank=False
 	)
-	content = models.TextField(
+	content = QuillField(
 		'post content',
 		max_length=5000,
 		null=False,

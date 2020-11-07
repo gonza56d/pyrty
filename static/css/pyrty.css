@@ -46,6 +46,11 @@ a.navbar-brand:hover {
     color: #2b5b84;
 }
 
+.django-quill-widget-container {
+    color: black;
+    background-color: white;
+}
+
 .dropdown-item.unseen {
     background-color: #ffd343;
 }

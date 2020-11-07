@@ -19,6 +19,7 @@ DJANGO_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_quill',
 ]
 
 PROJECT_APPS = [
@@ -63,6 +64,28 @@ MIDDLEWARE = [
     'utils.middlewares.NotificationMiddleware',
     'utils.middlewares.PrivateMessageMiddleware',
 ]
+
+# Django Quill
+QUILL_CONFIGS = {
+    'default':{
+        'theme': 'snow',
+        'modules': {
+            'syntax': True,
+            'toolbar': [
+                [
+                    {'font': []},
+                    {'header': []},
+                    {'align': []},
+                    'bold', 'italic', 'underline', 'strike', 'blockquote',
+                    {'color': []},
+                    {'background': []},
+                ],
+                ['code-block', 'link'],
+                ['clean'],
+            ]
+        }
+    }
+}
 
 ROOT_URLCONF = 'pyrty.urls'
 

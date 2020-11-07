@@ -25,7 +25,9 @@
                     {% include 'posts/postdetail/comment_vote_panel.html' %}
                 </div>
                 <div class="col-12 col-md-9 mt-md-3">
-                    {{ object.content }}
+                    {% autoescape off %}
+                        {{ comment.content.html }}
+                    {% endautoescape %}
                 </div>
                 <div class="d-none d-md-block col-md-3 text-center">
                     {% include 'posts/postdetail/comment_vote_panel.html' %}

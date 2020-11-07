@@ -42,8 +42,10 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-12">
-                    {{ object.content }}
+                <div class="col-12 mt-md-3">
+                    {% autoescape off %}
+                        {{ object.content.html }}
+                    {% endautoescape %}
                 </div>
             </div>
         </div>

@@ -6,6 +6,7 @@ from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 from django.shortcuts import redirect
 from django.views.generic.edit import CreateView
+from django_quill.forms import QuillFormField
 
 # Pyrty
 from posts.models import Post
@@ -46,9 +47,7 @@ class CreatePost(CreateView):
 		form.fields['title'].widget = forms.TextInput(
 			attrs={'class': 'form-control my-2', 'placeholder': _('Title')}
 		)
-		form.fields['content'].widget = forms.Textarea(
-			attrs={'class': 'form-control my-2', 'placeholder': _('Content')}
-		)
+		form.fields['content'] = QuillFormField()
 		return form
 
 	def get(self, request, *args, **kwargs):
