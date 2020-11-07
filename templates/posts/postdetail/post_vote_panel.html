@@ -1,8 +1,8 @@
 <div class="row">
-    <div class="col-6 my-auto mx-auto alert {% if object.score > 0 %}alert-success{% elif object.score < 0 %}alert-danger{% else %}alert-light{% endif %}">
+    <div class="col-9 col-md-6 my-auto mx-auto alert {% if object.score > 0 %}alert-success{% elif object.score < 0 %}alert-danger{% else %}alert-light{% endif %}">
         {{ object.score }}
     </div>
-    <div class="col-6">
+    <div class="col-3 col-md-6">
         {% if request.user == object.user %} <!-- delete button if user is post.user -->
             <form class="my-1" method="POST" class="my-1" enctype="application/x-www-form-urlencoded" action="{% url 'delete_post' %}">
                 {% csrf_token %}

@@ -1,8 +1,8 @@
 <div class="row">
-    <div class="col-6 my-auto mx-auto alert {% if comment.score > 0 %}alert-success{% elif comment.score < 0 %}alert-danger{% else %}alert-light{% endif %}">
+    <div class="col-9 col-md-6 my-auto mx-auto alert {% if comment.score > 0 %}alert-success{% elif comment.score < 0 %}alert-danger{% else %}alert-light{% endif %}">
         {{ comment.score }}
     </div>
-    <div class="col-6 my-auto">
+    <div class="col-3 col-md-6 my-auto">
         {% if comment.user == request.user %}<!-- delete button if user is comment.user -->
             <button id="delete_comment_{{ comment.id }}" class="btn btn-danger delete_comment my-auto" type="button"><i class="fas fa-trash"></i></button>
 

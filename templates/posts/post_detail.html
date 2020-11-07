@@ -8,29 +8,44 @@
 
 {% block container %}
     <div class="row mt-3 breadcrumb breadcrumb-pyrty">
-        <div class="col-9">
-            <h2>{{ object.title }}</h2>
-        </div>
-        <div class="col-3">
+        <div class="col-12">
             <div class="row">
-                <div class="col-12 d-none d-md-block">
-                    <small>{{ object.created }}</small>
+                <div class="col-12 col-md-9">
+                    <h2>{{ object.title }}</h2>
                 </div>
-                <div class="col-12 text-center">
+                <div class="d-none d-md-block col-md-3">
+                    <div class="text-right">
+                        <small>{{ object.created }}</small>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 col-md-9">
+                    <div class="row">
+                        <div class="col-6 col-md-12">
+                            <div class="row">
+                                <div class="col-12">
+                                    Post by <a href="{% url 'profile' object.user %}">@{{ object.user }}</a>
+                                </div>
+                                <div class="col-12">
+                                    {% translate 'Rank' %} {{ object.user.profile.get_rank }} - {% translate 'Score' %} {{ object.user.score }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6 d-md-none text-right">
+                            {{ object.created.date }}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-3 text-center">
                     {% include 'posts/postdetail/post_vote_panel.html' %}
                 </div>
             </div>
-        </div>
-        <div class="col-12">
-            <div class="d-none d-md-block"><!-- Desktop display -->
-                by <a href="{% url 'profile' object.user %}">@{{ object.user }}</a>
+            <div class="row">
+                <div class="col-12">
+                    {{ object.content }}
+                </div>
             </div>
-            <div class="d-block d-md-none"><!-- Mobile display -->
-                by <a href="{% url 'profile' object.user %}">@{{ object.user }}</a><small>, {{ object.created }}</small>
-            </div>
-        </div>
-        <div class="col-12 mt-3">
-            {{ object.content }}
         </div>
     </div>
     {% include 'posts/postdetail/comments.html' %}
