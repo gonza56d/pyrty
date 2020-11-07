@@ -1,5 +1,8 @@
 """Create comment views."""
 
+# Python
+import json
+
 # Django
 from django.db import transaction
 from django.shortcuts import redirect, reverse
@@ -12,17 +15,18 @@ from users.models import User
 
 
 def create_comment(request):
-	"""Create comment view."""
-	if request.method == 'POST':
-		form = CommentForm(None, data=request.POST)
-		if form.is_valid():
-			with transaction.atomic():
-				comment = form.save(commit=False)
-				comment.user = request.user
-				form.save()
-				create_notification(request, form)
-				run_reputation_update(request.user)
-		return redirect('post', pk=request.POST['post'])
+    """Create comment view."""
+    if request.method == 'POST':
+        form = CommentForm(None, data=request.POST)
+        if form.is_valid():
+            with transaction.atomic():
+                comment = form.save(commit=False)
+                comment.user = request.user
+                comment.content = json.loads(form.cleaned_data.get('content'))['html']  # Quill form field's html
+                form.save()
+                create_notification(request, form)
+                run_reputation_update(request.user)
+        return redirect('post', pk=request.POST['post'])
 
 
 def create_notification(request, form):

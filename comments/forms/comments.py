@@ -5,6 +5,7 @@
 
 # Django
 from django import forms
+from django_quill.forms import QuillFormField
 
 # Pyrty
 from comments.models import Comment
@@ -26,6 +27,8 @@ class CommentForm(forms.ModelForm):
 				empty_label=None,
 				widget=forms.Select(attrs={'style': 'display:none;'})
 			)
+
+		self.fields['content'] = QuillFormField()
 
 	class Meta:
 		model = Comment

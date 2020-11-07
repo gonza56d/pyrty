@@ -2,7 +2,6 @@
 
 # Django
 from django.db import models
-from django_quill.fields import QuillField
 
 # Pyrty
 from users.models import User
@@ -15,7 +14,7 @@ class Comment(PyrtyModel):
 	user = models.ForeignKey('users.User', on_delete=models.CASCADE, null=False)
 	post = models.ForeignKey('posts.Post', on_delete=models.CASCADE, null=False)
 
-	content = QuillField(max_length=1000, null=False, blank=False)
+	content = models.CharField(max_length=1000, null=False, blank=False)
 
 	positive_votes = models.ManyToManyField('users.User', related_name='c_positive_vote_set')
 	negative_votes = models.ManyToManyField('users.User', related_name='c_negative_vote_set')
