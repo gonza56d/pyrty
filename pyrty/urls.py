@@ -35,4 +35,4 @@ urlpatterns = [
 ]
 
 
-db_inj = DBInjector()
+# db_inj = DBInjector()
