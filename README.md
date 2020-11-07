@@ -21,6 +21,7 @@ This class instance will populate your database instance with some random conten
 # Try the app
 You can log in as:
 - username: demo
-- password: demo
+- password: demo  
+Also, you can log in as any other user that you see in the app with 'abc123abc123' password.
 
 # Enjoy!
