@@ -21,14 +21,22 @@ class DBInjector:
     def __init__(self):
         """Populate database for demos."""
         
-        self.inject_users()
-        self.inject_forums()
-        self.inject_subforums()
-        self.inject_posts()
-        self.inject_comments()
-        self.inject_scores()
-        logging.info('Injections finished successfully.')
-        
+        logging.info('Checking if database is populated...')
+        if not self.db_is_populated():
+            logging.info('Database empty, running inserts...')
+            self.inject_users()
+            self.inject_forums()
+            self.inject_subforums()
+            self.inject_posts()
+            self.inject_comments()
+            self.inject_scores()
+            logging.info('Inserts finished successfully.')
+        else:
+            logging.info('Database is already populated. Inserts skipped.')
+    
+    def db_is_populated(self):
+        return User.objects.filter(username='gonza56d').exists()
+    
     def inject_users(self):
         logging.info('Injecting users...')
         with open('utils/dbinjector/users.csv', newline='') as csv_file:
