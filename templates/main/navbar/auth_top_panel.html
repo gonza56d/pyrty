@@ -15,7 +15,13 @@
                     {% if request.messages %}
                         {% for message in request.messages %}
                             <a href="{% url 'private_message' message.origin_user %}" class="dropdown-item my-1 px-1 {% if not message.seen %}unseen{% endif %}">
-                                {{ message.created }} | {% translate 'Message from'%} {{ message.origin_user }}
+                                <span class="badge badge-pill badge-primary">
+                            {% if request.LANGUAGE_CODE == 'en' %}
+                                {{ message.created|date:'m/d - H:i' }}
+                            {% else %}
+                                {{ message.created|date:'d/m - H:i' }}
+                            {% endif %}</span>
+                                {% translate 'Message from'%} {{ message.origin_user }}
                             </a>
                         {% endfor %}
                     {% else %}
@@ -35,7 +41,13 @@
                 {% if request.notifications %}
                     {% for notification in request.notifications %}
                         <a href="{% url 'get_notification' notification.pk %}" class="dropdown-item my-1 px-1 {% if not notification.seen %}unseen{% endif %}">
-                            {{ notification.created }} | {% translate notification.message %}
+                            <span class="badge badge-pill badge-primary">
+                            {% if request.LANGUAGE_CODE == 'en' %}
+                                {{ notification.created|date:'m/d - H:i' }}
+                            {% else %}
+                                {{ notification.created|date:'d/m - H:i' }}
+                            {% endif %}</span>
+                                {% translate notification.message %}
                         </a>
                     {% endfor %}
                     <div class="text-center mt-2">
