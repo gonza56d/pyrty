@@ -1,0 +1,41 @@
+{% extends 'main.html' %}
+
+{% load i18n %}
+
+{% block title %}
+    {% translate 'Your summary report' %}
+{% endblock %}
+
+
+{% block container %}
+    <div class="row mt-3 breadcrumb breadcrumb-pyrty">
+        <div class="col-12 mb-3">
+            <div class="row">
+                <div class="col-12">
+                    <h2>{% translate 'Your summary report' %}
+                    {% if object.user.summary_reports == 'D' %} {% translate 'from today' %}
+                    {% elif object.user.summary_reports == 'W' %} {% translate 'from last week' %}
+                    {% elif object.user.summary_reports == 'M' %} {% translate 'from last month' %}{% endif %}</h2>
+                </div>
+                <div class="col-12">
+                    {% translate 'Posts made' %}: {{ object.posts_made }}
+                </div>
+                <div class="col-12">
+                    {% translate 'Comments made' %}: {{ object.comments_made}}
+                </div>
+                <div class="col-12">
+                    {% translate 'Comments received' %}: {{ object.comments_received }}
+                </div>
+                <div class="col-12">
+                    {% translate 'Messages sent' %}: {{ object.messages_sent }}
+                </div>
+                <div class="col-12">
+                    {% translate 'Messages received' %}: {{ object.messages_received }}
+                </div>
+                <div class="col-12">
+                    {% translate 'Notifications' %}: {{ object.notifications }}
+                </div>
+            </div>
+        </div>
+    </dvi>
+{% endblock %}

@@ -1,23 +1,35 @@
 {% load i18n %}
 
 <div class="row breadcrumb breadcrumb-pyrty pb-4">
-    <!-- display profile's last 10 posts -->
+    <!-- display user access to its last summary report -->
     <div class="col-12 mt-3 mt-md-0">
+        <h3>{% translate 'Your last summary report' %}:</h3>
+    </div>
+    <div class="col-12">
+        <ul class="list-group">
+            <li class="list-group-item inline">
+                <b><a style="color:#ffd343;" href="{% url 'summary_report' %}">{% translate 'Click to get!' %}</a></b>
+            </li>
+        </ul>
+    </div>
+    </hr>
+    <!-- display profile's last 10 posts -->
+    <div class="col-12 mt-3">
         <h3>{% translate 'Your last posts' %}:</h3>
     </div>
     <div class="col-12">
         <ul class="list-group">
             {% for post in profile_posts %}
                 <li class="list-group-item inline">
-                    <b><a style="color:#ffd343;" href="{% url 'post' post.pk %}">{{ post }}</a></b> on <a style="color:#ffd343;" href="{% url 'forum' post.subforum.forum %}">{{ post.subforum.forum }}</a> > <a style="color:#ffd343;" href="{% url 'subforum' post.subforum %}">{{ post.subforum }}</a>
-                </li>    
+                    <b><a style="color:#ffd343;" href="{% url 'post' post.pk %}">{{ post }}</a></b> {% translate 'on' %} <a style="color:#ffd343;" href="{% url 'forum' post.subforum.forum %}">{{ post.subforum.forum }}</a> > <a style="color:#ffd343;" href="{% url 'subforum' post.subforum %}">{{ post.subforum }}</a>
+                </li>
             {% endfor %}
         </ul>
     </div>
     {% if not profile_posts %}
         <span class="col-12">{% translate 'You have not posted anything yet.' %}</span>
     {% endif %}
-    <hr/>
+    </hr>
     <!-- display profile's last 10 comments -->
     <div class="col-12 mt-3">
         <h3>{% translate 'Your last comments' %}:</h3>
@@ -26,7 +38,7 @@
         <ul class="list-group">
             {% for comment in profile_comments %}
                 <li class="list-group-item inline">
-                    <b>{{ comment }}</b> on <a style="color:#ffd343;" href="{% url 'post' comment.post.pk %}">{{ comment.post }}</a> - {{ comment.created }}
+                    <b>{{ comment }}</b> {% translate 'on' %} <a style="color:#ffd343;" href="{% url 'post' comment.post.pk %}">{{ comment.post }}</a> - {{ comment.created }}
                 </li>
             {% endfor %}
         </ul>

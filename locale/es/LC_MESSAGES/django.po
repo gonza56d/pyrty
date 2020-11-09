@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-09 01:01+0000\n"
+"POT-Creation-Date: 2020-11-09 01:43+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -74,6 +74,7 @@ msgstr "Foros principales"
 
 #: templates/notifications/notification_list.html:6
 #: templates/notifications/notification_list.html:13
+#: templates/summaryreports/summaryreport_detail.html:36
 msgid "Notifications"
 msgstr "Notificaciones"
 
@@ -150,7 +151,7 @@ msgstr "registrarse"
 msgid "to leave a comment."
 msgstr "para dejar un comentario."
 
-#: templates/privatemessages/list/message_list.html:8
+#: templates/privatemessages/list/message_list.html:10
 msgid "at"
 msgstr "a las"
 
@@ -164,7 +165,7 @@ msgid "User last posts"
 msgstr "Últimos posts del usuario"
 
 #: templates/profiles/profiledetail/activity_panel.html:18
-#: templates/profiles/profileform/activity_panel.html:18
+#: templates/profiles/profileform/activity_panel.html:30
 msgid "You have not posted anything yet."
 msgstr "No has posteado nada todavía."
 
@@ -173,7 +174,7 @@ msgid "User last comments"
 msgstr "Últimos comentarios del usuario"
 
 #: templates/profiles/profiledetail/activity_panel.html:35
-#: templates/profiles/profileform/activity_panel.html:35
+#: templates/profiles/profileform/activity_panel.html:47
 msgid "You have not commented on any post yet."
 msgstr "No has comentado nada todavía."
 
@@ -199,10 +200,23 @@ msgid "Send"
 msgstr "Enviar"
 
 #: templates/profiles/profileform/activity_panel.html:6
+msgid "Your last summary report"
+msgstr "Tu último reporte"
+
+#: templates/profiles/profileform/activity_panel.html:11
+msgid "Click to get!"
+msgstr "Click para ver!"
+
+#: templates/profiles/profileform/activity_panel.html:18
 msgid "Your last posts"
 msgstr "Tus últimos posts"
 
-#: templates/profiles/profileform/activity_panel.html:23
+#: templates/profiles/profileform/activity_panel.html:24
+#: templates/profiles/profileform/activity_panel.html:41
+msgid "on"
+msgstr "en"
+
+#: templates/profiles/profileform/activity_panel.html:35
 msgid "Your last comments"
 msgstr "Tus últimos comentarios"
 
@@ -222,6 +236,43 @@ msgstr "Confirmar"
 #: templates/subforums/subforum_list.html:12
 msgid "Subforums"
 msgstr "Subforos"
+
+#: templates/summaryreports/summaryreport_detail.html:6
+#: templates/summaryreports/summaryreport_detail.html:15
+msgid "Your summary report"
+msgstr "Tu reporte"
+
+#: templates/summaryreports/summaryreport_detail.html:16
+msgid "from today"
+msgstr "de hoy"
+
+#: templates/summaryreports/summaryreport_detail.html:17
+msgid "from last week"
+msgstr "de la semana pasada"
+
+#: templates/summaryreports/summaryreport_detail.html:18
+msgid "from last month"
+msgstr "del mes pasado"
+
+#: templates/summaryreports/summaryreport_detail.html:21
+msgid "Posts made"
+msgstr "Posts realizados"
+
+#: templates/summaryreports/summaryreport_detail.html:24
+msgid "Comments made"
+msgstr "Comentarios realizados"
+
+#: templates/summaryreports/summaryreport_detail.html:27
+msgid "Comments received"
+msgstr "Comentarios recibidos"
+
+#: templates/summaryreports/summaryreport_detail.html:30
+msgid "Messages sent"
+msgstr "Mensajes enviados"
+
+#: templates/summaryreports/summaryreport_detail.html:33
+msgid "Messages received"
+msgstr "Mensajes recibidos"
 
 #: templates/users/signup.html:14
 msgid "Account Registration"
