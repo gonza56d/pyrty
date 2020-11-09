@@ -35,7 +35,7 @@
                 {% if request.notifications %}
                     {% for notification in request.notifications %}
                         <a href="{% url 'get_notification' notification.pk %}" class="dropdown-item my-1 px-1 {% if not notification.seen %}unseen{% endif %}">
-                            {{ notification.created }} | {{ notification.message }}
+                            {{ notification.created }} | {% translate notification.message %}
                         </a>
                     {% endfor %}
                     <div class="text-center mt-2">

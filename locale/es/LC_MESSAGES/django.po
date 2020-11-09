@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-09 02:06+0000\n"
+"POT-Creation-Date: 2020-11-09 03:02+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,6 +17,10 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: comments/views/create.py:41
+msgid "commented in your post:"
+msgstr ""
 
 #: posts/views/create.py:48 posts/views/create.py:50
 msgid "Title"
@@ -41,6 +45,18 @@ msgstr "Cumpleaños"
 #: profiles/views/update.py:52 templates/profiles/profiledetail/detail.html:26
 msgid "Bio"
 msgstr "Biografía"
+
+#: summaryreports/views/create.py:44
+msgid "Your daily summary report is here."
+msgstr "Tu reporte diario está aquí."
+
+#: summaryreports/views/create.py:46
+msgid "Your weekly summary report is here."
+msgstr "Tu reporte semanal está aquí."
+
+#: summaryreports/views/create.py:48
+msgid "Your monthly summary report is here."
+msgstr "Tu reporte mensual está aquí."
 
 #: templates/forums/forum_list.html:6
 msgid "Forums"

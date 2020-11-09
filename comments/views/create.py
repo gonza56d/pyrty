@@ -6,6 +6,7 @@ import json
 # Django
 from django.db import transaction
 from django.shortcuts import redirect, reverse
+from django.utils.translation import gettext as _
 
 # Pyrty
 from comments.forms import CommentForm
@@ -37,6 +38,6 @@ def create_notification(request, form):
 		notification = Notification()
 		notification.origin_user = request.user
 		notification.target_user = User.objects.get(pk=post.user.id)
-		notification.message = "{} commented in your post: '{}'".format(request.user, post.title)
+		notification.message = f'@{request.user} ' + _('commented in your post:') + f' {post.title}'
 		notification.url = reverse('post', args=[post.id])
 		notification.save()
