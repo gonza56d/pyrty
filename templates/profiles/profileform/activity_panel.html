@@ -2,19 +2,21 @@
 
 <div class="row breadcrumb breadcrumb-pyrty pb-4">
     <!-- display user access to its last summary report -->
-    <div class="col-12 mt-3 mt-md-0">
-        <h3>{% translate 'Your last summary report' %}:</h3>
-    </div>
-    <div class="col-12">
-        <ul class="list-group">
-            <li class="list-group-item inline">
-                <b><a style="color:#ffd343;" href="{% url 'summary_report' %}">{% translate 'Click to get!' %}</a></b>
-            </li>
-        </ul>
-    </div>
-    </hr>
+    {% if has_summary_reports %}
+        <div class="col-12">
+            <h3>{% translate 'Your last summary report' %}:</h3>
+        </div>
+        <div class="col-12">
+            <ul class="list-group">
+                <li class="list-group-item inline">
+                    <b><a style="color:#ffd343;" href="{% url 'summary_report' %}">{% translate 'Click to get!' %}</a></b>
+                </li>
+            </ul>
+        </div>
+        </hr>
+    {% endif %}
     <!-- display profile's last 10 posts -->
-    <div class="col-12 mt-3">
+    <div class="col-12 {% if has_summary_reports %}mt-3{% endif %}">
         <h3>{% translate 'Your last posts' %}:</h3>
     </div>
     <div class="col-12">
@@ -38,7 +40,7 @@
         <ul class="list-group">
             {% for comment in profile_comments %}
                 <li class="list-group-item inline">
-                    <b>{{ comment }}</b> {% translate 'on' %} <a style="color:#ffd343;" href="{% url 'post' comment.post.pk %}">{{ comment.post }}</a> - {{ comment.created }}
+                    <b>{% autoescape off %}{{ comment|truncatechars:30 }}{% endautoescape %}</b> {% translate 'on' %} <a style="color:#ffd343;" href="{% url 'post' comment.post.pk %}">{{ comment.post }}</a> - {{ comment.created }}
                 </li>
             {% endfor %}
         </ul>

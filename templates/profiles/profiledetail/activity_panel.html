@@ -26,7 +26,7 @@
         <ul class="list-group">
             {% for comment in profile_comments %}
                 <li class="list-group-item inline">
-                    <b>{{ comment }}</b> {% translate 'on' %} <a style="color:#ffd343;" href="{% url 'post' comment.post.pk %}">{{ comment.post }}</a> - {{ comment.created }}
+                    <b>{% autoescape off %}{{ comment|truncatechars:30 }}{% endautoescape %}</b> {% translate 'on' %} <a style="color:#ffd343;" href="{% url 'post' comment.post.pk %}">{{ comment.post }}</a> - {{ comment.created }}
                 </li>
             {% endfor %}
         </ul>

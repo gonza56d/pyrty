@@ -20,7 +20,7 @@ msgstr ""
 
 #: comments/views/create.py:41
 msgid "commented in your post:"
-msgstr ""
+msgstr "comentó en tu post:"
 
 #: posts/views/create.py:48 posts/views/create.py:50
 msgid "Title"

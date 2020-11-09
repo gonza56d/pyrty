@@ -3,7 +3,7 @@
 <form class="row breadcrumb breadcrumb-pyrty mr-md-1 pb-4" method="POST" action="{% url 'self_profile' object.slug %}" enctype="application/x-www-form-urlencoded">
     {% csrf_token %}
     <div class="col-12">
-        <h3><b>User:</b> @{{ object.user }}</h3></br>
+        <h3><b>{% translate 'User' %}:</b> @{{ object.user }}</h3></br>
     </div>
     <div class="col-5">
         {% translate 'Rank' %}: {{ object.get_rank }}</br>{% translate 'Reputation' %}: {{ object.reputation }}

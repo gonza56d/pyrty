@@ -15,6 +15,7 @@ from comments.models import Comment
 from posts.models import Post
 from privatemessages.forms import PrivateMessageForm
 from profiles.models import Profile
+from summaryreports.models import SummaryReport
 from users.forms import UserConfigurationsForm
 from users.models import User
 
@@ -75,6 +76,8 @@ class ProfileUpdateView(UpdateView):
         context = super().get_context_data(**kwargs)
 
         user = self.object.user
+
+        context['has_summary_reports'] = SummaryReport.objects.filter(user=user).exists()
 
         context['user_configurations_form'] = UserConfigurationsForm(
 			initial={'summary_reports': user.summary_reports}
