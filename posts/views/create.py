@@ -45,10 +45,12 @@ class CreatePost(CreateView):
 			label = '',
 			widget = forms.Select(attrs={'class': 'form-control', 'style': 'display:none;'})
 		)
+        form.fields['title'].label = _('Title')
         form.fields['title'].widget = forms.TextInput(
 			attrs={'class': 'form-control my-2', 'placeholder': _('Title')}
 		)
         form.fields['content'] = QuillFormField()
+        form.fields['content'].label = _('Content')
         return form
         
     def get(self, request, *args, **kwargs):
