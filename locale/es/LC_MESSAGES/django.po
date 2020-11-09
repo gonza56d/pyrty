@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-09 01:58+0000\n"
+"POT-Creation-Date: 2020-11-09 02:06+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,7 +22,7 @@ msgstr ""
 msgid "Title"
 msgstr "Título"
 
-#: posts/views/create.py:52
+#: posts/views/create.py:53
 msgid "Content"
 msgstr "Contenido"
 
@@ -94,6 +94,10 @@ msgstr "Anterior"
 msgid "Next"
 msgstr "Siguiente"
 
+#: templates/posts/post_detail.html:28
+msgid "Post by"
+msgstr "Posteado por"
+
 #: templates/posts/post_detail.html:31
 #: templates/posts/postdetail/comments.html:14
 #: templates/profiles/profiledetail/detail.html:9
@@ -125,6 +129,10 @@ msgstr "Nuevo Post"
 #: templates/posts/post_list.html:21
 msgid "This subforum doesn't have any post yet."
 msgstr "Este subforo no tiene ningún post todavía."
+
+#: templates/posts/postdetail/comments.html:11
+msgid "Comment by"
+msgstr "Comentario por"
 
 #: templates/posts/postdetail/new_comment.html:9
 msgid "This post doesn't have any comment yet."
@@ -167,6 +175,13 @@ msgstr "Bandeja"
 #: templates/profiles/profiledetail/activity_panel.html:6
 msgid "User last posts"
 msgstr "Últimos posts del usuario"
+
+#: templates/profiles/profiledetail/activity_panel.html:12
+#: templates/profiles/profiledetail/activity_panel.html:29
+#: templates/profiles/profileform/activity_panel.html:24
+#: templates/profiles/profileform/activity_panel.html:41
+msgid "on"
+msgstr "en"
 
 #: templates/profiles/profiledetail/activity_panel.html:18
 #: templates/profiles/profileform/activity_panel.html:30
@@ -214,11 +229,6 @@ msgstr "Click para ver!"
 #: templates/profiles/profileform/activity_panel.html:18
 msgid "Your last posts"
 msgstr "Tus últimos posts"
-
-#: templates/profiles/profileform/activity_panel.html:24
-#: templates/profiles/profileform/activity_panel.html:41
-msgid "on"
-msgstr "en"
 
 #: templates/profiles/profileform/activity_panel.html:35
 msgid "Your last comments"
@@ -304,7 +314,7 @@ msgstr "Reportes cada"
 
 #: users/views/auth.py:32
 msgid "Log in success."
-msgstr "Ingreso de sesión exitoso."
+msgstr "Inicio de sesión exitoso."
 
 #: users/views/auth.py:34
 msgid "Wrong username/password."

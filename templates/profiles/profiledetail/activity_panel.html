@@ -9,7 +9,7 @@
         <ul class="list-group">
             {% for post in profile_posts %}
                 <li class="list-group-item inline">
-                    <b><a style="color:#ffd343;" href="{% url 'post' post.pk %}">{{ post }}</a></b> on <a style="color:#ffd343;" href="{% url 'forum' post.subforum.forum %}">{{ post.subforum.forum }}</a> > <a style="color:#ffd343;" href="{% url 'subforum' post.subforum %}">{{ post.subforum }}</a>
+                    <b><a style="color:#ffd343;" href="{% url 'post' post.pk %}">{{ post }}</a></b> {% translate 'on' %} <a style="color:#ffd343;" href="{% url 'forum' post.subforum.forum %}">{{ post.subforum.forum }}</a> > <a style="color:#ffd343;" href="{% url 'subforum' post.subforum %}">{{ post.subforum }}</a>
                 </li>    
             {% endfor %}
         </ul>
@@ -26,7 +26,7 @@
         <ul class="list-group">
             {% for comment in profile_comments %}
                 <li class="list-group-item inline">
-                    <b>{{ comment }}</b> on <a style="color:#ffd343;" href="{% url 'post' comment.post.pk %}">{{ comment.post }}</a> - {{ comment.created }}
+                    <b>{{ comment }}</b> {% translate 'on' %} <a style="color:#ffd343;" href="{% url 'post' comment.post.pk %}">{{ comment.post }}</a> - {{ comment.created }}
                 </li>
             {% endfor %}
         </ul>

@@ -8,7 +8,7 @@
                 <div class="col-12 col-md-9">
                     <div class="row">
                         <div class="col-12">
-                            Comment by <a href="{% url 'profile' comment.user %}">@{{ comment.user }}</a>
+                            {% translate 'Comment by' %} <a href="{% url 'profile' comment.user %}">@{{ comment.user }}</a>
                         </div>
                         <div class="col-12">
                             {% translate 'Rank' %} {{ comment.user.profile.get_rank }} - {% translate 'Score' %} {{ comment.user.profile.reputation }}
