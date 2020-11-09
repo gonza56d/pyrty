@@ -30,6 +30,8 @@ urlpatterns = [
     path('profiles/', include('profiles.urls')),
     # Subforums
     path('subforums/', include('subforums.urls')),
+    # Summary Reports
+    path('summary_reports/', include('summaryreports.urls')),
     # Users
     path('users/', include('users.urls'))
 ]

@@ -1,3 +1,5 @@
+{% load i18n %}
+
 <!-- Current inbox chat -->
 <div class="row">
     <div class="col-12">
@@ -5,7 +7,7 @@
             {% for object in object_list %}
                 <div class="col-12 {% if object.origin_user == request.user %}text-right{% endif %}">
                     <a href="{% url 'profile' object.origin_user %}">
-                        <button class="btn {% if object.origin_user == request.user %}btn-primary{% else %}btn-warning{% endif %}">@{{ object.origin_user }} at {{ object.created.time }}:</button>
+                        <button class="btn {% if object.origin_user == request.user %}btn-primary{% else %}btn-warning{% endif %}">@{{ object.origin_user }} {% translate 'at' %} {{ object.created.time }}:</button>
                     </a>
                 </div>
                 <div class="col-12 {% if object.origin_user == request.user %}text-right{% endif %}">

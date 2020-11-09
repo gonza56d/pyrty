@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-07 05:46+0000\n"
+"POT-Creation-Date: 2020-11-09 01:01+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,6 +21,22 @@ msgstr ""
 #: posts/views/create.py:49
 msgid "Title"
 msgstr "Título"
+
+#: profiles/views/update.py:40 templates/profiles/profiledetail/detail.html:17
+msgid "First name"
+msgstr "Nombre"
+
+#: profiles/views/update.py:44 templates/profiles/profiledetail/detail.html:20
+msgid "Last name"
+msgstr "Apellido"
+
+#: profiles/views/update.py:48 templates/profiles/profiledetail/detail.html:23
+msgid "Birthday"
+msgstr "Cumpleaños"
+
+#: profiles/views/update.py:52 templates/profiles/profiledetail/detail.html:26
+msgid "Bio"
+msgstr "Biografía"
 
 #: templates/forums/forum_list.html:6
 msgid "Forums"
@@ -134,6 +150,10 @@ msgstr "registrarse"
 msgid "to leave a comment."
 msgstr "para dejar un comentario."
 
+#: templates/privatemessages/list/message_list.html:8
+msgid "at"
+msgstr "a las"
+
 #: templates/privatemessages/privatemessage_list.html:6
 #: templates/privatemessages/privatemessage_list.html:13
 msgid "Inbox"
@@ -161,22 +181,6 @@ msgstr "No has comentado nada todavía."
 #: templates/profiles/profileform/form.html:9
 msgid "Reputation"
 msgstr "Reputación"
-
-#: templates/profiles/profiledetail/detail.html:17
-msgid "First name"
-msgstr "Nombre"
-
-#: templates/profiles/profiledetail/detail.html:20
-msgid "Last name"
-msgstr "Apellido"
-
-#: templates/profiles/profiledetail/detail.html:23
-msgid "Birthday"
-msgstr "Cumpleaños"
-
-#: templates/profiles/profiledetail/detail.html:26
-msgid "Bio"
-msgstr "Biografía"
 
 #: templates/profiles/profiledetail/modal.html:8
 msgid "New Private Message"

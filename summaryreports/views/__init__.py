@@ -1,1 +1,2 @@
 from summaryreports.views.create import create_summary_report
+from summaryreports.views.detail import SummaryReportDetail
