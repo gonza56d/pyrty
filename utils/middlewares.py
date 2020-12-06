@@ -16,7 +16,7 @@ class LoginFormMiddleware:
 		self.get_response = get_response
 
 	def __call__(self, request):
-		request.login_form = LoginForm()
+		request.login_form = LoginForm(prefix='login')
 		return self.get_response(request)
 
 
