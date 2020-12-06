@@ -22,7 +22,7 @@ from users.models import User
 def login_view(request):
     """Handle login request."""
     if request.method == "POST":
-        form = LoginForm(data=request.POST)
+        form = LoginForm(data=request.POST, prefix='login')
         if form.is_valid():
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password')
